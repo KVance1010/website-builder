@@ -1,0 +1,31 @@
+{
+  "name": "website-builder",
+  "version": "1.0.0",
+  "description": "A website that builds websites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeminiAd/website-builder.git"
+  },
+  "keywords": [
+    "website",
+    "builder"
+  ],
+  "author": "Adam Ferro, Dominic Conradson, Mason Davis, Kyle Vance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeminiAd/website-builder/issues"
+  },
+  "homepage": "https://github.com/GeminiAd/website-builder#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.7.3",
+    "nodemon": "^2.0.20"
+  }
+}
