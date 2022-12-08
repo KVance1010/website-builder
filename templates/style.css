@@ -6,3 +6,13 @@ header {
 h1 {
     color: white;
 }
+
+main {
+    background-color: white;
+}
+
+
+#sidebar {
+    min-height: calc(100vh - 100px);
+    background-color: cadetblue;
+}
