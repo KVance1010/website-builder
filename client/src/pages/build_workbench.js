@@ -12,10 +12,10 @@ const flair = {
 	addNavBarColor: {
 		backgroundColor: "aquamarine",
 	},
-	templateWrapper: {
-		padding: "10px",
-		backgroundColor: 'blue'
-	},
+	// templateWrapper: {
+	// 	padding: "10px",
+	// 	backgroundColor: 'blue'
+	// },
 };
 
 const WRK = () => {
@@ -112,12 +112,11 @@ const WRK = () => {
 					) : (
 						<div></div>
 					)}
-					<button className="btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
-						aria-expanded="false">
+					<button className="btn dropdown-toggle w-100" type="button">
 						Dropdown button
 					</button>
 				</aside>
-				<main className="col-9 wrk-concept-container" style={flair.templateWrapper}>
+				<main className="col-9 wrk-concept-container" style={{ backgroundColor: color }}>
 					<div id="renderDiv"></div>
 				</main>
 			</div>

@@ -1,11 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import BuildWrkBnch from './pages/Build_Workbench';
+import BuildWrkBnch from './pages/Build_workbench';
 import Login from './components/Login';
 import Signup from './components/Signup';
-
-// import './styles/App.cs';
 
 function App() {
   return (
