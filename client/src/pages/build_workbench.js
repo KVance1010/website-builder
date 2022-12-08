@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import React from 'react';
-import '../styles/build_workbench.css';
+import "../styles/build_workbench.css";
 
 const flair = {
 	addNavBarSizing: {
-		width: '25%',
-		minHeight: '100%',
+		width: "25%",
+		minHeight: "100%",
 	},
 	addNavBarColor: {
-		backgroundColor: 'aquamarine',
+		backgroundColor: "aquamarine",
+	},
+	templateWrapper: {
+		padding: "10px",
+		backgroundColor: 'blue'
 	},
 };
 
@@ -17,7 +21,6 @@ const WRK = () => {
 	const [visibilityNav, setVisibilityNav] = useState(false);
 	const [optional, setOptional] = useState(false);
 	const [nav, setNav] = useState("add navigation Bar");
-	
 
 	const start = () => {
 		codeCompileArr = [];
@@ -26,21 +29,22 @@ const WRK = () => {
 	const addNav = () => {
 		if (visibilityNav) {
 			setVisibilityNav(false);
-			setNav('Add navigation Bar');
+			setNav("Add navigation Bar");
 		} else {
 			setVisibilityNav(true);
-			setNav('remove navigation Bar');
+			setNav("remove navigation Bar");
 		}
 	};
 
-
 	const navSubmit = (e) => {
 		e.preventDefault();
+		const clickedBtn = e.target
+		// if (!clickedBtn.getAttribute('count'))
 		setOptional(true);
-		let navColor = document.getElementById('navColor').value;
-		let navLinksString = document.getElementById('navLinksString').value;
-		let homeTitle = document.getElementById('homeTitle').value;
-		let navLinks = navLinksString.split(',');
+		let navColor = document.getElementById("navColor").value;
+		let navLinksString = document.getElementById("navLinksString").value;
+		let homeTitle = document.getElementById("homeTitle").value;
+		let navLinks = navLinksString.split(",");
 		let temp = {
 			navColor: navColor,
 			homeTitle: homeTitle,
@@ -48,13 +52,14 @@ const WRK = () => {
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
-		let renderDiv = document.getElementById('renderDiv');
-		let header = document.createElement('div');
-		let title = document.createElement('div');
+		let renderDiv = document.getElementById("renderDiv");
+		console.log(renderDiv.childrenOf(), "string here")
+		let header = document.createElement("div");
+		let title = document.createElement("div");
 		title.textContent = homeTitle;
-		let nav = document.createElement('ul');
+		let nav = document.createElement("ul");
 		for (let i = 0; i < navLinks.length; i++) {
-			let navLink = document.createElement('li');
+			let navLink = document.createElement("li");
 			navLink.textContent = navLinks[i];
 			nav.append(navLink);
 		}
@@ -64,9 +69,30 @@ const WRK = () => {
 	};
 
 	return (
-		<div>
+		// <main>
+		// 	<div className="container-fluid">
+		// 		<div className="row">
+		// 			<div id="sidebar" className="col-3 d-flex flex-column align-items-center">
+		// 				<h2 className="mt-3">Workbench</h2>
+		// 				<button className="btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
+		// 					aria-expanded="false">
+		// 					Add Navigation Bar
+		// 				</button>
+		// 				<button className="btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
+		// 					aria-expanded="false">
+		// 					Dropdown button
+		// 				</button>
+		// 			</div>
+		// 			<div className="col-9">
+
+		// 			</div>
+		// 		</div>
+		// 	</div>
+		// </main>
+
+		<div >
 			<h1>Build Workbench Page</h1>
-			<div className="outer-container">
+			<div className="d-flex">
 				<div style={flair.addNavBarSizing} className="inner-container">
 					<button className="startBtn" onClick={start}>
 						start
@@ -91,15 +117,18 @@ const WRK = () => {
 							<button id="navBtn" onClick={navSubmit}>
 								submit nav settings
 							</button>
+
 						</div>
 					) : (
 						<div></div>
 					)}
+
 				</div>
-				<div className="wrk-concept-container">
+				<div style={flair.templateWrapper} className="wrk-concept-container">
 					<div id="renderDiv"></div>
 				</div>
 			</div>
+
 		</div>
 	);
 };
