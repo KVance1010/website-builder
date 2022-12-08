@@ -1,27 +1,40 @@
-import React, {useState} from 'react';
+// import React, {useState} from 'react';
+import React from 'react';
+import '../styles/build_workbench.css'
 
+const flair = {
+    addNavBarSizing: {
+        width: '25%',
+        minHeight: '100%',      
+    },
+    addNavBarColor: {
+        backgroundColor: 'aquamarine'
+    }
+}
 
 const WRK = () => {
-const [visisibility, setVisibility] =
+    // const [visisibility, setVisibility] = useState('');
 
     return (
         <div>
             <h1>Build Workbench Page</h1>
-            <div style={{display: 'flex', flexDirection: 'column', maxWidth: '40vw'}}>
-                <button>start</button>
-                <button>add navBar</button>
-                <div style={{display: 'flex', flexDirection: 'column', backgroundColor: 'aquamarine'}}>
-                    <tag>background color for nav bar</tag>
-                    <input type="text"></input>
-                    <tag>nav bar links followed by , to seperate them</tag>
-                    <input type="text"></input>
-                    <tag>Title of home page</tag>
-                    <input type="text"></input>
+            <div className='outer-container'>
+                <div style={flair.addNavBarSizing} className='inner-container'>
+                    <button className='startBtn'>start</button>
+                    <button>add navBar</button>
+                    <div style={flair.addNavBarColor} className='inner-container'>
+                        <tag>background color for nav bar</tag>
+                        <input type="text"></input>
+                        <tag>nav bar links followed by , to seperate them</tag>
+                        <input type="text"></input>
+                        <tag>Title of home page</tag>
+                        <input type="text"></input>
+                    </div>
                 </div>
-            </div>
-            <div className='display' style={{maxWidth: '60vw',backgroundColor: 'grey'}}>
-                <div id='inlineLink'>
-                    
+                <div className='wrk-concept-container'>
+                    <div id='inlineLink'>
+                        <h1>Concept</h1>
+                    </div>
                 </div>
             </div>
         </div>
