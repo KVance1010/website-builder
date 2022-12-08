@@ -1,0 +1,20 @@
+.btn {
+    color: white;
+    background-color: black;
+}
+
+.outer-container {
+    display: flex;
+  }
+  
+.inner-container {
+    display: flex;
+    flex-direction: column;
+} 
+
+  
+  .wrk-concept-container {
+    width: 75%;
+    background-Color: blue;
+     min-Height: 100%
+  }
