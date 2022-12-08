@@ -52,7 +52,7 @@ const Login = () => {
                         <div className="card-body">
                             <form>
                                 <div className="mb-3">
-                                    <label className="form-label">Username
+                                    <label className="form-label w-100">Username
                                         <input
                                             className="form-control"
                                             type='text'
@@ -65,7 +65,7 @@ const Login = () => {
                                     </label>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Password
+                                    <label class="form-label w-100">Password
                                         <input
                                             type="password"
                                             className="form-control"
@@ -76,6 +76,9 @@ const Login = () => {
                                             required />
                                     </label>
                                 </div>
+                                <button className="btn btn-primary">
+                                    Submit
+                                </button>
                             </form>
                         </div>
                     </div>

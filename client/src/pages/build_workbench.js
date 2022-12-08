@@ -69,35 +69,19 @@ const WRK = () => {
 	};
 
 	return (
-		// <main>
-		// 	<div className="container-fluid">
-		// 		<div className="row">
-		// 			<div id="sidebar" className="col-3 d-flex flex-column align-items-center">
-		// 				<h2 className="mt-3">Workbench</h2>
-		// 				<button className="btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
-		// 					aria-expanded="false">
-		// 					Add Navigation Bar
-		// 				</button>
-		// 				<button className="btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
-		// 					aria-expanded="false">
-		// 					Dropdown button
-		// 				</button>
-		// 			</div>
-		// 			<div className="col-9">
-
-		// 			</div>
-		// 		</div>
-		// 	</div>
-		// </main>
-
-		<div >
-			<h1>Build Workbench Page</h1>
-			<div className="d-flex">
-				<div style={flair.addNavBarSizing} className="inner-container">
-					<button className="startBtn" onClick={start}>
-						start
+		<div className="container-fluid">
+			<div className="row">
+				<aside id="sidebar" className="col-3 d-flex flex-column align-items-center">
+					<h2 className="mt-3">Workbench</h2>
+					<button className="btn btn-success w-100" type="button">
+						Start
 					</button>
-					<button onClick={addNav} id="addNavBtn">
+					<button
+						className="btn dropdown-toggle w-100"
+						type="button"
+						onClick={addNav}
+						id="addNavBtn"
+					>
 						{nav}
 					</button>
 					{visibilityNav ? (
@@ -114,22 +98,64 @@ const WRK = () => {
 								Title of home page
 								<input type="text" id="homeTitle"></input>
 							</label>
-							<button id="navBtn" onClick={navSubmit}>
-								submit nav settings
+							<button className="btn btn-primary m-3" id="navBtn" onClick={navSubmit}>
+								Submit Nav Settings
 							</button>
 
 						</div>
 					) : (
 						<div></div>
 					)}
-
-				</div>
-				<div style={flair.templateWrapper} className="wrk-concept-container">
+					<button className="btn dropdown-toggle w-100" type="button">
+						Dropdown button
+					</button>
+				</aside>
+				<main className="col-9 wrk-concept-container" style={flair.templateWrapper}>
 					<div id="renderDiv"></div>
-				</div>
+				</main>
 			</div>
-
 		</div>
+
+		// <div >
+		// 	<h1>Build Workbench Page</h1>
+		// 	<div className="d-flex">
+		// 		<div style={flair.addNavBarSizing} className="inner-container">
+		// 			<button className="startBtn" onClick={start}>
+		// 				start
+		// 			</button>
+		// 			<button onClick={addNav} id="addNavBtn">
+		// 				{nav}
+		// 			</button>
+		// 			{visibilityNav ? (
+		// 				<div style={flair.addNavBarColor} className="inner-container">
+		// 					<label>
+		// 						background color for nav bar
+		// 						<input type="text" id="navColor"></input>
+		// 					</label>
+		// 					<label>
+		// 						nav bar links followed by , to separate them
+		// 						<input type="text" id="navLinksString"></input>
+		// 					</label>
+		// 					<label>
+		// 						Title of home page
+		// 						<input type="text" id="homeTitle"></input>
+		// 					</label>
+		// 					<button id="navBtn" onClick={navSubmit}>
+		// 						submit nav settings
+		// 					</button>
+
+		// 				</div>
+		// 			) : (
+		// 				<div></div>
+		// 			)}
+
+		// 		</div>
+		// 		<div style={flair.templateWrapper} className="wrk-concept-container">
+		// 			<div id="renderDiv"></div>
+		// 		</div>
+		// 	</div>
+
+		// </div>
 	);
 };
 
