@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // import React from 'react';
 import "../styles/build_workbench.css";
 
+import { PopoverPicker } from "../components/PopoverPicker";
+
 const flair = {
 	addNavBarSizing: {
 		width: "25%",
@@ -10,17 +12,19 @@ const flair = {
 	addNavBarColor: {
 		backgroundColor: "aquamarine",
 	},
-	templateWrapper: {
-		padding: "10px",
-		backgroundColor: 'blue'
-	},
+	// templateWrapper: {
+	// 	padding: "10px",
+	// 	backgroundColor: 'blue'
+	// },
 };
 
 const WRK = () => {
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
 	const [optional, setOptional] = useState(false);
-	const [nav, setNav] = useState("add navigation Bar");
+	const [nav, setNav] = useState("Add Navigation Bar");
+
+	const [color, setColor] = useState("#aabbcc");
 
 	const start = () => {
 		codeCompileArr = [];
@@ -29,10 +33,10 @@ const WRK = () => {
 	const addNav = () => {
 		if (visibilityNav) {
 			setVisibilityNav(false);
-			setNav("Add navigation Bar");
+			setNav("Add Navigation Bar");
 		} else {
 			setVisibilityNav(true);
-			setNav("remove navigation Bar");
+			setNav("Remove Navigation Bar");
 		}
 	};
 
@@ -86,10 +90,12 @@ const WRK = () => {
 					</button>
 					{visibilityNav ? (
 						<div style={flair.addNavBarColor} className="inner-container">
-							<label>
-								background color for nav bar
-								<input type="text" id="navColor"></input>
-							</label>
+							<div className="d-flex justify-content-between">
+								<label>
+									background color for nav bar
+								</label>
+								{<PopoverPicker color={color} onChange={setColor} />}
+							</div>
 							<label>
 								nav bar links followed by , to separate them
 								<input type="text" id="navLinksString"></input>
@@ -110,7 +116,7 @@ const WRK = () => {
 						Dropdown button
 					</button>
 				</aside>
-				<main className="col-9 wrk-concept-container" style={flair.templateWrapper}>
+				<main className="col-9 wrk-concept-container" style={{ backgroundColor: color }}>
 					<div id="renderDiv"></div>
 				</main>
 			</div>

@@ -12,6 +12,21 @@ const Signup = () => {
 	const [match, setMatch] = useState(false);
 	const [validated] = useState(false);
 
+  // useEffect((event) => {
+  //   let passwordVal = event.target.value;
+  //     console.log(passwordVal);
+  //   	let userPassword = userFormData.password;
+  //     console.log(userPassword);
+  //   	if (userPassword.includes(passwordVal)) {
+  //   		setMatch(true);
+  //   	}else{
+  //   	setMatch(false);
+  //     }
+  //   }
+
+
+  // }, [userFormData.passwordValidation]); 
+
 	const handlePwMatchValidation = (event) => {
 		let passwordVal = event.target.value;
     console.log(passwordVal);
@@ -19,9 +34,11 @@ const Signup = () => {
     console.log(userPassword);
 		if (userPassword.includes(passwordVal)) {
 			setMatch(true);
-		}
+		}else{
 		setMatch(false);
+    }
 	};
+	
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -130,6 +147,7 @@ const Signup = () => {
 										/>
 									</label>
 								</div>
+                {/* <div>{}</div> */}
 								{match ? <div>Matching</div> : <div> Invalid Input</div>}
 								<button
 									className="btn btn-primary"

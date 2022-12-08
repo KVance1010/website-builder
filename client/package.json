@@ -13,9 +13,11 @@
     "jwt-decode": "^3.1.2",
     "react": "17.0.2",
     "react-bootstrap": "^1.0.1",
+    "react-colorful": "^5.6.1",
     "react-dom": "17.0.2",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^2.1.3",
+    "use-debouncy": "^4.3.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
