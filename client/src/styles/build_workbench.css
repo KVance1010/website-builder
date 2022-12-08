@@ -15,6 +15,7 @@
   
   .wrk-concept-container {
     width: 75%;
+    /* flex-direction: row; */
     background-Color: blue;
      min-Height: 100%
   }
