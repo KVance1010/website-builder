@@ -1,21 +1,26 @@
-.btn {
-    color: white;
-    background-color: black;
+.outer-container {
+  display: flex;
 }
 
-.outer-container {
-    display: flex;
-  }
-  
 .inner-container {
-    display: flex;
-    flex-direction: column;
-} 
+  display: flex;
+  flex-direction: column;
+}
 
-  
-  .wrk-concept-container {
-    width: 75%;
-    /* flex-direction: row; */
-    background-Color: blue;
-     min-Height: 100%
-  }
+
+.wrk-concept-container {
+  width: 75%;
+  /* flex-direction: row; */
+  background-Color: blue;
+  min-Height: 100%
+}
+
+main {
+  background-color: white;
+}
+
+
+#sidebar {
+  min-height: calc(100vh - 100px);
+  background-color: cadetblue;
+}
