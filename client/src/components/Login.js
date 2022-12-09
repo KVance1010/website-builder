@@ -80,9 +80,7 @@ const Login = () => {
                                 disabled={
                                     !(
                                         userFormData.username &&
-                                        userFormData.email &&
-                                        userFormData.password &&
-                                        userFormData.passwordValidation
+                                        userFormData.password 
                                     )
                                 }
                                 type="submit"

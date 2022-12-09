@@ -1,5 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 // import React from 'react';
+// import uploadImage from "../../../server/utils/images";
+import { Cloudinary } from '@cloudinary/url-gen';
+
+import { AdvancedImage } from '@cloudinary/react';
+import { CloudinaryImage } from "@cloudinary/url-gen";
+import { URLConfig } from "@cloudinary/url-gen";
+import { CloudConfig } from "@cloudinary/url-gen";
+
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
+import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
+import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
+
 import "../styles/build_workbench.css";
 import Header from "../components/Header"
 
@@ -7,6 +21,8 @@ import Header from "../components/Header"
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
 //   ObjectUtils.asMap("public_id", "olympic_flag"));
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
+
+
 
 import { PopoverPicker } from "../components/PopoverPicker";
 
@@ -18,6 +34,10 @@ const flair = {
 	addNavBarColor: {
 		backgroundColor: "aquamarine",
 	},
+	className: {
+		display: 'flex',
+		flexDirection: 'column'
+	}
 	// templateWrapper: {
 	// 	padding: "10px",
 	// 	backgroundColor: 'blue'
@@ -25,6 +45,7 @@ const flair = {
 };
 
 const WRK = () => {
+
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
 
@@ -59,6 +80,14 @@ const WRK = () => {
 
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
+		let fontTitle = document.getElementsByName('fontTitle')
+		let titleFontVal
+		for (let i = 0; i < fontTitle.length; i++) {
+			if (fontTitle[i].checked) {
+				titleFontVal = fontTitle[i].value
+			}
+		}
+
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
@@ -70,6 +99,7 @@ const WRK = () => {
 			homeTitle: homeTitle,
 			navlinks: [navLinks],
 			navDir: navDirVal,
+			fontTitle: titleFontVal,
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -98,7 +128,8 @@ const WRK = () => {
 				"style",
 				`width: 100%;
 				font-size: 40px;
-				text-align: center;`
+				text-align: center;
+				font-family: ${navRenderObj.fontTitle}`
 			)
 			title.textContent = navRenderObj.homeTitle;
 			let nav = document.createElement("ul");
@@ -179,7 +210,20 @@ const WRK = () => {
 								<button id="navDir" onClick={navDir}>
 									Right
 								</button>
-
+								<label>
+									Add profile image/logo
+									<input type="text" id="imgLink" placeholder="URL of image here"></input>
+									<input type="text" id="imgName" placeholder="what is this image called?"></input>
+								</label>
+								<div className="outer-container" >
+									<p>What font would you like to use for your title:</p>
+									<input type="radio" id="font-1" name="fontTitle" value="Sarif" />
+									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Test Font1</label>
+									<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{ fontFamily: 'Cursive' }} />
+									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Test Font2</label>
+									<input type="radio" id="font-3" name="fontTitle" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Test Font3</label>
+								</div>
 								<button
 									className="btn btn-primary m-3"
 									id="navBtn"
