@@ -1,0 +1,12 @@
+header {
+    height: 100px;
+    background-color: teal;
+}
+
+h1 {
+    color: white;
+}
+
+.nav-item>a {
+    text-decoration: none;
+}
