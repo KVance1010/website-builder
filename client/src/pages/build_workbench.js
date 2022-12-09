@@ -2,6 +2,11 @@ import React, { useState } from "react";
 // import React from 'react';
 import "../styles/build_workbench.css";
 
+var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
+// cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
+//   ObjectUtils.asMap("public_id", "olympic_flag"));
+// cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
+
 import { PopoverPicker } from "../components/PopoverPicker";
 
 const flair = {
@@ -53,7 +58,7 @@ const WRK = () => {
 
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
-		let navDirVal = document.getElementById("navDir").value;
+		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
 		let homeTitle = document.getElementById("homeTitle").value;
@@ -72,8 +77,9 @@ const WRK = () => {
 
 		//render page
 		let navObj = -1
-		for (i = 0; i < codeCompileArr; i++) {
+		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
+				console.log('yes')
 				navObj = i;
 			}
 		}
@@ -83,14 +89,45 @@ const WRK = () => {
 			let header = document.createElement("div");
 			header.setAttribute(
 				"style",
-				`background-color: ${navRenderObj.navColor}`
+				`width: 100%;
+				background-color: ${navRenderObj.navColor};`
 			);
 			let title = document.createElement("div");
+			title.setAttribute(
+				"style",
+				`width: 100%;
+				font-size: 40px;
+				text-align: center;`
+			)
 			title.textContent = navRenderObj.homeTitle;
 			let nav = document.createElement("ul");
-			for (let i = 0; i < navRenderObj.navLinks.length; i++) {
+			if (navRenderObj.navDir === 'Left') {
+				nav.setAttribute(
+					"style",
+					`width: 100%;
+					display: flex;
+					margin-right: 15px;
+					justify-content: start;`
+				)
+			}
+			if (navRenderObj.navDir === 'Right') {
+				nav.setAttribute(
+					"style",
+					`width: 100%;
+				display: flex;
+				margin-right: 15px;
+				justify-content: end;`
+				)
+			}
+
+			let tempLinks = navRenderObj.navlinks[0]
+			for (let i = 0; i < tempLinks.length; i++) {
 				let navLink = document.createElement("li");
-				navLink.textContent = navRenderObj.navLinks[i];
+				navLink.setAttribute(
+					"style",
+					`margin-right: 15px;`)
+
+				navLink.textContent = navRenderObj.navlinks[0][i];
 				nav.append(navLink);
 			}
 			header.append(title);
