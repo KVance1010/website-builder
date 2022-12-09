@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// TODO: add apis for login
-import { loginUser } from '../utils/api';
+import { login } from '../utils/api';
 import Auth from '../utils/auth';
 
 const Login = () => {
@@ -22,7 +21,7 @@ const Login = () => {
         }
 
         try {
-            const response = await loginUser(userFormData);
+            const response = await login(userFormData);
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
@@ -50,7 +49,7 @@ const Login = () => {
                             <h2>Login</h2>
                         </div>
                         <div className="card-body">
-                            <form>
+                            <form noValidate validated={validated} onSubmit={handleFormSubmit}>
                                 <div className="mb-3">
                                     <label className="form-label w-100">Username
                                         <input
@@ -76,7 +75,19 @@ const Login = () => {
                                             required />
                                     </label>
                                 </div>
-                                <button className="btn btn-primary">
+                                <button 
+                                className="btn btn-primary"
+                                disabled={
+                                    !(
+                                        userFormData.username &&
+                                        userFormData.email &&
+                                        userFormData.password &&
+                                        userFormData.passwordValidation
+                                    )
+                                }
+                                type="submit"
+                                variant="success"
+                                >
                                     Submit
                                 </button>
                             </form>
