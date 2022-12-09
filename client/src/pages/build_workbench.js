@@ -21,7 +21,7 @@ const flair = {
 const WRK = () => {
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
-	const [optional, setOptional] = useState(false);
+
 	const [nav, setNav] = useState("Add Navigation Bar");
 
 	const [color, setColor] = useState("#aabbcc");
@@ -39,45 +39,79 @@ const WRK = () => {
 			setNav("Remove Navigation Bar");
 		}
 	};
-
+	const navDir = () => {
+		let navDirVal = document.getElementById("navDir").textContent;
+		if (navDirVal === "Right") {
+			document.getElementById("navDir").innerHTML = "Left";
+		}
+		if (navDirVal === "Left") {
+			document.getElementById("navDir").innerHTML = "Right";
+		}
+	};
 	const navSubmit = (e) => {
 		e.preventDefault();
-		const clickedBtn = e.target
+
 		// if (!clickedBtn.getAttribute('count'))
-		setOptional(true);
-		let navColor = document.getElementById("navColor").value;
+		//render object
+		let navDirVal = document.getElementById("navDir").value;
+		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
 		let homeTitle = document.getElementById("homeTitle").value;
 		let navLinks = navLinksString.split(",");
 		let temp = {
+			contentTitle: "navbar",
 			navColor: navColor,
 			homeTitle: homeTitle,
 			navlinks: [navLinks],
+			navDir: navDirVal,
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
 		let renderDiv = document.getElementById("renderDiv");
-		console.log(renderDiv.childrenOf(), "string here")
-		let header = document.createElement("div");
-		let title = document.createElement("div");
-		title.textContent = homeTitle;
-		let nav = document.createElement("ul");
-		for (let i = 0; i < navLinks.length; i++) {
-			let navLink = document.createElement("li");
-			navLink.textContent = navLinks[i];
-			nav.append(navLink);
+		renderDiv.innerHTML = "";
+
+		//render page
+		let navObj = -1
+		for (i = 0; i < codeCompileArr; i++) {
+			if (codeCompileArr[i].contentTitle === "navbar") {
+				navObj = i;
+			}
 		}
-		header.append(title);
-		header.append(nav);
-		renderDiv.appendChild(header);
+		if (navObj === -1) {
+		} else {
+			let navRenderObj = codeCompileArr[navObj];
+			let header = document.createElement("div");
+			header.setAttribute(
+				"style",
+				`background-color: ${navRenderObj.navColor}`
+			);
+			let title = document.createElement("div");
+			title.textContent = navRenderObj.homeTitle;
+			let nav = document.createElement("ul");
+			for (let i = 0; i < navRenderObj.navLinks.length; i++) {
+				let navLink = document.createElement("li");
+				navLink.textContent = navRenderObj.navLinks[i];
+				nav.append(navLink);
+			}
+			header.append(title);
+			header.append(nav);
+			renderDiv.appendChild(header);
+		}
 	};
 
 	return (
 		<div className="container-fluid">
 			<div className="row">
-				<aside id="sidebar" className="col-3 d-flex flex-column align-items-center">
+				<aside
+					id="sidebar"
+					className="col-3 d-flex flex-column align-items-center"
+				>
 					<h2 className="mt-3">Workbench</h2>
-					<button className="btn btn-success w-100" type="button">
+					<button
+						className="btn btn-success w-100"
+						type="button"
+						onClick={start}
+					>
 						Start
 					</button>
 					<button
@@ -91,23 +125,28 @@ const WRK = () => {
 					{visibilityNav ? (
 						<div style={flair.addNavBarColor} className="inner-container">
 							<div className="d-flex justify-content-between">
-								<label>
-									background color for nav bar
-								</label>
+								<label>background color for nav bar</label>
 								{<PopoverPicker color={color} onChange={setColor} />}
 							</div>
 							<label>
-								nav bar links followed by , to separate them
+								nav bar links (seperate with a comma)
 								<input type="text" id="navLinksString"></input>
 							</label>
 							<label>
 								Title of home page
 								<input type="text" id="homeTitle"></input>
 							</label>
-							<button className="btn btn-primary m-3" id="navBtn" onClick={navSubmit}>
-								Submit Nav Settings
+							<button id="navDir" onClick={navDir}>
+								Right
 							</button>
 
+							<button
+								className="btn btn-primary m-3"
+								id="navBtn"
+								onClick={navSubmit}
+							>
+								Submit Nav Settings
+							</button>
 						</div>
 					) : (
 						<div></div>
@@ -116,7 +155,10 @@ const WRK = () => {
 						Dropdown button
 					</button>
 				</aside>
-				<main className="col-9 wrk-concept-container" style={{ backgroundColor: color }}>
+				<main
+					className="col-9 wrk-concept-container"
+					style={{ backgroundColor: color }}
+				>
 					<div id="renderDiv"></div>
 				</main>
 			</div>
