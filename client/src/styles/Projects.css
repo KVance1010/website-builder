@@ -1,0 +1,14 @@
+h2 {
+    color: white;
+}
+
+.project-btn {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.project-btn:hover {
+    color: white;
+    font-weight: bold;
+}

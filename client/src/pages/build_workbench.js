@@ -15,15 +15,10 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
 import "../styles/build_workbench.css";
-
-
-
-
-
-
+import Header from "../components/Header"
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
-//  cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
+// cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
 //   ObjectUtils.asMap("public_id", "olympic_flag"));
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
 
@@ -87,8 +82,8 @@ const WRK = () => {
 		//render object
 		let fontTitle = document.getElementsByName('fontTitle')
 		let titleFontVal
-		for(let i = 0; i < fontTitle.length; i++){
-			if(fontTitle[i].checked){
+		for (let i = 0; i < fontTitle.length; i++) {
+			if (fontTitle[i].checked) {
 				titleFontVal = fontTitle[i].value
 			}
 		}
@@ -104,7 +99,7 @@ const WRK = () => {
 			homeTitle: homeTitle,
 			navlinks: [navLinks],
 			navDir: navDirVal,
-			fontTitle : titleFontVal,
+			fontTitle: titleFontVal,
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -174,82 +169,83 @@ const WRK = () => {
 	};
 
 	return (
-		<div className="container-fluid">
-			<div className="row">
-				<aside
-					id="sidebar"
-					className="col-3 d-flex flex-column align-items-center"
-				>
-					<h2 className="mt-3">Workbench</h2>
-					<button
-						className="btn btn-success w-100"
-						type="button"
-						onClick={start}
+		<React.Fragment>
+			<Header />
+			<div className="container-fluid">
+				<div className="row">
+					<aside
+						id="sidebar"
+						className="col-3 d-flex flex-column align-items-center"
 					>
-						Start
-					</button>
-					<button
-						className="btn dropdown-toggle w-100"
-						type="button"
-						onClick={addNav}
-						id="addNavBtn"
-					>
-						{nav}
-					</button>
-					{visibilityNav ? (
-						<div style={flair.addNavBarColor} className="inner-container">
-							<div className="d-flex justify-content-between">
-								<label>background color for nav bar</label>
-								{<PopoverPicker color={color} onChange={setColor} />}
+						<h2 className="mt-3">Workbench</h2>
+						<button
+							className="btn btn-success w-100"
+							type="button"
+							onClick={start}
+						>
+							Start
+						</button>
+						<button
+							className="btn dropdown-toggle w-100"
+							type="button"
+							onClick={addNav}
+							id="addNavBtn"
+						>
+							{nav}
+						</button>
+						{visibilityNav ? (
+							<div style={flair.addNavBarColor} className="inner-container">
+								<div className="d-flex justify-content-between">
+									<label>background color for nav bar</label>
+									{<PopoverPicker color={color} onChange={setColor} />}
+								</div>
+								<label>
+									nav bar links (seperate with a comma)
+									<input type="text" id="navLinksString"></input>
+								</label>
+								<label>
+									Title of home page
+									<input type="text" id="homeTitle"></input>
+								</label>
+								<button id="navDir" onClick={navDir}>
+									Right
+								</button>
+								<label>
+									Add profile image/logo
+									<input type="text" id="imgLink" placeholder="URL of image here"></input>
+									<input type="text" id="imgName" placeholder="what is this image called?"></input>
+								</label>
+								<div className="outer-container" >
+									<p>What font would you like to use for your title:</p>
+									<input type="radio" id="font-1" name="fontTitle" value="Sarif" />
+									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Test Font1</label>
+									<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{ fontFamily: 'Cursive' }} />
+									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Test Font2</label>
+									<input type="radio" id="font-3" name="fontTitle" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Test Font3</label>
+								</div>
+								<button
+									className="btn btn-primary m-3"
+									id="navBtn"
+									onClick={navSubmit}
+								>
+									Submit Nav Settings
+								</button>
 							</div>
-							<label>
-								nav bar links (seperate with a comma)
-								<input type="text" id="navLinksString"></input>
-							</label>
-							<label>
-								Title of home page
-								<input type="text" id="homeTitle"></input>
-							</label>
-							<button id="navDir" onClick={navDir}>
-								Right
-							</button>
-							<label>
-								Add profile image/logo
-								<input type="text" id="imgLink" placeholder="URL of image here"></input>
-								<input type="text" id="imgName" placeholder="what is this image called?"></input>
-							</label>
-							<div className="outer-container" >
-								<p>What font would you like to use for your title:</p>
-								<input type="radio" id="font-1" name="fontTitle" value="Sarif"/>
-								<label htmlFor="sarif" style={{fontFamily: 'Serif'}}>Test Font1</label>
-								<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{fontFamily: 'Cursive'}} />
-								<label htmlFor="cursive" style={{fontFamily: 'Cursive'}}>Test Font2</label>
-								<input type="radio" id="font-3" name="fontTitle" value="Fantasy" style={{fontFamily: 'Fantasy'}} />
-								<label htmlFor="fantasy" style={{fontFamily: 'Fantasy'}}>Test Font3</label>
-							</div>
-							<button
-								className="btn btn-primary m-3"
-								id="navBtn"
-								onClick={navSubmit}
-							>
-								Submit Nav Settings
-							</button>
-						</div>
-					) : (
-						<div></div>
-					)}
-					<button className="btn dropdown-toggle w-100" type="button">
-						Dropdown button
-					</button>
-				</aside>
-				<main
-					className="col-9 wrk-concept-container"
-					style={{ backgroundColor: color }}
-				>
-					<div id="renderDiv"></div>
-				</main>
+						) : (
+							<div></div>
+						)}
+						<button className="btn dropdown-toggle w-100" type="button">
+							Dropdown button
+						</button>
+					</aside>
+					<main
+						className="col-9 wrk-concept-container">
+						<div id="renderDiv"></div>
+					</main>
+				</div>
 			</div>
-		</div>
+		</React.Fragment>
 
 		// <div >
 		// 	<h1>Build Workbench Page</h1>

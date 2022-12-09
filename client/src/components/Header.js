@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import Auth from '../utils/auth';
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import "../styles/Header.css";
 
 function Header() {
     // TODO: set active state on the nav bar and work on toggle drop down
@@ -31,7 +32,7 @@ function Header() {
                             </li>
                             <li className="nav-item">
                                 <Link to="/Export">
-                                    <p class="nav-link text-white fw-bold" >Export</p>
+                                    <p className="nav-link text-white fw-bold" >Export</p>
                                 </Link>
                             </li>
                         </ul>
