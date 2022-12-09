@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 // import React from 'react';
 import "../styles/build_workbench.css";
+import Header from "../components/Header"
 
-var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
+// var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
 //   ObjectUtils.asMap("public_id", "olympic_flag"));
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
@@ -137,69 +138,70 @@ const WRK = () => {
 	};
 
 	return (
-		<div className="container-fluid">
-			<div className="row">
-				<aside
-					id="sidebar"
-					className="col-3 d-flex flex-column align-items-center"
-				>
-					<h2 className="mt-3">Workbench</h2>
-					<button
-						className="btn btn-success w-100"
-						type="button"
-						onClick={start}
+		<React.Fragment>
+			<Header />
+			<div className="container-fluid">
+				<div className="row">
+					<aside
+						id="sidebar"
+						className="col-3 d-flex flex-column align-items-center"
 					>
-						Start
-					</button>
-					<button
-						className="btn dropdown-toggle w-100"
-						type="button"
-						onClick={addNav}
-						id="addNavBtn"
-					>
-						{nav}
-					</button>
-					{visibilityNav ? (
-						<div style={flair.addNavBarColor} className="inner-container">
-							<div className="d-flex justify-content-between">
-								<label>background color for nav bar</label>
-								{<PopoverPicker color={color} onChange={setColor} />}
-							</div>
-							<label>
-								nav bar links (seperate with a comma)
-								<input type="text" id="navLinksString"></input>
-							</label>
-							<label>
-								Title of home page
-								<input type="text" id="homeTitle"></input>
-							</label>
-							<button id="navDir" onClick={navDir}>
-								Right
-							</button>
+						<h2 className="mt-3">Workbench</h2>
+						<button
+							className="btn btn-success w-100"
+							type="button"
+							onClick={start}
+						>
+							Start
+						</button>
+						<button
+							className="btn dropdown-toggle w-100"
+							type="button"
+							onClick={addNav}
+							id="addNavBtn"
+						>
+							{nav}
+						</button>
+						{visibilityNav ? (
+							<div style={flair.addNavBarColor} className="inner-container">
+								<div className="d-flex justify-content-between">
+									<label>background color for nav bar</label>
+									{<PopoverPicker color={color} onChange={setColor} />}
+								</div>
+								<label>
+									nav bar links (seperate with a comma)
+									<input type="text" id="navLinksString"></input>
+								</label>
+								<label>
+									Title of home page
+									<input type="text" id="homeTitle"></input>
+								</label>
+								<button id="navDir" onClick={navDir}>
+									Right
+								</button>
 
-							<button
-								className="btn btn-primary m-3"
-								id="navBtn"
-								onClick={navSubmit}
-							>
-								Submit Nav Settings
-							</button>
-						</div>
-					) : (
-						<div></div>
-					)}
-					<button className="btn dropdown-toggle w-100" type="button">
-						Dropdown button
-					</button>
-				</aside>
-				<main
-					className="col-9 wrk-concept-container"
-					style={{ backgroundColor: color }}
-				>
-					<div id="renderDiv"></div>
-				</main>
+								<button
+									className="btn btn-primary m-3"
+									id="navBtn"
+									onClick={navSubmit}
+								>
+									Submit Nav Settings
+								</button>
+							</div>
+						) : (
+							<div></div>
+						)}
+						<button className="btn dropdown-toggle w-100" type="button">
+							Dropdown button
+						</button>
+					</aside>
+					<main
+						className="col-9 wrk-concept-container">
+						<div id="renderDiv"></div>
+					</main>
+				</div>
 			</div>
-		</div>
+		</React.Fragment>
 
 		// <div >
 		// 	<h1>Build Workbench Page</h1>
