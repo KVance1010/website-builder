@@ -1,16 +1,17 @@
 
-.imgLogin{
+.img_login{
     position: absolute;
 	z-index: 0;
     width: 100%;
     height: 100%;
+    /* margin: -50px;     */
 }
 .card-header{
     padding:1rem;
     background-color: rgba(0, 0, 0, 0.203);
 }
 
-.cardContainer{
+.card_container{
     display: flex;
     position: relative;
 	z-index: 2;
@@ -19,10 +20,14 @@
     align-content: center;
 }
 
-.cardBody{
+.card_body{
     background-color: rgba(0, 0, 0, 0.478);
 }
 
-.labelInput{
-color: white;
+.label_input{
+color: var(--main-font);
+}
+
+.signUp_btn{
+    margin-left:20px;
 }

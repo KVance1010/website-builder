@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { createUser } from '../utils/api';
 import Auth from '../utils/auth';
 import '.././styles/LoginSignup.css';
-import loginImg from '.././asset/Images/loginBackground.jpg';
+import loginImg from '.././asset/images/loginBackground.jpg';
+import Footer from './Footer';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
 	const [userFormData, setUserFormData] = useState({
@@ -24,7 +26,6 @@ const Signup = () => {
 		if (userPassword.includes(passwordVal)) {
 			setMatch(true);
 			setMatchComment('Matching');
-
 		} else {
 			setMatch(false);
 			setMatchComment('Invalid Input');
@@ -68,99 +69,109 @@ const Signup = () => {
 	};
 
 	return (
-		<div>
-			<img className="imgLogin" src={loginImg} />
-			<div className="container mt-5 CardContainer">
-				<div className="row d-flex justify-content-center w-100 cardContainer">
-					<div className="col-6">
-						<div className="card shadow cardBody">
-							<div className="card-body">
-								<h2>Signup</h2>
-								<form
-									noValidate
-									validated={validated}
-									onSubmit={handleFormSubmit}
-								>
-									<div className="mb-3">
-										<label className="form-label w-100 labelInput">
-											Username
-											<input
-												className="form-control"
-												type="text"
-												placeholder="Your username"
-												name="username"
-												onChange={handleInputChange}
-												value={userFormData.username}
-												required
-											/>
-										</label>
-									</div>
-									<div className="mb-3">
-										<label className="form-label w-100 labelInput">
-											Email
-											<input
-												type="email"
-												className="form-control"
-												placeholder="name@example.com"
-												name="email"
-												onChange={handleInputChange}
-												value={userFormData.email}
-												required
-											/>
-										</label>
-									</div>
-									<div className=" mb-3">
-										<label className="form-label w-100 labelInput">
-											Password
-											<input
-												type="password"
-												className="form-control"
-												placeholder="Your password"
-												name="password"
-												onChange={handleInputChange}
-												value={userFormData.password}
-												required
-											/>
-										</label>
-									</div>
-									<div className="mb-3">
-										<label className="form-label w-100 labelInput">
-											Verify Password
-											<input
-												type="password"
-												className="form-control"
-												placeholder="Your password"
-												name="passwordValidation"
-												onChange={handleInputChange}
-												onKeyUp={handlePwMatchValidation}
-												value={userFormData.passwordValidation}
-												required
-											/>
-										</label>
-									</div>
-									{match ? <div className="labelInput">{matchComment}</div> : <div className="labelInput"> {matchComment}</div>}
-									<button
-										className="btn btn-dark"
-										disabled={
-											!(
-												userFormData.username &&
-												userFormData.email &&
-												userFormData.password &&
-												userFormData.passwordValidation
-											)
-										}
-										type="submit"
-										variant="success"
+		<>
+			<div>
+				<img className="img_login" src={loginImg} />
+				<div className="container card_container">
+					<div className="row d-flex justify-content-center w-100 card_container">
+						<div className="col-6">
+							<div className="card shadow card_body">
+								<div className="card-body">
+									<h2>Signup</h2>
+									<form
+										noValidate
+										validated={validated}
+										onSubmit={handleFormSubmit}
 									>
-										Submit
-									</button>
-								</form>
+										<div className="mb-3">
+											<label className="form-label w-100 label_input">
+												Username
+												<input
+													className="form-control"
+													type="text"
+													placeholder="Your username"
+													name="username"
+													onChange={handleInputChange}
+													value={userFormData.username}
+													required
+												/>
+											</label>
+										</div>
+										<div className="mb-3">
+											<label className="form-label w-100 label_input">
+												Email
+												<input
+													type="email"
+													className="form-control"
+													placeholder="name@example.com"
+													name="email"
+													onChange={handleInputChange}
+													value={userFormData.email}
+													required
+												/>
+											</label>
+										</div>
+										<div className=" mb-3">
+											<label className="form-label w-100 label_input">
+												Password
+												<input
+													type="password"
+													className="form-control"
+													placeholder="Your password"
+													name="password"
+													onChange={handleInputChange}
+													value={userFormData.password}
+													required
+												/>
+											</label>
+										</div>
+										<div className="mb-3">
+											<label className="form-label w-100 label_input">
+												Verify Password
+												<input
+													type="password"
+													className="form-control"
+													placeholder="Your password"
+													name="passwordValidation"
+													onChange={handleInputChange}
+													onKeyUp={handlePwMatchValidation}
+													value={userFormData.passwordValidation}
+													required
+												/>
+											</label>
+										</div>
+										{match ? (
+											<div className="label_input">{matchComment}</div>
+										) : (
+											<div className="labelInput"> {matchComment}</div>
+										)}
+										<button
+											className="btn btn-dark"
+											disabled={
+												!(
+													userFormData.username &&
+													userFormData.email &&
+													userFormData.password &&
+													userFormData.passwordValidation
+												)
+											}
+											type="submit"
+											variant="success"
+										>
+											Submit
+										</button>
+										<Link to="/login">
+											<button className="btn btn-dark signUp_btn">Login</button>
+										</Link>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			<Footer />
+		</>
 	);
 };
 export default Signup;
