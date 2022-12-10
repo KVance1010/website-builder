@@ -18,20 +18,21 @@ console.log(cloudinary.config());
 // Uploads an image file
 /////////////////////////
 
-const uploadImage = async (imagePath) => {
-
+const uploadImage = async (imagePath, imageName) => {
     // Use the uploaded file's name as the asset's public ID and 
     // allow overwriting the asset with new versions
     const options = {
-      use_filename: true,
+      public_id: imageName,
+      use_filename: false,
       unique_filename: false,
       overwrite: true,
+      
     };
 
     try {
       // Upload the image
-      const result = await cloudinary.uploader.upload(imagePath, options);
-      console.log(result);
+      const result = await cloudinary.uploader.upload(imagePath, {public_id: imageName});
+      console.log(result, "uploadImage");
       return result.public_id;
     } catch (error) {
       console.error(error);
@@ -52,7 +53,7 @@ const getAssetInfo = async (publicId) => {
     try {
         // Get details about the asset
         const result = await cloudinary.api.resource(publicId, options);
-        console.log(result);
+        console.log(result, "getAssetInfo");
         return result.colors;
         } catch (error) {
         console.error(error);
@@ -94,9 +95,9 @@ const createImageTag = (publicId, ...colors) => {
 
     // Set the image to upload
     const imagePath = 'https://media.discordapp.net/attachments/431289110578331659/1050606308576997438/image.png?width=338&height=475';
-
+    let imageName = "tootyfrooty"
     // Upload the image
-    const publicId = await uploadImage(imagePath);
+    const publicId = await uploadImage(imagePath, imageName);
 
     // Get the colors in the image
     const colors = await getAssetInfo(publicId);
@@ -105,13 +106,14 @@ const createImageTag = (publicId, ...colors) => {
     const imageTag = await createImageTag(publicId, colors[0][0], colors[1][0]);
 
     // Log the image tag to the console
-    console.log(imageTag);
+    console.log(imageTag, "imageTag");
 
 })();
-
-
+// const imagePath = 'https://media.discordapp.net/attachments/431289110578331659/1050606308576997438/image.png?width=338&height=475';
+//     let imageName = "tootyfrooty2"
+// uploadImage(imagePath, imageName)
 // cloudinary.v2.uploader
 //     .unsigned_upload("https://media.discordapp.net/attachments/431289110578331659/1050606308576997438/image.png?width=338&height=475", "text_here",
 //         { cloud_name: "websitebuilderv1" })
 //     .then(result => console.log(result));
-module.exports = uploadImage;
+module.exports = uploadImage, getAssetInfo, createImageTag;
