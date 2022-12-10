@@ -6,7 +6,6 @@ import MultiCarousel from '../components/Carousel';
 
 const Projects = () => {
 
-
     return (
         <React.Fragment>
             <Header />
