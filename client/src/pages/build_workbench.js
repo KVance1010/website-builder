@@ -19,6 +19,10 @@ import Header from "../components/Header"
 
 import { PopoverPicker } from "../components/PopoverPicker";
 import Card from '../components/Card';
+import Dustbin from '../components/Dustbin';
+
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
@@ -274,7 +278,7 @@ const WRK = () => {
 						</button>
 						{visibilityComp ? (
 							<div style={flair.addNavBarColor} className="inner-container">
-								<Card />
+								<Card name="TEST" />
 							</div>
 						) : (
 							<div></div>
@@ -283,6 +287,7 @@ const WRK = () => {
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
 						<div id="renderDiv"></div>
+						<Dustbin />
 					</main>
 				</div>
 			</div>

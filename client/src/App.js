@@ -6,21 +6,27 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Projects from './pages/Projects';
 
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
+
 function App() {
   return (
-    <Router>
-      <>
-        {/* <Navbar /> */}
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/wrk' element={<BuildWrkBnch />} />
-          <Route path='/Projects' element={<Projects />} />
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
-        </Routes>
-      </>
-    </Router>
+    <DndProvider backend={HTML5Backend}>
+      <Router>
+        <>
+          {/* <Navbar /> */}
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/wrk' element={<BuildWrkBnch />} />
+            <Route path='/Projects' element={<Projects />} />
+            <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+          </Routes>
+        </>
+      </Router>
+    </DndProvider>
   );
 }
 
