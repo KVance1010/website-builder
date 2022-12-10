@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { login } from '../utils/api';
 import Auth from '../utils/auth';
-import loginImg from '.././asset/Images/loginBackground.jpg';
+import loginImg from '.././asset/images/loginBackground.jpg';
+import { Link } from 'react-router-dom';
 import '.././styles/LoginSignup.css';
+import Footer from './Footer';
 
 const Login = () => {
 	const [userFormData, setUserFormData] = useState({
@@ -46,62 +48,72 @@ const Login = () => {
 		});
 	};
 	return (
-		<div>
-			<img className="imgLogin" src={loginImg}/>
-			<div className="container mt-5 ">
-				<div className="row d-flex justify-content-center w-100 cardContainer">
-					<div className="col-6 ">
-						<div className="card shadow cardBody">
-							<div className="card-body ">
-                            <h2>Login</h2>
-								<form
-									noValidate
-									validated={validated}
-									onSubmit={handleFormSubmit}
-								>
-									<div className="mb-3">
-										<label className="form-label w-100 labelInput">
-											Username
-											<input
-												className="form-control"
-												type="text"
-												placeholder="Username"
-												name="username"
-												onChange={handleInputChange}
-												value={userFormData.username}
-												required
-											/>
-										</label>
-									</div>
-									<div class="mb-3">
-										<label class="form-label w-100 labelInput">
-											Password
-											<input
-												type="password"
-												className="form-control "
-												placeholder="Your password"
-												name="password"
-												onChange={handleInputChange}
-												value={userFormData.password}
-												required
-											/>
-										</label>
-									</div>
-									<button
-										className="btn btn-dark"
-										disabled={!(userFormData.username && userFormData.password)}
-										type="submit"
-										variant="success"
+		<>
+			<div>
+				<img className="img_login" src={loginImg} />
+				<div className="container">
+					<div className="row d-flex justify-content-center w-100 card_container">
+						<div className="col-6 ">
+							<div className="card shadow card_body">
+								<div className="card-body ">
+									<h2>Login</h2>
+									<form
+										noValidate
+										validated={validated}
+										onSubmit={handleFormSubmit}
 									>
-										Submit
-									</button>
-								</form>
+										<div className="mb-3">
+											<label className="form-label w-100 label_input">
+												Username
+												<input
+													className="form-control"
+													type="text"
+													placeholder="Username"
+													name="username"
+													onChange={handleInputChange}
+													value={userFormData.username}
+													required
+												/>
+											</label>
+										</div>
+										<div class="mb-3">
+											<label class="form-label w-100 label_input">
+												Password
+												<input
+													type="password"
+													className="form-control "
+													placeholder="Your password"
+													name="password"
+													onChange={handleInputChange}
+													value={userFormData.password}
+													required
+												/>
+											</label>
+										</div>
+										<div>
+											<button
+												className="btn btn-dark"
+												disabled={
+													!(userFormData.username && userFormData.password)
+												}
+												type="submit"
+												variant="success"
+											>
+												Submit
+											</button>
+											<Link to="/signup">
+												<button className="btn btn-dark signUp_btn">Signup</button>
+											</Link>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			<Footer />
+		</>
 	);
 };
 

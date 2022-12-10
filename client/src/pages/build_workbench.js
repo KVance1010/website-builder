@@ -18,7 +18,7 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
 import "../styles/Build_workbench.css";
-import Header from "../components/Header"
+// import Header from "../components/Header"
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
@@ -233,7 +233,7 @@ const WRK = () => {
 
 	return (
 		<React.Fragment>
-			<Header />
+			{/* <Header /> */}
 			<div className="container-fluid">
 				<div className="row">
 					<aside

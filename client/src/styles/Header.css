@@ -1,12 +1,23 @@
-header {
-    height: 100px;
-    background-color: teal;
+
+.logo_title {
+    color: var(--main-font);
+    font-size: 60px;
+    white-space:nowrap;
 }
 
-h1 {
-    color: white;
+.logo_img{
+   width: 80px;
 }
 
 .nav-item>a {
     text-decoration: none;
+    font-size: 30px;
+}
+nav {
+    margin: 10px 40px 0 0;
+}
+.header_container {
+    height: 160px;
+    background-color: var(--header-footer-color);
+    margin: 0;
 }
