@@ -1,7 +1,6 @@
 .hero_section {
 	display: flex;
 	flex-direction: column;
-	text-align: right;
 	overflow: none;
 	background-color: black;
 }
@@ -21,26 +20,30 @@
 	margin-right: 20px;
 	flex-direction: column;
 	justify-content: center;
-	text-align: right;
 	z-index: 2;
 }
 .hero_content_background{
 	background-color: rgba(0, 0, 0, 0.485);
 	border-radius: 10px;
-	padding: 20px;
+	padding: 60px;
+	height:100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;	
 }
 
 .hero_content h1 {
 	color: var(--main-font);
 	font-weight: bolder;
 	font-size: 70px;
+	padding-right: 60%;
 }
 .hero_content h2 {
 	color: var(--main-font);
 	font-weight: bolder;
 	align-self: right;
 	font-size: 50px;
-	padding-left: 60%;
+	padding-right: 60%;
 	margin: 35px 0px;
 }
 
@@ -49,7 +52,7 @@
 	padding: 10px;
 	font-size: 30px;
 	border-radius: 0.5em;
-	background-color: var(--highlight-color);
+	background-color: rgb(54, 68, 29);
 	color: var(--main-font);
 	font-weight: bolder;
 }
