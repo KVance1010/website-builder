@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import BuildWrkBnch from './pages/Build_workbench';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Projects from './pages/Projects';
+import Home from './pages/home';
+import BuildWrkBnch from './pages/build_workbench';
+import Login from './components/login';
+import Signup from './components/signup';
+import Projects from './pages/projects';
 
 function App() {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 import '../styles/Projects.css'
-import Header from "../components/Header";
+import Header from "../components/header";
 import { PlusCircle, Folder2, HouseAdd, ArrowDownCircle } from 'react-bootstrap-icons';
-import MultiCarousel from '../components/Carousel';
+import MultiCarousel from '../components/carousel';
 
 const Projects = () => {
 

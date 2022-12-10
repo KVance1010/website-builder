@@ -15,7 +15,7 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
 import "../styles/build_workbench.css";
-import Header from "../components/Header"
+import Header from "../components/header"
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
@@ -24,7 +24,7 @@ import Header from "../components/Header"
 
 
 
-import { PopoverPicker } from "../components/PopoverPicker";
+import { PopoverPicker } from "../components/popoverPicker";
 
 const flair = {
 	addNavBarSizing: {
