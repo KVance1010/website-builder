@@ -91,24 +91,25 @@
 // // Main function
 // //
 // //////////////////
-// (async () => {
 
-//     // Set the image to upload
-//     const imagePath = 'https://media.discordapp.net/attachments/431289110578331659/1050606308576997438/image.png?width=338&height=475';
-//     let imageName = "tootyfrooty"
-//     // Upload the image
-//     const publicId = await uploadImage(imagePath, imageName);
+// // (async () => {
 
-//     // Get the colors in the image
-//     const colors = await getAssetInfo(publicId);
+// //     // Set the image to upload
+// //     const imagePath = 'https://media.discordapp.net/attachments/431289110578331659/1050606308576997438/image.png?width=338&height=475';
+// //     let imageName = "tootyfrooty"
+// //     // Upload the image
+// //     const publicId = await uploadImage(imagePath, imageName);
 
-//    // Create an image tag, using two of the colors in a transformation
-//     const imageTag = await createImageTag(publicId, colors[0][0], colors[1][0]);
+// //     // Get the colors in the image
+// //     const colors = await getAssetInfo(publicId);
 
-//     // Log the image tag to the console
-//     console.log(imageTag, "imageTag");
+// //    // Create an image tag, using two of the colors in a transformation
+// //     const imageTag = await createImageTag(publicId, colors[0][0], colors[1][0]);
 
-// })();
+// //     // Log the image tag to the console
+// //     console.log(imageTag, "imageTag");
+
+// // })();
 // // const imagePath = 'https://media.discordapp.net/attachments/431289110578331659/1050606308576997438/image.png?width=338&height=475';
 // //     let imageName = "tootyfrooty2"
 // // uploadImage(imagePath, imageName)
@@ -116,4 +117,4 @@
 // //     .unsigned_upload("https://media.discordapp.net/attachments/431289110578331659/1050606308576997438/image.png?width=338&height=475", "text_here",
 // //         { cloud_name: "websitebuilderv1" })
 // //     .then(result => console.log(result));
-// module.exports = uploadImage, getAssetInfo, createImageTag;
+// // module.exports = uploadImage, getAssetInfo, createImageTag;

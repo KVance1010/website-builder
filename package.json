@@ -9,7 +9,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
-    "cloud": "node server/utils/images.js"
+    "cloud": "node client/src/utils/images.js"
   },
   "author": "",
   "license": "ISC",
