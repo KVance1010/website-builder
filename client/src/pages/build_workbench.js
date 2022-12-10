@@ -36,7 +36,7 @@ const flair = {
 	},
 	className: {
 		display: 'flex',
-		flexDirection: 'column'
+
 	}
 	// templateWrapper: {
 	// 	padding: "10px",
@@ -87,7 +87,14 @@ const WRK = () => {
 				titleFontVal = fontTitle[i].value
 			}
 		}
-
+		let fontNav = document.getElementsByName('fontNav')
+		let navFontVal
+		for (let i = 0; i < fontNav.length; i++) {
+			if (fontNav[i].checked) {
+				navFontVal = fontNav[i].value
+			}
+		}
+		console.log(navFontVal)
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
@@ -100,6 +107,7 @@ const WRK = () => {
 			navlinks: [navLinks],
 			navDir: navDirVal,
 			fontTitle: titleFontVal,
+			fontNavLinks: navFontVal,
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -157,7 +165,8 @@ const WRK = () => {
 				let navLink = document.createElement("li");
 				navLink.setAttribute(
 					"style",
-					`margin-right: 15px;`)
+					`margin-right: 15px;
+					font-family: ${navRenderObj.fontNavLinks};`)
 
 				navLink.textContent = navRenderObj.navlinks[0][i];
 				nav.append(navLink);
@@ -215,14 +224,29 @@ const WRK = () => {
 									<input type="text" id="imgLink" placeholder="URL of image here"></input>
 									<input type="text" id="imgName" placeholder="what is this image called?"></input>
 								</label>
-								<div className="outer-container" >
+								<div className="outer-container" style={{ flexDirection: 'column' }} >
 									<p>What font would you like to use for your title:</p>
-									<input type="radio" id="font-1" name="fontTitle" value="Sarif" />
-									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Test Font1</label>
-									<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{ fontFamily: 'Cursive' }} />
-									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Test Font2</label>
-									<input type="radio" id="font-3" name="fontTitle" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
-									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Test Font3</label>
+									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Test Font1
+										<input type="radio" id="font-1" name="fontTitle" value="Sarif" />
+									</label>
+									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Test Font2
+										<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{ fontFamily: 'Cursive' }} />
+									</label>
+									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Test Font3
+										<input type="radio" id="font-3" name="fontTitle" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+									</label>
+								</div>
+								<div className="outer-container" style={{ flexDirection: 'column' }} >
+									<p>What font would you like to use for your nav links:</p>
+									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Test Font1
+										<input type="radio" name="fontNav" value="Sarif" />
+									</label>
+									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Test Font2
+										<input type="radio" name="fontNav" value="Cursive" style={{ fontFamily: 'Cursive' }} />
+									</label>
+									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Test Font3
+										<input type="radio" name="fontNav" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+									</label>
 								</div>
 								<button
 									className="btn btn-primary m-3"
@@ -240,7 +264,7 @@ const WRK = () => {
 						</button>
 					</aside>
 					<main
-						className="col-9 wrk-concept-container">
+						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
 						<div id="renderDiv"></div>
 					</main>
 				</div>
