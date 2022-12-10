@@ -1,4 +1,7 @@
+
+
 import React, { useState, Component } from "react";
+
 // import React from 'react';
 // import uploadImage from "../../../server/utils/images";
 import { Cloudinary } from '@cloudinary/url-gen';
@@ -17,14 +20,9 @@ import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 import "../styles/build_workbench.css";
 import Header from "../components/header"
 
-// var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
-// cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
-//   ObjectUtils.asMap("public_id", "olympic_flag"));
-// cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
-
-
-
 import { PopoverPicker } from "../components/popoverPicker";
+
+import {uploadImage, getAssetInfo, createImageTag} from '../utils/images'
 
 const flair = {
 	addNavBarSizing: {
@@ -75,8 +73,32 @@ const WRK = () => {
 			document.getElementById("navDir").innerHTML = "Right";
 		}
 	};
+
+	const imageSubmit = (e) => {
+		e.preventDefault();
+		let navImage = document.getElementById('imgLink').value;
+		let navPubId = document.getElementById('imgName').value;
+		// if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
+		// 	let indexOfImg = codeCompileArr.indexOf(navImage)
+		// 	let indexOfPubId = codeCompileArr.indexOf(navPubId)
+		// 	codeCompileArr.splice(indexOfImg, 0)
+		// 	codeCompileArr.splice(indexOfPubId, 0)
+		// }}));
+		// let savedImage = await uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
+		let tempImg = {
+			navImage: navImage,
+			navPubId: navPubId
+		};
+		console.log(tempImg, "temp1")
+		codeCompileArr.push(tempImg);
+		console.log(codeCompileArr, "temp2")
+		// return temp;
+	}
+
+
 	const navSubmit = (e) => {
 		e.preventDefault();
+
 
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
@@ -95,6 +117,8 @@ const WRK = () => {
 			}
 		}
 		console.log(navFontVal)
+		
+		
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
@@ -108,11 +132,13 @@ const WRK = () => {
 			navDir: navDirVal,
 			fontTitle: titleFontVal,
 			fontNavLinks: navFontVal,
+			
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
 		let renderDiv = document.getElementById("renderDiv");
 		renderDiv.innerHTML = "";
+
 
 		//render page
 		let navObj = -1
@@ -138,8 +164,24 @@ const WRK = () => {
 				font-size: 40px;
 				text-align: center;
 				font-family: ${navRenderObj.fontTitle}`
-			)
+			);
 			title.textContent = navRenderObj.homeTitle;
+			let navImg = document.createElement("div");
+			navImg.setAttribute(
+				"style",
+				`width: 150px;
+				height: 150px;
+				font-size: 40px;
+				text-align: center;`
+			);
+			navImg.setAttribute(
+				"href",
+				`${navRenderObj.navImage}`
+			)
+			navImg.setAttribute(
+				"public_id",
+				`${navRenderObj.navPubId}`
+			)
 			let nav = document.createElement("ul");
 			if (navRenderObj.navDir === 'Left') {
 				nav.setAttribute(
@@ -171,7 +213,12 @@ const WRK = () => {
 				navLink.textContent = navRenderObj.navlinks[0][i];
 				nav.append(navLink);
 			}
+
+			// let navImage = uploadImage(image, )	
+			
+			
 			header.append(title);
+			header.append(navImg);
 			header.append(nav);
 			renderDiv.appendChild(header);
 		}
@@ -224,27 +271,34 @@ const WRK = () => {
 									<input type="text" id="imgLink" placeholder="URL of image here"></input>
 									<input type="text" id="imgName" placeholder="what is this image called?"></input>
 								</label>
+								<button
+									className="btn btn-primary m-3"
+									id="imageBtn"
+									onClick={imageSubmit}
+								>
+									Submit Image
+								</button>
 								<div className="outer-container" style={{ flexDirection: 'column' }} >
 									<p>What font would you like to use for your title:</p>
-									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Test Font1
+									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
 										<input type="radio" id="font-1" name="fontTitle" value="Sarif" />
 									</label>
-									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Test Font2
+									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Cursive
 										<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{ fontFamily: 'Cursive' }} />
 									</label>
-									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Test Font3
+									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Fantasy
 										<input type="radio" id="font-3" name="fontTitle" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
 									</label>
 								</div>
 								<div className="outer-container" style={{ flexDirection: 'column' }} >
 									<p>What font would you like to use for your nav links:</p>
-									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Test Font1
+									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
 										<input type="radio" name="fontNav" value="Sarif" />
 									</label>
-									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Test Font2
+									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Cursive
 										<input type="radio" name="fontNav" value="Cursive" style={{ fontFamily: 'Cursive' }} />
 									</label>
-									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Test Font3
+									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Fantasy
 										<input type="radio" name="fontNav" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
 									</label>
 								</div>
