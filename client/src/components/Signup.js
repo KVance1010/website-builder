@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { createUser } from '../utils/api';
 import Auth from '../utils/auth';
+import '.././styles/loginSignup.css';
+import loginImg from '.././asset/Images/loginBackground.jpg';
 
 const Signup = () => {
 	const [userFormData, setUserFormData] = useState({
@@ -9,21 +11,25 @@ const Signup = () => {
 		password: '',
 		passwordValidation: '',
 	});
-	const [match, setMatch] = useState(false);
+
+	const [match, setMatch] = useState('');
+	const [matchComment, setMatchComment] = useState('');
 	const [validated] = useState(false);
 
 	const handlePwMatchValidation = (event) => {
 		let passwordVal = event.target.value;
-    console.log(passwordVal);
+		console.log(passwordVal);
 		let userPassword = userFormData.password;
-    console.log(userPassword);
+		console.log(userPassword);
 		if (userPassword.includes(passwordVal)) {
 			setMatch(true);
-		}else{
-		setMatch(false);
-    }
+			setMatchComment('Matching');
+
+		} else {
+			setMatch(false);
+			setMatchComment('Invalid Input');
+		}
 	};
-	
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -62,93 +68,94 @@ const Signup = () => {
 	};
 
 	return (
-		<div className="container mt-5">
-			<div className="row d-flex justify-content-center w-100">
-				<div className="col-6">
-					<div className="card shadow">
-						<div className="card-header">
-							<h2>Signup</h2>
-						</div>
-						<div className="card-body">
-							<form
-								noValidate
-								validated={validated}
-								onSubmit={handleFormSubmit}
-							>
-								<div className="mb-3">
-									<label className="form-label w-100">
-										Username
-										<input
-											className="form-control"
-											type="text"
-											placeholder="Your username"
-											name="username"
-											onChange={handleInputChange}
-											value={userFormData.username}
-											required
-										/>
-									</label>
-								</div>
-								<div className="mb-3">
-									<label className="form-label w-100">
-										Email
-										<input
-											type="email"
-											className="form-control"
-											placeholder="name@example.com"
-											name="email"
-											onChange={handleInputChange}
-											value={userFormData.email}
-											required
-										/>
-									</label>
-								</div>
-								<div className=" mb-3">
-									<label className="form-label w-100">
-										Password
-										<input
-											type="password"
-											className="form-control"
-											placeholder="Your password"
-											name="password"
-											onChange={handleInputChange}
-											value={userFormData.password}
-											required
-										/>
-									</label>
-								</div>
-								<div className="mb-3">
-									<label className="form-label w-100">
-										Verify Password
-										<input
-											type="password"
-											className="form-control"
-											placeholder="Your password"
-											name="passwordValidation"
-											onChange={handleInputChange}
-											onKeyUp={handlePwMatchValidation}
-											value={userFormData.passwordValidation}
-											required
-										/>
-									</label>
-								</div>
-								{match ? <div>Matching</div> : <div> Invalid Input</div>}
-								<button
-									className="btn btn-primary"
-									disabled={
-										!(
-											userFormData.username &&
-											userFormData.email &&
-											userFormData.password &&
-											userFormData.passwordValidation
-										)
-									}
-									type="submit"
-									variant="success"
+		<div>
+			<img className="imgLogin" src={loginImg} />
+			<div className="container mt-5 CardContainer">
+				<div className="row d-flex justify-content-center w-100 cardContainer">
+					<div className="col-6">
+						<div className="card shadow cardBody">
+							<div className="card-body">
+								<h2>Signup</h2>
+								<form
+									noValidate
+									validated={validated}
+									onSubmit={handleFormSubmit}
 								>
-									Submit
-								</button>
-							</form>
+									<div className="mb-3">
+										<label className="form-label w-100 labelInput">
+											Username
+											<input
+												className="form-control"
+												type="text"
+												placeholder="Your username"
+												name="username"
+												onChange={handleInputChange}
+												value={userFormData.username}
+												required
+											/>
+										</label>
+									</div>
+									<div className="mb-3">
+										<label className="form-label w-100 labelInput">
+											Email
+											<input
+												type="email"
+												className="form-control"
+												placeholder="name@example.com"
+												name="email"
+												onChange={handleInputChange}
+												value={userFormData.email}
+												required
+											/>
+										</label>
+									</div>
+									<div className=" mb-3">
+										<label className="form-label w-100 labelInput">
+											Password
+											<input
+												type="password"
+												className="form-control"
+												placeholder="Your password"
+												name="password"
+												onChange={handleInputChange}
+												value={userFormData.password}
+												required
+											/>
+										</label>
+									</div>
+									<div className="mb-3">
+										<label className="form-label w-100 labelInput">
+											Verify Password
+											<input
+												type="password"
+												className="form-control"
+												placeholder="Your password"
+												name="passwordValidation"
+												onChange={handleInputChange}
+												onKeyUp={handlePwMatchValidation}
+												value={userFormData.passwordValidation}
+												required
+											/>
+										</label>
+									</div>
+									{match ? <div className="labelInput">{matchComment}</div> : <div className="labelInput"> {matchComment}</div>}
+									<button
+										className="btn btn-dark"
+										disabled={
+											!(
+												userFormData.username &&
+												userFormData.email &&
+												userFormData.password &&
+												userFormData.passwordValidation
+											)
+										}
+										type="submit"
+										variant="success"
+									>
+										Submit
+									</button>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>

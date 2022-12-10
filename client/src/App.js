@@ -5,6 +5,7 @@ import BuildWrkBnch from './pages/Build_workbench';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Projects from './pages/Projects';
+import Download  from './pages/Download_build';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/wrk' element={<BuildWrkBnch />} />
           <Route path='/Projects' element={<Projects />} />
+          <Route path='/download' element={<Download />} />
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Routes>
       </>

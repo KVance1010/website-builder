@@ -1,6 +1,6 @@
 //work
 import React from 'react';
-import '../styles/home.css'
+// import '../styles/ome.css'
 import Header from "../components/Header";
 
 const Home = () => {
