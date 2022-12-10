@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUser } from '../utils/api';
 import Auth from '../utils/auth';
-import '.././styles/loginSignup.css';
+import '.././styles/LoginSignup.css';
 import loginImg from '.././asset/Images/loginBackground.jpg';
 
 const Signup = () => {

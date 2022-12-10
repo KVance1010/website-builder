@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { login } from '../utils/api';
 import Auth from '../utils/auth';
 import loginImg from '.././asset/Images/loginBackground.jpg';
-import '.././styles/loginSignup.css';
+import '.././styles/LoginSignup.css';
 
 const Login = () => {
 	const [userFormData, setUserFormData] = useState({
