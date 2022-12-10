@@ -1,7 +1,4 @@
-
-
 import React, { useState, Component } from "react";
-
 // import React from 'react';
 // import uploadImage from "../../../server/utils/images";
 import { Cloudinary } from '@cloudinary/url-gen';

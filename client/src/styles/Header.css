@@ -4,6 +4,9 @@
     font-size: 60px;
     white-space:nowrap;
 }
+.logo_link {
+    text-decoration: none;
+}
 
 .logo_img{
    width: 80px;
