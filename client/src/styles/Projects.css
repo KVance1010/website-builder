@@ -12,3 +12,15 @@ h2 {
     color: white;
     font-weight: bold;
 }
+
+@media (max-width: 1200px) {
+    .project-btn {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 992px) {
+    .project-btn {
+        font-size: 14px;
+    }
+}
