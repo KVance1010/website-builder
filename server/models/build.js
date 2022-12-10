@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const imageSchema = require('./images')
 
 const buildSchema = new Schema({
     buildCode: 
@@ -20,6 +21,7 @@ const buildSchema = new Schema({
       type: String,
       required: true,
     },
+    images: [imageSchema]
   });
   
   module.exports = buildSchema;
