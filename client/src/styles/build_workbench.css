@@ -15,13 +15,13 @@
 } */
 
 main {
-  background-color: white;
+  background-color: var(--main-background-color);
 }
 
 
 #sidebar {
   min-height: calc(100vh - 100px);
-  background-color: cadetblue;
+  background-color: var(--aside);
 }
 
 .picker {

@@ -1,15 +1,15 @@
 h2 {
-    color: white;
+    color: var(--main-font);
 }
 
 .project-btn {
-    color: white;
+    color: var(--main-font);
     font-weight: bold;
     font-size: 18px;
 }
 
 .project-btn:hover {
-    color: white;
+    color: var(--main-font);
     font-weight: bold;
 }
 

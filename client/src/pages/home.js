@@ -1,34 +1,27 @@
-//work
 import React from 'react';
-import '../styles/Home.css'
-import Header from "../components/Header";
+import '../styles/Home.css';
+import hero from '.././asset/images/heroImg.jpg';
+import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const Home = () => {
-
-
-    return (
-        <React.Fragment>
-            <Header />
-            <div className="container-fluid">
-                <div className="row">
-                    <aside id="sidebar" className="col-3 d-flex flex-column align-items-center">
-                        <h2 className="mt-3">Workbench</h2>
-                        <button className="btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Add Navigation Bar
-                        </button>
-                        <button className="btn dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown button
-                        </button>
-                    </aside>
-                    <div className="col-9">
-
-                    </div>
-                </div>
-            </div>
-        </React.Fragment>
-    )
-}
+	return (
+		<>
+			<section className="hero_section">
+				<div className="hero_content">
+					<div className="hero_content_background">
+						<h1>Building Better Websites</h1>
+						<h2>Designed and developed your website today!</h2>
+						<Link to="/login">
+							<button>Start</button>
+						</Link>
+					</div>
+				</div>
+				<img className="hero_img" src={hero} alt="" />
+			</section>
+			<Footer />
+		</>
+	);
+};
 
 export default Home;

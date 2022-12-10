@@ -1,0 +1,41 @@
+footer {
+	background-color: var(--header-footer-color);
+	width: 100%;
+}
+footer ul {
+	display: flex;
+	background-color: var(--header-footer-color);
+	justify-content: center;
+	color: var(--main-font);
+	font-size: x-large;
+}
+
+footer li {
+	text-decoration: none;
+	padding: 20px;
+	list-style-type: none;
+}
+
+.footer {
+	text-decoration: none;
+}
+.footer:hover {
+	font-weight: bolder;
+	color: var(--aside);
+}
+
+.svgGit {
+	vertical-align: -0.125em;
+	width: 2em;
+	height: 2em;
+}
+
+.svgGit:hover, .svgLinkedIn:hover {
+	fill: var(--aside);
+}
+
+.svgLinkedIn {
+	vertical-align: -0.125em;
+	width: 2em;
+	height: 2em;
+}
