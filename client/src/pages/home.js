@@ -11,9 +11,9 @@ const Home = () => {
 				<div className="hero_content">
 					<div className="hero_content_background">
 						<h1>Building Better Websites</h1>
-						<h2>Designed and developed your website today!</h2>
+						<h2>Design and developed your website today!</h2>
 						<Link to="/login">
-							<button>Start</button>
+							<button className="hero_btn">Start</button>
 						</Link>
 					</div>
 				</div>
