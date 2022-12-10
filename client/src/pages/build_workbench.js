@@ -45,6 +45,9 @@ const flair = {
 	className: {
 		display: 'flex',
 
+	},
+	componentBar: {
+		minHeight: 200
 	}
 	// templateWrapper: {
 	// 	padding: "10px",
@@ -242,7 +245,7 @@ const WRK = () => {
 
 	return (
 		<React.Fragment>
-			{/* <Header /> */}
+			<Header />
 			<div className="container-fluid">
 				<div className="row">
 					<aside
@@ -338,7 +341,7 @@ const WRK = () => {
 							Add Components
 						</button>
 						{visibilityComp ? (
-							<div style={flair.addNavBarColor} className="inner-container">
+							<div style={flair.componentBar} className="inner-container">
 								<Box name="TEST" />
 							</div>
 						) : (

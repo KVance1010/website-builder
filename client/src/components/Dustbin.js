@@ -1,7 +1,7 @@
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from './ItemTypes.js'
 
-import React, { useState, uesRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import Card from './Card';
 
@@ -28,12 +28,18 @@ export default function Dustbin() {
     const [cards, setCards] = useState([]);
 
     const [position, _setPosition] = useState({});
-    const positionRef = useRef();
+    const positionRef = useRef(position);
+
+    const setPosition = data => {
+        positionRef.current = data;
+        _setPosition(data);
+    }
 
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.BOX,
         drop: () => {
-            setCards([...cards, <Card x={position.x} y={position.y} key={cards.length} />])
+            const sidebarOffset = document.getElementById('sidebar').offsetWidth;
+            setCards([...cards, <Card x={positionRef.current.x - sidebarOffset} y={positionRef.current.y} key={cards.length} />])
         },
         // hover: (item, monitor) => {
         //     if (monitor.getClientOffset()) {
@@ -51,12 +57,8 @@ export default function Dustbin() {
     React.useEffect(() => monitor.subscribeToOffsetChange(() => {
         const offset = monitor.getClientOffset();
         if (offset) {
-            setX((state, props) => {
-                return offset;
-            });
-            setY(offset.y);
+            setPosition(offset);
         }
-        console.log(x, y);
     }), [monitor]);
     const isActive = canDrop && isOver
     let backgroundColor = '#222'

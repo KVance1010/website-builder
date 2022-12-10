@@ -16,7 +16,7 @@ export default function Card({ x, y }) {
                 ...styles,
                 position: 'absolute',
                 left: position.x,
-                top: position.y - 100
+                top: position.y - 160
             }}>
             <div className="card-header bg-primary text-white">
                 Greeting from state:
