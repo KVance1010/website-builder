@@ -8,13 +8,15 @@ export default function Card({ x, y }) {
         // height: 100
     };
 
+
+
     return (
         <div className="card text-center"
             style={{
                 ...styles,
                 position: 'absolute',
-                right: `${position.x}px`,
-                bottom: 0
+                left: position.x,
+                top: position.y - 100
             }}>
             <div className="card-header bg-primary text-white">
                 Greeting from state:
