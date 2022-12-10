@@ -1,11 +1,10 @@
 import React from 'react';
 import '../styles/Projects.css'
-import Header from "../components/header";
+import Header from "../components/Header";
 import { PlusCircle, Folder2, HouseAdd, ArrowDownCircle } from 'react-bootstrap-icons';
-import MultiCarousel from '../components/carousel';
+import MultiCarousel from '../components/Carousel';
 
 const Projects = () => {
-
 
     return (
         <React.Fragment>
