@@ -47,13 +47,13 @@ const Login = () => {
 	};
 	return (
 		<div>
-			<img className="imgLogin" src={loginImg}/>
-			<div className="container mt-5 ">
+			<img className="imgLogin" src={loginImg} />
+			<div className="container">
 				<div className="row d-flex justify-content-center w-100 cardContainer">
 					<div className="col-6 ">
 						<div className="card shadow cardBody">
 							<div className="card-body ">
-                            <h2>Login</h2>
+								<h2>Login</h2>
 								<form
 									noValidate
 									validated={validated}
@@ -73,8 +73,8 @@ const Login = () => {
 											/>
 										</label>
 									</div>
-									<div class="mb-3">
-										<label class="form-label w-100 labelInput">
+									<div className="mb-3">
+										<label className="form-label w-100 labelInput">
 											Password
 											<input
 												type="password"
