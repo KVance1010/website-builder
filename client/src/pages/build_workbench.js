@@ -18,7 +18,7 @@ import "../styles/Build_workbench.css";
 import Header from "../components/Header"
 
 import { PopoverPicker } from "../components/PopoverPicker";
-import Box from '../components/Box';
+import CardComponent from '../components/CardComponent';
 import Dustbin from '../components/Dustbin';
 
 import { DndProvider } from 'react-dnd'
@@ -30,10 +30,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
 
 
-import  UploadWidget  from "../components/UploadWidget";
-import { PopoverPicker } from "../components/PopoverPicker";
+import UploadWidget from "../components/UploadWidget";
 
-import {uploadImage, getAssetInfo, createImageTag} from '../utils/images'
+import { uploadImage, getAssetInfo, createImageTag } from '../utils/images'
 
 const flair = {
 	addNavBarSizing: {
@@ -59,9 +58,9 @@ const flair = {
 const WRK = () => {
 	const cld = new Cloudinary({
 		cloud: {
-		  cloudName: 'dkc5agj8u'
+			cloudName: 'dkc5agj8u'
 		}
-	  }); 
+	});
 
 
 	let codeCompileArr = [];
@@ -72,7 +71,7 @@ const WRK = () => {
 
 	const [visibilityUpload, setVisibilityUpload] = useState(false);
 
-	
+
 
 	const [color, setColor] = useState("#aabbcc");
 
@@ -118,13 +117,15 @@ const WRK = () => {
 		let navImage = document.getElementById('imgLink').value;
 		let navPubId = document.getElementById('imgName').value;
 		console.log(navPubId)
-		
-		if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
-			let indexOfImg = codeCompileArr.indexOf(navImage)
-			let indexOfPubId = codeCompileArr.indexOf(navPubId)
-			codeCompileArr.splice(indexOfImg, 0)
-			codeCompileArr.splice(indexOfPubId, 0)
-		}}));
+
+		if (codeCompileArr.map(function (x) {
+			if (x == navImage || x == navPubId) {
+				let indexOfImg = codeCompileArr.indexOf(navImage)
+				let indexOfPubId = codeCompileArr.indexOf(navPubId)
+				codeCompileArr.splice(indexOfImg, 0)
+				codeCompileArr.splice(indexOfPubId, 0)
+			}
+		}));
 		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
 		let tempImg = {
 			navImage: navImage,
@@ -310,10 +311,10 @@ const WRK = () => {
 								<label>
 									Add profile image/logo
 									<input type="text" id="imgLink" placeholder="URL of image here"></input>
-									<input type="text" id="imgName" onKeyUp={handleImageName}placeholder="what is this image called?"></input>
+									<input type="text" id="imgName" onKeyUp={handleImageName} placeholder="what is this image called?"></input>
 									{visibilityUpload ? (
-									<UploadWidget imageName={imageName}/>
-									): <div></div>}
+										<UploadWidget imageName={imageName} />
+									) : <div></div>}
 								</label>
 								<button
 									className="btn btn-primary m-3"
@@ -367,7 +368,7 @@ const WRK = () => {
 						</button>
 						{visibilityComp ? (
 							<div style={flair.componentBar} className="inner-container">
-								<Box name="TEST" />
+								<CardComponent />
 							</div>
 						) : (
 							<div></div>

@@ -1,4 +1,4 @@
 export const ItemTypes = {
-    BOX: 'box',
+    CARD_COMPONENT: 'card_component',
     CARD: 'card'
 }
