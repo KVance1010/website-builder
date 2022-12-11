@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { login } from '../utils/api';
 import Auth from '../utils/auth';
-import loginImg from '.././asset/Images/loginBackground.jpg';
+import loginImg from '../asset/Images/loginBackground.jpg';
 import { Link } from 'react-router-dom';
 import '.././styles/LoginSignup.css';
 import Footer from './Footer';

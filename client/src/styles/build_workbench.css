@@ -20,7 +20,7 @@ main {
 
 
 #sidebar {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 160px);
   background-color: var(--aside);
 }
 
