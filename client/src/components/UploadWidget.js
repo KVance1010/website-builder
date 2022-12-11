@@ -20,7 +20,7 @@ const UploadWidget = ({imageName}) => {
         });
     }, [])
     return (
-        <button onClick={() => widgetRef.current.open()}>
+        <button className="btn btn-primary m-3" onClick={() => widgetRef.current.open()}>
             Upload
         </button>
     )
