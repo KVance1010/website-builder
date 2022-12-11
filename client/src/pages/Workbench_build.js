@@ -14,8 +14,7 @@ import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
 import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
-import "../styles/Build_workbench.css";
-import Header from "../components/Header"
+import "../styles/Workbench_build.css";
 
 import { PopoverPicker } from "../components/PopoverPicker";
 import CardComponent from '../components/CardComponent';
@@ -31,10 +30,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 
 import UploadWidget from "../components/UploadWidget";
-<<<<<<< HEAD
-// import { PopoverPicker } from "../components/PopoverPicker";
-=======
->>>>>>> ee0c9af77aa09b16981487512232efa8630c7b2a
 
 import { uploadImage, getAssetInfo, createImageTag } from '../utils/images'
 
@@ -123,17 +118,7 @@ const WRK = () => {
 		// if(/^\w+$/ == document.getElementById('imgName').value){
 		setVisibilityUpload(true);
 		setImageSubmitVisibility(false)
-		console.log(imageName, "kyle")
-<<<<<<< HEAD
-		setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
-		// if (codeCompileArr.map(function(x){if (x == navImageURL || x == navImgName){
-		// 	let indexOfImg = codeCompileArr.indexOf(navImageURL)
-		// 	let indexOfPubId = codeCompileArr.indexOf(navImgName)
-		// 	codeCompileArr.splice(indexOfImg, 0)
-		// 	codeCompileArr.splice(indexOfPubId, 0)
-		// }}));	
-		
-=======
+		console.log(imageName)
 		let navImage = document.getElementById('imgLink').value;
 		let navPubId = document.getElementById('imgName').value;
 		console.log(navPubId)
@@ -155,7 +140,6 @@ const WRK = () => {
 		codeCompileArr.push(tempImg);
 		console.log(codeCompileArr, "temp2")
 		// return temp;
->>>>>>> ee0c9af77aa09b16981487512232efa8630c7b2a
 	}
 
 
@@ -291,7 +275,6 @@ const WRK = () => {
 
 	return (
 		<React.Fragment>
-			<Header />
 			<div className="container-fluid">
 				<div className="row">
 					<aside
