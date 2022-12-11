@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
-<<<<<<< HEAD
 import '../styles/Header.css';
 import logo from '../asset/Images/logo.jpg';
-=======
-import "../styles/Header.css";
-import logo from "../asset/Images/logo.svg";
->>>>>>> 48a2882d52dbc21c20f9fa489c944195965a7e3e
 
 function Header() {
     // TODO: set active state on the nav bar and work on toggle drop down also need to save logged in state

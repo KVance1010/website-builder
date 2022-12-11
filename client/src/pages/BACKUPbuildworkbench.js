@@ -14,7 +14,7 @@ import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
 import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
-import "../styles/Build_workbench.css";
+import "../styles/Workbench_build.css";
 // import Header from "../components/Header"
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});

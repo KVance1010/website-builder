@@ -2,15 +2,3 @@ node_modules
 .vscode
 build
 .env
-
-<<<<<<< HEAD
-=======
-# misc
-.env
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
->>>>>>> 48a2882d52dbc21c20f9fa489c944195965a7e3e
-
