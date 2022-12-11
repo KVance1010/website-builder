@@ -15,7 +15,7 @@ export default function Card({ id, left, top }) {
     const styles = {
         card: {
             width: width,
-            height: width,
+            height: height,
             position: 'absolute',
             left: left,
             top: top
@@ -27,8 +27,6 @@ export default function Card({ id, left, top }) {
     const onResize = (event, { element, size, handle }) => {
         setWidth(size.width);
         setHeight(size.height);
-
-        console.log(width, height);
     };
 
     const onMouseOver = (e) => {
