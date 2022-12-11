@@ -9,6 +9,8 @@ import { Resizable } from 'react-resizable';
 export default function Card({ id, left, top }) {
     const [width, setWidth] = useState(200);
     const [height, setHeight] = useState(200);
+    // const [canDrag, setCanDrag] = useState(true);
+    const canDrag = useRef(true);
 
     const styles = {
         card: {
@@ -27,6 +29,14 @@ export default function Card({ id, left, top }) {
         setHeight(size.height);
     };
 
+    const onMouseOver = (e) => {
+        // console.log(e);
+        // console.log('canDrag:', !e.target.matches('.react-resizable-handle'));
+        canDrag.current = !e.target.matches('.react-resizable-handle');
+
+        // console.log(canDrag.current);
+    };
+
     const [{ isDragging }, drag] = useDrag(() => ({
         type: type,
         item: (monitor) => {
@@ -38,6 +48,10 @@ export default function Card({ id, left, top }) {
                 xOffset: monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x,
                 yOffset: monitor.getInitialClientOffset().y - monitor.getInitialSourceClientOffset().y
             }
+        },
+        canDrag: (monitor) => {
+            console.log(canDrag.current);
+            return canDrag.current;
         },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
@@ -55,7 +69,7 @@ export default function Card({ id, left, top }) {
     }
 
     return (
-        <Resizable height={height} width={width} onResize={onResize}>
+        <Resizable height={height} width={width} onResize={onResize} onMouseOver={onMouseOver}>
             <div ref={drag} className="card text-center"
                 style={styles.card}>
                 <div className="card-header bg-primary text-white">
