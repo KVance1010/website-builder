@@ -1,22 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
-export default function Card({ x, y }) {
-    const [position, setPosition] = useState({ x, y });
+import { useDrag, useDragDropManager } from 'react-dnd';
 
+import { ItemTypes } from './ItemTypes'
+
+
+
+export default function Card({ id, left, top }) {
     const styles = {
         // width: 100,
         // height: 100
     };
 
+    const type = ItemTypes.CARD;
 
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: type,
+        item: (monitor) => {
+            return {
+                id,
+                type,
+                left,
+                top,
+                xOffset: monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x,
+                yOffset: monitor.getInitialClientOffset().y - monitor.getInitialSourceClientOffset().y
+            }
+        },
+        end: (item, monitor) => {
+            const dropResult = monitor.getDropResult();
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+            handlerId: monitor.getHandlerId(),
+        }),
+    }),
+        [id, left, top]
+    )
+
+    if (isDragging) {
+        return <div ref={drag}></div>
+    }
 
     return (
-        <div className="card text-center"
+        <div ref={drag} className="card text-center"
             style={{
                 ...styles,
                 position: 'absolute',
-                left: position.x,
-                top: position.y - 160
+                left: left,
+                top: top
             }}>
             <div className="card-header bg-primary text-white">
                 Greeting from state:

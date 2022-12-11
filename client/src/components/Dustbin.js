@@ -1,12 +1,13 @@
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from './ItemTypes.js'
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 
 import Card from './Card';
 
 import { useDragDropManager } from 'react-dnd'
-
+import update from 'immutability-helper'
+import { isITextSourceModel } from '@cloudinary/transformation-builder-sdk/internal/models/ITextSourceModel.js';
 
 const style = {
     position: 'relative',
@@ -22,44 +23,65 @@ const style = {
     float: 'left',
 }
 export default function Dustbin() {
-    const dragDropManager = useDragDropManager();
-    const monitor = dragDropManager.getMonitor();
+    const [cards, setCards] = useState([
+        { top: 20, left: 20 }
+    ]);
 
-    const [cards, setCards] = useState([]);
+    const cardsRef = useRef(cards);
 
-    const [position, _setPosition] = useState({});
-    const positionRef = useRef(position);
+    const createCard = useCallback(
+        (item, x, y) => {
+            const newCards = [...cardsRef.current];
+            const headerOffset = document.querySelector('header').offsetHeight;
+            const sidebarOffset = document.getElementById('sidebar').offsetWidth;
 
-    const setPosition = data => {
-        positionRef.current = data;
-        _setPosition(data);
-    }
+            newCards.push({
+                left: x - (sidebarOffset + item.xOffset),
+                top: y - (headerOffset + item.yOffset)
+            });
+
+            cardsRef.current = newCards;
+        },
+        [cards, setCards]
+    )
+
+    const moveCard = useCallback(
+        (id, left, top) => {
+            const newCards = [...cardsRef.current];
+            newCards[id].left = left;
+            newCards[id].top = top;
+
+            cardsRef.current = newCards;
+        },
+        [cards, setCards],
+    );
 
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
-        accept: ItemTypes.BOX,
-        drop: () => {
-            const sidebarOffset = document.getElementById('sidebar').offsetWidth;
-            setCards([...cards, <Card x={positionRef.current.x - sidebarOffset} y={positionRef.current.y} key={cards.length} />])
-        },
-        // hover: (item, monitor) => {
-        //     if (monitor.getClientOffset()) {
-        //         console.log(item);
-        //         setLastHoverPosition(monitor.getClientOffset());
-        //     }
+        accept: [
+            ItemTypes.CARD,
+            ItemTypes.BOX
+        ],
+        drop: (item, monitor) => {
+            if (item.type === ItemTypes.CARD) {
+                const delta = monitor.getDifferenceFromInitialOffset();
+                const left = Math.round(item.left + delta.x)
+                const top = Math.round(item.top + delta.y)
+                moveCard(item.id, left, top)
+                return undefined
+            } else if (ItemTypes.BOX) {
 
-        //     console.log(lastHoverPosition);
-        // },
+                const position = monitor.getClientOffset();
+                createCard(item, position.x, position.y);
+
+                return undefined;
+            }
+        },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
     }))
-    React.useEffect(() => monitor.subscribeToOffsetChange(() => {
-        const offset = monitor.getClientOffset();
-        if (offset) {
-            setPosition(offset);
-        }
-    }), [monitor]);
+
     const isActive = canDrop && isOver
     let backgroundColor = '#222'
     if (isActive) {
@@ -69,8 +91,16 @@ export default function Dustbin() {
     }
     return (
         <div ref={drop} style={{ ...style, backgroundColor }} data-testid="dustbin">
+            <div id="renderDiv"></div>
             {isActive ? 'Release to drop' : 'Drag a box here'}
-            {cards}
+            {cardsRef.current.map((card, index) =>
+                <Card
+                    key={index}
+                    id={index}
+                    left={card.left}
+                    top={card.top}
+                />
+            )}
         </div>
     )
 }

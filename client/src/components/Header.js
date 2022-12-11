@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 import "../styles/Header.css";
 import logo from "../asset/Images/logo.svg";
 

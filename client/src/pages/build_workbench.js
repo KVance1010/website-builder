@@ -14,7 +14,7 @@ import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
 import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
-import "../styles/build_workbench.css";
+import "../styles/Build_workbench.css";
 import Header from "../components/Header"
 
 import { PopoverPicker } from "../components/PopoverPicker";
@@ -347,7 +347,7 @@ const WRK = () => {
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
-						<div id="renderDiv"></div>
+
 						<Dustbin />
 					</main>
 				</div>

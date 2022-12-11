@@ -17,52 +17,27 @@ import { useDragDropManager } from 'react-dnd'
 /**
  * Your Component
  */
-export default function Box({ name }) {
-    const dragDropManager = useDragDropManager();
-    const monitor = dragDropManager.getMonitor();
+export default function Box() {
 
-    const initialClientOffset = useRef({});
-    const initialSourceClientOffset = useRef({});
-
-    const setInitialClientOffset = data => {
-        initialClientOffset.current = data;
-    }
-
-    const setInitialSourceClientOffset = data => {
-        initialSourceClientOffset.current = data;
-    }
+    const type = ItemTypes.BOX;
 
     const [{ isDragging, }, drag] = useDrag(() => ({
         type: ItemTypes.BOX,
-        item: { name },
+        item: (monitor) => {
+            return {
+                xOffset: monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x,
+                yOffset: monitor.getInitialClientOffset().y - monitor.getInitialSourceClientOffset().y,
+                position: monitor.getClientOffset()
+            }
+        },
         end: (item, monitor) => {
-            const dropResult = monitor.getDropResult()
-            console.log(initialClientOffset.current);
-            console.log(initialSourceClientOffset.current);
-
-            console.log(initialClientOffset.current.x - initialSourceClientOffset.current.x);
-            console.log(initialClientOffset.current.y - initialSourceClientOffset.current.y);
+            const dropResult = monitor.getDropResult();
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),
-
         }),
     }))
-
-    React.useEffect(() => monitor.subscribeToOffsetChange(() => {
-        const initialOffset = monitor.getInitialClientOffset();
-        const initialSourceOffset = monitor.getInitialSourceClientOffset();
-        if (initialOffset) {
-            setInitialClientOffset(initialOffset);
-        }
-        if (initialSourceOffset) {
-            setInitialSourceClientOffset(initialSourceOffset);
-        }
-
-        console.log(initialOffset);
-        console.log(initialSourceOffset);
-    }), [monitor]);
 
     const opacity = isDragging ? 0.4 : 1
     return (
@@ -77,9 +52,4 @@ export default function Box({ name }) {
             </div>
         </div>
     );
-    // return (
-    //     <div ref={drag} style={{ ...style, opacity }}>
-    //         {name}
-    //     </div>
-    // )
 }
