@@ -12,6 +12,9 @@ h2 {
     color: var(--main-font);
     font-weight: bold;
 }
+.project_link {
+    text-decoration: none;
+}
 
 @media (max-width: 1200px) {
     .project-btn {
