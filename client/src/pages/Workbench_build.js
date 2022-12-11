@@ -14,8 +14,7 @@ import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
 import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
-import "../styles/Build_workbench.css";
-import Header from "../components/Header"
+import "../styles/Workbench_build.css";
 
 import { PopoverPicker } from "../components/PopoverPicker";
 import CardComponent from '../components/CardComponent';
@@ -119,7 +118,7 @@ const WRK = () => {
 		// if(/^\w+$/ == document.getElementById('imgName').value){
 		setVisibilityUpload(true);
 		setImageSubmitVisibility(false)
-		console.log(imageName, "kyle")
+		console.log(imageName)
 		let navImage = document.getElementById('imgLink').value;
 		let navPubId = document.getElementById('imgName').value;
 		console.log(navPubId)
@@ -276,7 +275,6 @@ const WRK = () => {
 
 	return (
 		<React.Fragment>
-			<Header />
 			<div className="container-fluid">
 				<div className="row">
 					<aside
