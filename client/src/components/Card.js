@@ -27,6 +27,8 @@ export default function Card({ id, left, top }) {
     const onResize = (event, { element, size, handle }) => {
         setWidth(size.width);
         setHeight(size.height);
+
+        console.log(width, height);
     };
 
     const onMouseOver = (e) => {
@@ -50,7 +52,6 @@ export default function Card({ id, left, top }) {
             }
         },
         canDrag: (monitor) => {
-            console.log(canDrag.current);
             return canDrag.current;
         },
         end: (item, monitor) => {
