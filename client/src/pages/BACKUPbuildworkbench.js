@@ -23,7 +23,7 @@ import "../styles/Build_workbench.css";
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
 
 
-import  UploadWidget  from "../components/UploadWidget";
+
 import { PopoverPicker } from "../components/PopoverPicker";
 
 import {uploadImage, getAssetInfo, createImageTag} from '../utils/images'
@@ -274,7 +274,6 @@ const WRK = () => {
 									Add profile image/logo
 									<input type="text" id="imgLink" placeholder="URL of image here"></input>
 									<input type="text" id="imgName" placeholder="what is this image called?"></input>
-									<UploadWidget />
 								</label>
 								<button
 									className="btn btn-primary m-3"
