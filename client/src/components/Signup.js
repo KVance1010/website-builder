@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { createUser } from '../utils/api';
 import Auth from '../utils/auth';
 import '.././styles/LoginSignup.css';
+<<<<<<< HEAD
 import loginImg from '.././asset/Images/loginBackground.jpg';
+=======
+import loginImg from '../asset/Images/loginBackground.jpg';
+>>>>>>> 48a2882d52dbc21c20f9fa489c944195965a7e3e
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
 

@@ -15,14 +15,7 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
 import "../styles/Build_workbench.css";
-import Header from "../components/Header"
-
-import { PopoverPicker } from "../components/PopoverPicker";
-import CardComponent from '../components/CardComponent';
-import Dustbin from '../components/Dustbin';
-
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+// import Header from "../components/Header"
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
@@ -30,9 +23,10 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
 
 
-import UploadWidget from "../components/UploadWidget";
 
-import { uploadImage, getAssetInfo, createImageTag } from '../utils/images'
+import { PopoverPicker } from "../components/PopoverPicker";
+
+import {uploadImage, getAssetInfo, createImageTag} from '../utils/images'
 
 const flair = {
 	addNavBarSizing: {
@@ -45,9 +39,6 @@ const flair = {
 	className: {
 		display: 'flex',
 
-	},
-	componentBar: {
-		minHeight: 200
 	}
 	// templateWrapper: {
 	// 	padding: "10px",
@@ -56,22 +47,11 @@ const flair = {
 };
 
 const WRK = () => {
-	const cld = new Cloudinary({
-		cloud: {
-			cloudName: 'dkc5agj8u'
-		}
-	});
-
 
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
-	const [visibilityComp, setVisibilityComp] = useState(false);
 
 	const [nav, setNav] = useState("Add Navigation Bar");
-
-	const [visibilityUpload, setVisibilityUpload] = useState(false);
-
-
 
 	const [color, setColor] = useState("#aabbcc");
 
@@ -88,11 +68,6 @@ const WRK = () => {
 			setNav("Remove Navigation Bar");
 		}
 	};
-
-	const addComp = () => {
-		setVisibilityComp(!visibilityComp);
-	}
-
 	const navDir = () => {
 		let navDirVal = document.getElementById("navDir").textContent;
 		if (navDirVal === "Right") {
@@ -103,41 +78,22 @@ const WRK = () => {
 		}
 	};
 
-	const [imageName, setImageName] = useState("");
-	const handleImageName = (e) => {
-		let imgname = e.target.value
-		setImageName(imgname)
-		console.log(imageName, "kyle66")
-	};
-
-	const [navImgLink, setNavImgLink] = useState("")
-
-	const [imageSubmitVisibility, setImageSubmitVisibility] = useState(true)
-
 	const imageSubmit = (e) => {
 		e.preventDefault();
-		// if(/^\w+$/ == document.getElementById('imgName').value){
-		setVisibilityUpload(true);
-		setImageSubmitVisibility(false)
-		console.log(imageName)
 		let navImage = document.getElementById('imgLink').value;
 		let navPubId = document.getElementById('imgName').value;
-		console.log(navPubId)
-
-		if (codeCompileArr.map(function (x) {
-			if (x == navImage || x == navPubId) {
-				let indexOfImg = codeCompileArr.indexOf(navImage)
-				let indexOfPubId = codeCompileArr.indexOf(navPubId)
-				codeCompileArr.splice(indexOfImg, 0)
-				codeCompileArr.splice(indexOfPubId, 0)
-			}
-		}));
-		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
+		// if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
+		// 	let indexOfImg = codeCompileArr.indexOf(navImage)
+		// 	let indexOfPubId = codeCompileArr.indexOf(navPubId)
+		// 	codeCompileArr.splice(indexOfImg, 0)
+		// 	codeCompileArr.splice(indexOfPubId, 0)
+		// }}));
+		// let savedImage = await uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
 		let tempImg = {
 			navImage: navImage,
 			navPubId: navPubId
 		};
-		// console.log(tempImg, "temp1")
+		console.log(tempImg, "temp1")
 		codeCompileArr.push(tempImg);
 		console.log(codeCompileArr, "temp2")
 		// return temp;
@@ -146,8 +102,8 @@ const WRK = () => {
 
 	const navSubmit = (e) => {
 		e.preventDefault();
-		setVisibilityUpload(false);
-		setImageSubmitVisibility(true)
+
+
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
 		let fontTitle = document.getElementsByName('fontTitle')
@@ -165,8 +121,8 @@ const WRK = () => {
 			}
 		}
 		console.log(navFontVal)
-
-
+		
+		
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
@@ -180,8 +136,7 @@ const WRK = () => {
 			navDir: navDirVal,
 			fontTitle: titleFontVal,
 			fontNavLinks: navFontVal,
-			navImgLink: navImgLink,
-			navImgPubId: imageName
+			
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -200,7 +155,6 @@ const WRK = () => {
 		if (navObj === -1) {
 		} else {
 			let navRenderObj = codeCompileArr[navObj];
-			console.log(navRenderObj, "OBJECTIFY ME")
 			let header = document.createElement("div");
 			header.setAttribute(
 				"style",
@@ -216,7 +170,7 @@ const WRK = () => {
 				font-family: ${navRenderObj.fontTitle}`
 			);
 			title.textContent = navRenderObj.homeTitle;
-			let navImg = document.createElement("img");
+			let navImg = document.createElement("div");
 			navImg.setAttribute(
 				"style",
 				`width: 150px;
@@ -225,12 +179,12 @@ const WRK = () => {
 				text-align: center;`
 			);
 			navImg.setAttribute(
-				"src",
-				`${navRenderObj.navImgLink}`
+				"href",
+				`${navRenderObj.navImage}`
 			)
 			navImg.setAttribute(
 				"public_id",
-				`${navRenderObj.navImgPubId}`
+				`${navRenderObj.navPubId}`
 			)
 			let nav = document.createElement("ul");
 			if (navRenderObj.navDir === 'Left') {
@@ -265,8 +219,8 @@ const WRK = () => {
 			}
 
 			// let navImage = uploadImage(image, )	
-
-
+			
+			
 			header.append(title);
 			header.append(navImg);
 			header.append(nav);
@@ -276,7 +230,7 @@ const WRK = () => {
 
 	return (
 		<React.Fragment>
-			<Header />
+			{/* <Header /> */}
 			<div className="container-fluid">
 				<div className="row">
 					<aside
@@ -317,21 +271,17 @@ const WRK = () => {
 									Right
 								</button>
 								<label>
-									Add profile image/logo:
-									<input type="text" id="imgName" onKeyUp={handleImageName} placeholder="Add a name and then press 'Upload'!"></input>
-									{visibilityUpload ? (
-										<UploadWidget imageName={imageName} />
-									) : <div></div>}
+									Add profile image/logo
+									<input type="text" id="imgLink" placeholder="URL of image here"></input>
+									<input type="text" id="imgName" placeholder="what is this image called?"></input>
 								</label>
-								{imageSubmitVisibility ? (
-									<button
-										className="btn btn-primary m-3"
-										id="imageBtn"
-										onClick={imageSubmit}
-									>
-										Submit Image Name
-									</button>
-								) : <div></div>}
+								<button
+									className="btn btn-primary m-3"
+									id="imageBtn"
+									onClick={imageSubmit}
+								>
+									Submit Image
+								</button>
 								<div className="outer-container" style={{ flexDirection: 'column' }} >
 									<p>What font would you like to use for your title:</p>
 									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
@@ -367,26 +317,13 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
-						<button
-							className="btn dropdown-toggle w-100"
-							type="button"
-							onClick={addComp}
-							id="addComponentBtn"
-						>
-							Add Components
+						<button className="btn dropdown-toggle w-100" type="button">
+							Dropdown button
 						</button>
-						{visibilityComp ? (
-							<div style={flair.componentBar} className="inner-container">
-								<CardComponent />
-							</div>
-						) : (
-							<div></div>
-						)}
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
-
-						<Dustbin />
+						<div id="renderDiv"></div>
 					</main>
 				</div>
 			</div>
