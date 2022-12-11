@@ -47,11 +47,21 @@ const flair = {
 };
 
 const WRK = () => {
+	const cld = new Cloudinary({
+		cloud: {
+		  cloudName: 'dkc5agj8u'
+		}
+	  }); 
+
 
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
 
 	const [nav, setNav] = useState("Add Navigation Bar");
+
+	const [visibilityUpload, setVisibilityUpload] = useState(false);
+
+	
 
 	const [color, setColor] = useState("#aabbcc");
 
@@ -78,22 +88,33 @@ const WRK = () => {
 		}
 	};
 
+	const [imageName, setImageName] = useState("");
+	const handleImageName = (e) => {
+		let imgname = e.target.value
+		setImageName(imgname)
+		console.log(imageName, "kyle66")
+	};
+
 	const imageSubmit = (e) => {
 		e.preventDefault();
+		setVisibilityUpload(true);
+		console.log(imageName, "kyle")
 		let navImage = document.getElementById('imgLink').value;
 		let navPubId = document.getElementById('imgName').value;
-		// if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
-		// 	let indexOfImg = codeCompileArr.indexOf(navImage)
-		// 	let indexOfPubId = codeCompileArr.indexOf(navPubId)
-		// 	codeCompileArr.splice(indexOfImg, 0)
-		// 	codeCompileArr.splice(indexOfPubId, 0)
-		// }}));
-		// let savedImage = await uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
+		console.log(navPubId)
+		
+		if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
+			let indexOfImg = codeCompileArr.indexOf(navImage)
+			let indexOfPubId = codeCompileArr.indexOf(navPubId)
+			codeCompileArr.splice(indexOfImg, 0)
+			codeCompileArr.splice(indexOfPubId, 0)
+		}}));
+		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
 		let tempImg = {
 			navImage: navImage,
 			navPubId: navPubId
 		};
-		console.log(tempImg, "temp1")
+		// console.log(tempImg, "temp1")
 		codeCompileArr.push(tempImg);
 		console.log(codeCompileArr, "temp2")
 		// return temp;
@@ -273,8 +294,10 @@ const WRK = () => {
 								<label>
 									Add profile image/logo
 									<input type="text" id="imgLink" placeholder="URL of image here"></input>
-									<input type="text" id="imgName" placeholder="what is this image called?"></input>
-									<UploadWidget />
+									<input type="text" id="imgName" onKeyUp={handleImageName}placeholder="what is this image called?"></input>
+									{visibilityUpload ? (
+									<UploadWidget imageName={imageName}/>
+									): <div></div>}
 								</label>
 								<button
 									className="btn btn-primary m-3"

@@ -1,16 +1,22 @@
-import React, { useEffect, useRef } from 'react'; 
+import React, { useEffect, useRef, useState } from 'react'; 
 
-const UploadWidget = () => {
+const UploadWidget = ({imageName}) => {
     const cloudinaryRef = useRef();
     const widgetRef = useRef();
+    // const {imageName} = useState(true)
     useEffect(()=> {
         cloudinaryRef.current = window.cloudinary;
-        console.log(cloudinaryRef);
-        widgetRef.current = cloudinaryRef.current.createUploadWidget({
+        console.log(cloudinaryRef);   
+        // const name = props.imageName;  
+        // console.log(imageName, "compNAME1")     
+        widgetRef.current = cloudinaryRef.current.createUploadWidget( {            
             cloudName: 'dkc5agj8u',
-            uploadPreset: 'websitebuilderv2'
+            uploadPreset: 'websitebuilderv2',
+            public_id: `${imageName}`
         }, function(error, result) {
-            console.log(result)
+            // console.log(imageName, "compNAME2")
+            // console.log(result, "IMAGE UPLOAD RESULT")
+            if(error){console.log(error, "I AM ERROR")}
         });
     }, [])
     return (
