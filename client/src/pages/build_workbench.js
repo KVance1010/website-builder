@@ -18,7 +18,7 @@ import "../styles/Build_workbench.css";
 import Header from "../components/Header"
 
 import { PopoverPicker } from "../components/PopoverPicker";
-import Box from '../components/Box';
+import CardComponent from '../components/CardComponent';
 import Dustbin from '../components/Dustbin';
 
 import { DndProvider } from 'react-dnd'
@@ -31,7 +31,10 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 
 import UploadWidget from "../components/UploadWidget";
+<<<<<<< HEAD
 // import { PopoverPicker } from "../components/PopoverPicker";
+=======
+>>>>>>> ee0c9af77aa09b16981487512232efa8630c7b2a
 
 import { uploadImage, getAssetInfo, createImageTag } from '../utils/images'
 
@@ -121,6 +124,7 @@ const WRK = () => {
 		setVisibilityUpload(true);
 		setImageSubmitVisibility(false)
 		console.log(imageName, "kyle")
+<<<<<<< HEAD
 		setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
 		// if (codeCompileArr.map(function(x){if (x == navImageURL || x == navImgName){
 		// 	let indexOfImg = codeCompileArr.indexOf(navImageURL)
@@ -129,6 +133,29 @@ const WRK = () => {
 		// 	codeCompileArr.splice(indexOfPubId, 0)
 		// }}));	
 		
+=======
+		let navImage = document.getElementById('imgLink').value;
+		let navPubId = document.getElementById('imgName').value;
+		console.log(navPubId)
+
+		if (codeCompileArr.map(function (x) {
+			if (x == navImage || x == navPubId) {
+				let indexOfImg = codeCompileArr.indexOf(navImage)
+				let indexOfPubId = codeCompileArr.indexOf(navPubId)
+				codeCompileArr.splice(indexOfImg, 0)
+				codeCompileArr.splice(indexOfPubId, 0)
+			}
+		}));
+		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
+		let tempImg = {
+			navImage: navImage,
+			navPubId: navPubId
+		};
+		// console.log(tempImg, "temp1")
+		codeCompileArr.push(tempImg);
+		console.log(codeCompileArr, "temp2")
+		// return temp;
+>>>>>>> ee0c9af77aa09b16981487512232efa8630c7b2a
 	}
 
 
@@ -365,7 +392,7 @@ const WRK = () => {
 						</button>
 						{visibilityComp ? (
 							<div style={flair.componentBar} className="inner-container">
-								<Box name="TEST" />
+								<CardComponent />
 							</div>
 						) : (
 							<div></div>

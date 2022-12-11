@@ -17,12 +17,19 @@ import { useDragDropManager } from 'react-dnd'
 /**
  * Your Component
  */
-export default function Box() {
+export default function CardComponent() {
 
-    const type = ItemTypes.BOX;
+    const type = ItemTypes.CARD_COMPONENT;
+
+    const styles = {
+        card: {
+            width: 200,
+            height: 200
+        }
+    };
 
     const [{ isDragging, }, drag] = useDrag(() => ({
-        type: ItemTypes.BOX,
+        type: ItemTypes.CARD_COMPONENT,
         item: (monitor) => {
             return {
                 xOffset: monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x,
@@ -41,7 +48,7 @@ export default function Box() {
 
     const opacity = isDragging ? 0.4 : 1
     return (
-        <div ref={drag} className="card text-center">
+        <div ref={drag} className="card text-center" style={styles.card}>
             <div className="card-header bg-primary text-white">
                 Greeting from state:
             </div>

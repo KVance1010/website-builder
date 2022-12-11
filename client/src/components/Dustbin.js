@@ -59,7 +59,7 @@ export default function Dustbin() {
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: [
             ItemTypes.CARD,
-            ItemTypes.BOX
+            ItemTypes.CARD_COMPONENT
         ],
         drop: (item, monitor) => {
             if (item.type === ItemTypes.CARD) {
@@ -68,7 +68,7 @@ export default function Dustbin() {
                 const top = Math.round(item.top + delta.y)
                 moveCard(item.id, left, top)
                 return undefined
-            } else if (ItemTypes.BOX) {
+            } else if (ItemTypes.CARD_COMPONENT) {
 
                 const position = monitor.getClientOffset();
                 createCard(item, position.x, position.y);
