@@ -15,14 +15,7 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
 import "../styles/Build_workbench.css";
-import Header from "../components/Header"
-
-import { PopoverPicker } from "../components/PopoverPicker";
-import Box from '../components/Box';
-import Dustbin from '../components/Dustbin';
-
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+// import Header from "../components/Header"
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
@@ -30,7 +23,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
 
 
-import  UploadWidget  from "../components/UploadWidget";
+
 import { PopoverPicker } from "../components/PopoverPicker";
 
 import {uploadImage, getAssetInfo, createImageTag} from '../utils/images'
@@ -46,9 +39,6 @@ const flair = {
 	className: {
 		display: 'flex',
 
-	},
-	componentBar: {
-		minHeight: 200
 	}
 	// templateWrapper: {
 	// 	padding: "10px",
@@ -57,22 +47,11 @@ const flair = {
 };
 
 const WRK = () => {
-	const cld = new Cloudinary({
-		cloud: {
-		  cloudName: 'dkc5agj8u'
-		}
-	  }); 
-
 
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
-	const [visibilityComp, setVisibilityComp] = useState(false);
 
 	const [nav, setNav] = useState("Add Navigation Bar");
-
-	const [visibilityUpload, setVisibilityUpload] = useState(false);
-
-	
 
 	const [color, setColor] = useState("#aabbcc");
 
@@ -89,11 +68,6 @@ const WRK = () => {
 			setNav("Remove Navigation Bar");
 		}
 	};
-
-	const addComp = () => {
-		setVisibilityComp(!visibilityComp);
-	}
-
 	const navDir = () => {
 		let navDirVal = document.getElementById("navDir").textContent;
 		if (navDirVal === "Right") {
@@ -104,33 +78,22 @@ const WRK = () => {
 		}
 	};
 
-	const [imageName, setImageName] = useState("");
-	const handleImageName = (e) => {
-		let imgname = e.target.value
-		setImageName(imgname)
-		console.log(imageName, "kyle66")
-	};
-
 	const imageSubmit = (e) => {
 		e.preventDefault();
-		setVisibilityUpload(true);
-		console.log(imageName, "kyle")
 		let navImage = document.getElementById('imgLink').value;
 		let navPubId = document.getElementById('imgName').value;
-		console.log(navPubId)
-		
-		if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
-			let indexOfImg = codeCompileArr.indexOf(navImage)
-			let indexOfPubId = codeCompileArr.indexOf(navPubId)
-			codeCompileArr.splice(indexOfImg, 0)
-			codeCompileArr.splice(indexOfPubId, 0)
-		}}));
-		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
+		// if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
+		// 	let indexOfImg = codeCompileArr.indexOf(navImage)
+		// 	let indexOfPubId = codeCompileArr.indexOf(navPubId)
+		// 	codeCompileArr.splice(indexOfImg, 0)
+		// 	codeCompileArr.splice(indexOfPubId, 0)
+		// }}));
+		// let savedImage = await uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
 		let tempImg = {
 			navImage: navImage,
 			navPubId: navPubId
 		};
-		// console.log(tempImg, "temp1")
+		console.log(tempImg, "temp1")
 		codeCompileArr.push(tempImg);
 		console.log(codeCompileArr, "temp2")
 		// return temp;
@@ -158,8 +121,8 @@ const WRK = () => {
 			}
 		}
 		console.log(navFontVal)
-
-
+		
+		
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
@@ -173,7 +136,7 @@ const WRK = () => {
 			navDir: navDirVal,
 			fontTitle: titleFontVal,
 			fontNavLinks: navFontVal,
-
+			
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -256,8 +219,8 @@ const WRK = () => {
 			}
 
 			// let navImage = uploadImage(image, )	
-
-
+			
+			
 			header.append(title);
 			header.append(navImg);
 			header.append(nav);
@@ -267,7 +230,7 @@ const WRK = () => {
 
 	return (
 		<React.Fragment>
-			<Header />
+			{/* <Header /> */}
 			<div className="container-fluid">
 				<div className="row">
 					<aside
@@ -310,10 +273,7 @@ const WRK = () => {
 								<label>
 									Add profile image/logo
 									<input type="text" id="imgLink" placeholder="URL of image here"></input>
-									<input type="text" id="imgName" onKeyUp={handleImageName}placeholder="what is this image called?"></input>
-									{visibilityUpload ? (
-									<UploadWidget imageName={imageName}/>
-									): <div></div>}
+									<input type="text" id="imgName" placeholder="what is this image called?"></input>
 								</label>
 								<button
 									className="btn btn-primary m-3"
@@ -357,26 +317,13 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
-						<button
-							className="btn dropdown-toggle w-100"
-							type="button"
-							onClick={addComp}
-							id="addComponentBtn"
-						>
-							Add Components
+						<button className="btn dropdown-toggle w-100" type="button">
+							Dropdown button
 						</button>
-						{visibilityComp ? (
-							<div style={flair.componentBar} className="inner-container">
-								<Box name="TEST" />
-							</div>
-						) : (
-							<div></div>
-						)}
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
-
-						<Dustbin />
+						<div id="renderDiv"></div>
 					</main>
 				</div>
 			</div>
