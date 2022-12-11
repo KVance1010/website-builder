@@ -30,10 +30,10 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
 
 
-import  UploadWidget  from "../components/UploadWidget";
-import { PopoverPicker } from "../components/PopoverPicker";
+import UploadWidget from "../components/UploadWidget";
+// import { PopoverPicker } from "../components/PopoverPicker";
 
-import {uploadImage, getAssetInfo, createImageTag} from '../utils/images'
+import { uploadImage, getAssetInfo, createImageTag } from '../utils/images'
 
 const flair = {
 	addNavBarSizing: {
@@ -59,9 +59,9 @@ const flair = {
 const WRK = () => {
 	const cld = new Cloudinary({
 		cloud: {
-		  cloudName: 'dkc5agj8u'
+			cloudName: 'dkc5agj8u'
 		}
-	  }); 
+	});
 
 
 	let codeCompileArr = [];
@@ -72,7 +72,7 @@ const WRK = () => {
 
 	const [visibilityUpload, setVisibilityUpload] = useState(false);
 
-	
+
 
 	const [color, setColor] = useState("#aabbcc");
 
@@ -111,36 +111,31 @@ const WRK = () => {
 		console.log(imageName, "kyle66")
 	};
 
+	const [navImgLink, setNavImgLink] = useState("")
+
+	const [imageSubmitVisibility, setImageSubmitVisibility] = useState(true)
+
 	const imageSubmit = (e) => {
 		e.preventDefault();
+		// if(/^\w+$/ == document.getElementById('imgName').value){
 		setVisibilityUpload(true);
+		setImageSubmitVisibility(false)
 		console.log(imageName, "kyle")
-		let navImage = document.getElementById('imgLink').value;
-		let navPubId = document.getElementById('imgName').value;
-		console.log(navPubId)
+		setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
+		// if (codeCompileArr.map(function(x){if (x == navImageURL || x == navImgName){
+		// 	let indexOfImg = codeCompileArr.indexOf(navImageURL)
+		// 	let indexOfPubId = codeCompileArr.indexOf(navImgName)
+		// 	codeCompileArr.splice(indexOfImg, 0)
+		// 	codeCompileArr.splice(indexOfPubId, 0)
+		// }}));	
 		
-		if (codeCompileArr.map(function(x){if (x == navImage || x == navPubId){
-			let indexOfImg = codeCompileArr.indexOf(navImage)
-			let indexOfPubId = codeCompileArr.indexOf(navPubId)
-			codeCompileArr.splice(indexOfImg, 0)
-			codeCompileArr.splice(indexOfPubId, 0)
-		}}));
-		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
-		let tempImg = {
-			navImage: navImage,
-			navPubId: navPubId
-		};
-		// console.log(tempImg, "temp1")
-		codeCompileArr.push(tempImg);
-		console.log(codeCompileArr, "temp2")
-		// return temp;
 	}
 
 
 	const navSubmit = (e) => {
 		e.preventDefault();
-
-
+		setVisibilityUpload(false);
+		setImageSubmitVisibility(true)
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
 		let fontTitle = document.getElementsByName('fontTitle')
@@ -173,7 +168,8 @@ const WRK = () => {
 			navDir: navDirVal,
 			fontTitle: titleFontVal,
 			fontNavLinks: navFontVal,
-
+			navImgLink: navImgLink,
+			navImgPubId: imageName
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -192,6 +188,7 @@ const WRK = () => {
 		if (navObj === -1) {
 		} else {
 			let navRenderObj = codeCompileArr[navObj];
+			console.log(navRenderObj, "OBJECTIFY ME")
 			let header = document.createElement("div");
 			header.setAttribute(
 				"style",
@@ -207,7 +204,7 @@ const WRK = () => {
 				font-family: ${navRenderObj.fontTitle}`
 			);
 			title.textContent = navRenderObj.homeTitle;
-			let navImg = document.createElement("div");
+			let navImg = document.createElement("img");
 			navImg.setAttribute(
 				"style",
 				`width: 150px;
@@ -216,12 +213,12 @@ const WRK = () => {
 				text-align: center;`
 			);
 			navImg.setAttribute(
-				"href",
-				`${navRenderObj.navImage}`
+				"src",
+				`${navRenderObj.navImgLink}`
 			)
 			navImg.setAttribute(
 				"public_id",
-				`${navRenderObj.navPubId}`
+				`${navRenderObj.navImgPubId}`
 			)
 			let nav = document.createElement("ul");
 			if (navRenderObj.navDir === 'Left') {
@@ -308,20 +305,21 @@ const WRK = () => {
 									Right
 								</button>
 								<label>
-									Add profile image/logo
-									<input type="text" id="imgLink" placeholder="URL of image here"></input>
-									<input type="text" id="imgName" onKeyUp={handleImageName}placeholder="what is this image called?"></input>
+									Add profile image/logo:
+									<input type="text" id="imgName" onKeyUp={handleImageName} placeholder="Add a name and then press 'Upload'!"></input>
 									{visibilityUpload ? (
-									<UploadWidget imageName={imageName}/>
-									): <div></div>}
+										<UploadWidget imageName={imageName} />
+									) : <div></div>}
 								</label>
-								<button
-									className="btn btn-primary m-3"
-									id="imageBtn"
-									onClick={imageSubmit}
-								>
-									Submit Image
-								</button>
+								{imageSubmitVisibility ? (
+									<button
+										className="btn btn-primary m-3"
+										id="imageBtn"
+										onClick={imageSubmit}
+									>
+										Submit Image Name
+									</button>
+								) : <div></div>}
 								<div className="outer-container" style={{ flexDirection: 'column' }} >
 									<p>What font would you like to use for your title:</p>
 									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
