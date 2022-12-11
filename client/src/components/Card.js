@@ -4,15 +4,28 @@ import { useDrag, useDragDropManager } from 'react-dnd';
 
 import { ItemTypes } from './ItemTypes'
 
-
+import { Resizable } from 'react-resizable';
 
 export default function Card({ id, left, top }) {
+    const [width, setWidth] = useState(200);
+    const [height, setHeight] = useState(200);
+
     const styles = {
-        // width: 100,
-        // height: 100
+        card: {
+            width: width,
+            height: width,
+            position: 'absolute',
+            left: left,
+            top: top
+        }
     };
 
     const type = ItemTypes.CARD;
+
+    const onResize = (event, { element, size, handle }) => {
+        setWidth(size.width);
+        setHeight(size.height);
+    };
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: type,
@@ -42,20 +55,18 @@ export default function Card({ id, left, top }) {
     }
 
     return (
-        <div ref={drag} className="card text-center"
-            style={{
-                ...styles,
-                position: 'absolute',
-                left: left,
-                top: top
-            }}>
-            <div className="card-header bg-primary text-white">
-                Greeting from state:
+        <Resizable height={height} width={width} onResize={onResize}>
+            <div ref={drag} className="card text-center"
+                style={styles.card}>
+                <div className="card-header bg-primary text-white">
+                    Greeting from state:
+                </div>
+                <div className="card-body">
+                    <p className="card-text text-dark" style={{ fontSize: '50px' }}>
+                        Hello!
+                    </p>
+                </div>
             </div>
-            <div className="card-body">
-                <p className="card-text text-dark" style={{ fontSize: '50px' }}>
-                    Hello!
-                </p>
-            </div>
-        </div>);
+        </Resizable>
+    );
 }

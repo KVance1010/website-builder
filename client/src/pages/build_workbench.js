@@ -18,7 +18,7 @@ import "../styles/Build_workbench.css";
 import Header from "../components/Header"
 
 import { PopoverPicker } from "../components/PopoverPicker";
-import Box from '../components/Box';
+import CardComponent from '../components/CardComponent';
 import Dustbin from '../components/Dustbin';
 
 import { DndProvider } from 'react-dnd'
@@ -339,7 +339,7 @@ const WRK = () => {
 						</button>
 						{visibilityComp ? (
 							<div style={flair.componentBar} className="inner-container">
-								<Box name="TEST" />
+								<CardComponent />
 							</div>
 						) : (
 							<div></div>
