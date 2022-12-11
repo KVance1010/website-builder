@@ -15,18 +15,21 @@ import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { scale } from '@cloudinary/transformation-builder-sdk/actions/resize';
 
 import "../styles/Build_workbench.css";
-// import Header from "../components/Header"
+import Header from "../components/Header"
+
+import { PopoverPicker } from "../components/PopoverPicker";
+import Box from '../components/Box';
+import Dustbin from '../components/Dustbin';
+
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 // var cl = new cloudinary.Cloudinary({cloud_name: "dokk84fdh", secure: true});
 // cloudinary.uploader().upload(new File("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg"),
 //   ObjectUtils.asMap("public_id", "olympic_flag"));
 // cloudinary.imageTag('sneaker.png', {crop: "scale", width: 150 }).toHtml();
 
-
-
-import { PopoverPicker } from "../components/PopoverPicker";
-
-import {uploadImage, getAssetInfo, createImageTag} from '../utils/images'
+import { uploadImage, getAssetInfo, createImageTag } from '../utils/images'
 
 const flair = {
 	addNavBarSizing: {
@@ -39,6 +42,9 @@ const flair = {
 	className: {
 		display: 'flex',
 
+	},
+	componentBar: {
+		minHeight: 200
 	}
 	// templateWrapper: {
 	// 	padding: "10px",
@@ -50,6 +56,7 @@ const WRK = () => {
 
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
+	const [visibilityComp, setVisibilityComp] = useState(false);
 
 	const [nav, setNav] = useState("Add Navigation Bar");
 
@@ -68,6 +75,11 @@ const WRK = () => {
 			setNav("Remove Navigation Bar");
 		}
 	};
+
+	const addComp = () => {
+		setVisibilityComp(!visibilityComp);
+	}
+
 	const navDir = () => {
 		let navDirVal = document.getElementById("navDir").textContent;
 		if (navDirVal === "Right") {
@@ -121,8 +133,8 @@ const WRK = () => {
 			}
 		}
 		console.log(navFontVal)
-		
-		
+
+
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
@@ -136,7 +148,7 @@ const WRK = () => {
 			navDir: navDirVal,
 			fontTitle: titleFontVal,
 			fontNavLinks: navFontVal,
-			
+
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -219,8 +231,8 @@ const WRK = () => {
 			}
 
 			// let navImage = uploadImage(image, )	
-			
-			
+
+
 			header.append(title);
 			header.append(navImg);
 			header.append(nav);
@@ -230,7 +242,7 @@ const WRK = () => {
 
 	return (
 		<React.Fragment>
-			{/* <Header /> */}
+			<Header />
 			<div className="container-fluid">
 				<div className="row">
 					<aside
@@ -317,13 +329,26 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
-						<button className="btn dropdown-toggle w-100" type="button">
-							Dropdown button
+						<button
+							className="btn dropdown-toggle w-100"
+							type="button"
+							onClick={addComp}
+							id="addComponentBtn"
+						>
+							Add Components
 						</button>
+						{visibilityComp ? (
+							<div style={flair.componentBar} className="inner-container">
+								<Box name="TEST" />
+							</div>
+						) : (
+							<div></div>
+						)}
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
-						<div id="renderDiv"></div>
+
+						<Dustbin />
 					</main>
 				</div>
 			</div>
