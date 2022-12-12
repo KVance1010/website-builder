@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const {
     createUser,
-    login
+    login,
+    addProject
   } = require('../../controllers/userControler');
 
   const { authMiddleware } = require('../../utils/auth');
@@ -10,7 +11,7 @@ const {
 
   router.route('/login').post(login);
   
-
+  router.route('/addProject').post(addProject);
 
 
 module.exports = router;
