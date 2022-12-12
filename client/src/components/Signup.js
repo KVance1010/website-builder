@@ -71,7 +71,7 @@ const Signup = () => {
 	return (
 		<>
 			<div>
-				<img className="img_login" src={loginImg} />
+				<img className="img_login" src={loginImg} alt="Buildings in the background."/>
 				<div className="container card_container">
 					<div className="row d-flex justify-content-center w-100 card_container">
 						<div className="col-6">

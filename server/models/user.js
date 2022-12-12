@@ -3,29 +3,10 @@ const Build = require('./build');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
-<<<<<<< HEAD
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-      email: {
-        type: String,
-        required: true,
-        unique: true,
-        match: [/.+@.+\..+/, 'Must use a valid email address'],
-      },
-      password: {
-        type: String,
-        required: true,
-      },
-      builds: [Build]
-=======
   username: {
     type: String,
     required: true,
     unique: true,
->>>>>>> 203ad0be90b6aee1e3db2fc15508e85af24ae51c
   },
   email: {
     type: String,

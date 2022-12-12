@@ -50,7 +50,7 @@ const Login = () => {
 	return (
 		<>
 			<div>
-				<img className="img_login" src={loginImg} />
+				<img className="img_login" src={loginImg} alt="Buildings in the background."/>
 				<div className="container">
 					<div className="row d-flex justify-content-center w-100 card_container">
 						<div className="col-6 ">

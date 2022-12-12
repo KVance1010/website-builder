@@ -8,13 +8,14 @@
 }
 .logo_link {
 	text-decoration: none;
+	margin-left: 60px;
 }
 .logo_title:hover {
 	color: #36441d;
 }
 .nav_link {
 	font-size: 40px;
-	padding-right: 10px;
+	padding-right: 20px;
 	color: var(--main-font);
 	font-weight: 500;
 	margin-top: 30px;
