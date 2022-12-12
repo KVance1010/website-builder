@@ -124,16 +124,10 @@ const WRK = () => {
 			setVisibilityUpload(true);
 			setImageSubmitVisibility(false)
 			console.log(imageName)
-<<<<<<< HEAD
+			
 			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')			
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
-=======
-			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
-		} else { alert("Invalid name, please use alphanumeric characters.") }
-	}
-
->>>>>>> 82080d3aef97f752bea73d10a0f613c8dff8ce3d
 
 	const navSubmit = async (e) => {
 		e.preventDefault();
