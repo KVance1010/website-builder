@@ -284,8 +284,8 @@ const WRK = () => {
 								</button>
 								<div className="outer-container" style={{ flexDirection: 'column' }} >
 									<p>What font would you like to use for your title:</p>
-									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
-										<input type="radio" id="font-1" name="fontTitle" value="Sarif" />
+									<label htmlFor="serif" style={{ fontFamily: 'Serif' }}>serif
+										<input type="radio" id="font-1" name="fontTitle" value="serif" />
 									</label>
 									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Cursive
 										<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{ fontFamily: 'Cursive' }} />
@@ -296,8 +296,8 @@ const WRK = () => {
 								</div>
 								<div className="outer-container" style={{ flexDirection: 'column' }} >
 									<p>What font would you like to use for your nav links:</p>
-									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
-										<input type="radio" name="fontNav" value="Sarif" />
+									<label htmlFor="serif" style={{ fontFamily: 'Serif' }}>serif
+										<input type="radio" name="fontNav" value="serif" />
 									</label>
 									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Cursive
 										<input type="radio" name="fontNav" value="Cursive" style={{ fontFamily: 'Cursive' }} />
