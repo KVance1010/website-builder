@@ -125,47 +125,7 @@ const WRK = () => {
 			setImageSubmitVisibility(false)
 			console.log(imageName)
 			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
-			// let navImage = document.getElementById('imgLink').value;
-			// let navPubId = document.getElementById('imgName').value;
-			// console.log(navPubId)
-
-<<<<<<< HEAD
-			// if (codeCompileArr.map(function (x) {
-			// 	if (x == navImage || x == navPubId) {
-			// 		let indexOfImg = codeCompileArr.indexOf(navImage)
-			// 		let indexOfPubId = codeCompileArr.indexOf(navPubId)
-			// 		codeCompileArr.splice(indexOfImg, 0)
-			// 		codeCompileArr.splice(indexOfPubId, 0)
-			// 	}
-			// }));
-			// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
-			// let tempImg = {
-			// 	navImage: navImage,
-			// 	navPubId: navPubId
-			// };
-			// console.log(tempImg, "temp1")
-			// codeCompileArr.push(tempImg);
-			// console.log(codeCompileArr, "temp2")
 		} else { alert("Invalid name, please use alphanumeric characters.") }
-=======
-		if (codeCompileArr.map(function (x) {
-			if (x == navImage || x == navPubId) {
-				let indexOfImg = codeCompileArr.indexOf(navImage)
-				let indexOfPubId = codeCompileArr.indexOf(navPubId)
-				codeCompileArr.splice(indexOfImg, 0)
-				codeCompileArr.splice(indexOfPubId, 0)
-			}
-		}));
-		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)
-		let tempImg = {
-			navImage: navImage,
-			navPubId: navPubId
-		};
-		// console.log(tempImg, "temp1")
-		codeCompileArr.push(tempImg);
-		console.log(codeCompileArr, "temp2")
-		// return temp;
->>>>>>> 203ad0be90b6aee1e3db2fc15508e85af24ae51c
 	}
 
 
@@ -193,8 +153,6 @@ const WRK = () => {
 				navFontVal = fontNav[i].value
 			}
 		}
-		console.log(navFontVal)
-
 
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;	
@@ -224,14 +182,12 @@ const WRK = () => {
 		let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
-				console.log('yes')
 				navObj = i;
 			}
 		}
 		if (navObj === -1) {
 		} else {
 			let navRenderObj = codeCompileArr[navObj];
-			console.log(navRenderObj, "OBJECTIFY ME")
 			let header = document.createElement("div");
 			header.setAttribute(
 				"style",
@@ -542,7 +498,7 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
-						<Save {...codeCompileArr}/>
+						<Save myProp = {codeCompileArr}/>
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
