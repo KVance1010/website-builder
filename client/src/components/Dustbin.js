@@ -4,6 +4,7 @@ import { ItemTypes } from './ItemTypes.js'
 import React, { useState, useRef, useCallback } from 'react';
 
 import Card from './Card';
+import Editable from './Editable'
 
 import { useDragDropManager } from 'react-dnd'
 import update from 'immutability-helper'
@@ -45,16 +46,24 @@ export default function Dustbin() {
         [cards, setCards]
     )
 
-    const moveCard = useCallback(
-        (id, left, top) => {
-            const newCards = [...cardsRef.current];
-            newCards[id].left = left;
-            newCards[id].top = top;
+    const moveCard = (id, left, top) => {
+        // const newCards = [...cardsRef.current];
+        cardsRef.current[id].left = left;
+        cardsRef.current[id].top = top;
 
-            cardsRef.current = newCards;
-        },
-        [cards, setCards],
-    );
+        // cardsRef.current = newCards;
+    };
+
+    // const moveCard = useCallback(
+    //     (id, left, top) => {
+    //         const newCards = [...cardsRef.current];
+    //         newCards[id].left = left;
+    //         newCards[id].top = top;
+
+    //         cardsRef.current = newCards;
+    //     },
+    //     [cards, setCards],
+    // );
 
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: [
@@ -99,6 +108,22 @@ export default function Dustbin() {
                     id={index}
                     left={card.left}
                     top={card.top}
+                    children={
+                        [
+                            <Editable
+                                html={
+                                    <div className="card-header bg-primary text-white">
+                                        Greeting from state:
+                                    </div>
+                                }
+                            />,
+                            <div className="card-body">
+                                <p className="card-text text-dark" style={{ fontSize: '50px' }}>
+                                    Hello!
+                                </p>
+                            </div>
+                        ]
+                    }
                 />
             )}
         </div>
