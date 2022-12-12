@@ -54,7 +54,7 @@ const Signup = () => {
 			}
 
 			const { token, user } = await response.json();
-			console.log(user);
+			Auth.setUserId(user._id);
 			Auth.login(token);
 		} catch (err) {
 			console.error(err);
