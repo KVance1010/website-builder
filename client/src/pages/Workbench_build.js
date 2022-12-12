@@ -153,8 +153,6 @@ const WRK = () => {
 				navFontVal = fontNav[i].value
 			}
 		}
-		console.log(navFontVal)
-
 
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;	
@@ -184,14 +182,12 @@ const WRK = () => {
 		let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
-				console.log('yes')
 				navObj = i;
 			}
 		}
 		if (navObj === -1) {
 		} else {
 			let navRenderObj = codeCompileArr[navObj];
-			console.log(navRenderObj, "OBJECTIFY ME")
 			let header = document.createElement("div");
 			header.setAttribute(
 				"style",

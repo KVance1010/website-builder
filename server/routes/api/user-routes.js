@@ -11,7 +11,7 @@ const {
 
   router.route('/login').post(login);
   
-  router.route('/addProject').put(addProject, authMiddleware);
+  router.route('/addProject').post(addProject, authMiddleware);
 
 
 module.exports = router;
