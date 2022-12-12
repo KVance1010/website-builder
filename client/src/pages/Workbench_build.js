@@ -129,45 +129,8 @@ const WRK = () => {
 			// let navPubId = document.getElementById('imgName').value;
 			// console.log(navPubId)
 
-<<<<<<< HEAD
-			// if (codeCompileArr.map(function (x) {
-			// 	if (x == navImage || x == navPubId) {
-			// 		let indexOfImg = codeCompileArr.indexOf(navImage)
-			// 		let indexOfPubId = codeCompileArr.indexOf(navPubId)
-			// 		codeCompileArr.splice(indexOfImg, 0)
-			// 		codeCompileArr.splice(indexOfPubId, 0)
-			// 	}
-			// }));
-			// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
-			// let tempImg = {
-			// 	navImage: navImage,
-			// 	navPubId: navPubId
-			// };
-			// console.log(tempImg, "temp1")
-			// codeCompileArr.push(tempImg);
-			// console.log(codeCompileArr, "temp2")
 		} else { alert("Invalid name, please use alphanumeric characters.") }
-=======
-		if (codeCompileArr.map(function (x) {
-			if (x == navImage || x == navPubId) {
-				let indexOfImg = codeCompileArr.indexOf(navImage)
-				let indexOfPubId = codeCompileArr.indexOf(navPubId)
-				codeCompileArr.splice(indexOfImg, 0)
-				codeCompileArr.splice(indexOfPubId, 0)
-			}
-		}));
-		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)
-		let tempImg = {
-			navImage: navImage,
-			navPubId: navPubId
-		};
-		// console.log(tempImg, "temp1")
-		codeCompileArr.push(tempImg);
-		console.log(codeCompileArr, "temp2")
-		// return temp;
->>>>>>> 203ad0be90b6aee1e3db2fc15508e85af24ae51c
 	}
-
 
 	const navSubmit = async (e) => {
 		e.preventDefault();
@@ -197,7 +160,7 @@ const WRK = () => {
 
 
 		let navDirVal = document.getElementById("navDir").textContent;
-		let navColor = color;	
+		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
 		let homeTitle = document.getElementById("homeTitle").value;
 		let navLinks = navLinksString.split(",");
@@ -433,7 +396,7 @@ const WRK = () => {
 										</label>
 										<input className="col-6" type="text" id="imgName" onKeyUp={handleImageName} placeholder="img name here"></input>
 									</div>
-																
+
 									<hr className="navBenchBreak"></hr>
 
 									<div className="row-12">
@@ -452,16 +415,16 @@ const WRK = () => {
 										</button>
 									</div>
 
-									
 
-									
+
+
 
 									<hr className="navBenchBreak"></hr>
 
-									
-									
 
-									
+
+
+
 
 									<div className="row labelText">
 										<p>What font would you like to use for your nav links:</p>
@@ -542,7 +505,7 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
-						<Save {...codeCompileArr}/>
+						<Save {...codeCompileArr} />
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>

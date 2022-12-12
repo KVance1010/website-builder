@@ -12,13 +12,15 @@ export default function Card({ id, left, top, children }) {
     // const [canDrag, setCanDrag] = useState(true);
     const canDrag = useRef(true);
 
+    const [position, setPosition] = useState({ left, top });
+
     const styles = {
         card: {
             width: width,
             height: height,
             position: 'absolute',
-            left: left,
-            top: top
+            left: position.left,
+            top: position.top
         }
     };
 
@@ -41,6 +43,7 @@ export default function Card({ id, left, top, children }) {
                 type,
                 left,
                 top,
+                children,
                 xOffset: monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x,
                 yOffset: monitor.getInitialClientOffset().y - monitor.getInitialSourceClientOffset().y
             }
@@ -56,7 +59,7 @@ export default function Card({ id, left, top, children }) {
             handlerId: monitor.getHandlerId(),
         }),
     }),
-        [id, left, top]
+        [id, left, top, children]
     )
 
     if (isDragging) {
