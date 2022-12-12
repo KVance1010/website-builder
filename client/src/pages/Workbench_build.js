@@ -2,7 +2,7 @@ import React, { useState, Component } from "react";
 // import React from 'react';
 // import uploadImage from "../../../server/utils/images";
 import { Cloudinary } from '@cloudinary/url-gen';
-
+import Save from '../components/Save_wrk';
 import { AdvancedImage } from '@cloudinary/react';
 import { CloudinaryImage } from "@cloudinary/url-gen";
 import { URLConfig } from "@cloudinary/url-gen";
@@ -129,6 +129,7 @@ const WRK = () => {
 			// let navPubId = document.getElementById('imgName').value;
 			// console.log(navPubId)
 
+<<<<<<< HEAD
 			// if (codeCompileArr.map(function (x) {
 			// 	if (x == navImage || x == navPubId) {
 			// 		let indexOfImg = codeCompileArr.indexOf(navImage)
@@ -146,6 +147,25 @@ const WRK = () => {
 			// codeCompileArr.push(tempImg);
 			// console.log(codeCompileArr, "temp2")
 		} else { alert("Invalid name, please use alphanumeric characters.") }
+=======
+		if (codeCompileArr.map(function (x) {
+			if (x == navImage || x == navPubId) {
+				let indexOfImg = codeCompileArr.indexOf(navImage)
+				let indexOfPubId = codeCompileArr.indexOf(navPubId)
+				codeCompileArr.splice(indexOfImg, 0)
+				codeCompileArr.splice(indexOfPubId, 0)
+			}
+		}));
+		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)
+		let tempImg = {
+			navImage: navImage,
+			navPubId: navPubId
+		};
+		// console.log(tempImg, "temp1")
+		codeCompileArr.push(tempImg);
+		console.log(codeCompileArr, "temp2")
+		// return temp;
+>>>>>>> 203ad0be90b6aee1e3db2fc15508e85af24ae51c
 	}
 
 
@@ -522,6 +542,7 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
+						<Save {...codeCompileArr}/>
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
