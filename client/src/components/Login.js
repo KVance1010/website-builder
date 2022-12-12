@@ -12,6 +12,7 @@ const Login = () => {
 		password: '',
 	});
 	const [validated] = useState(false);
+	const [userLoginError, setUserLoginError] = useState(false);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -33,12 +34,12 @@ const Login = () => {
 			if (!response.ok) {
 				throw new Error('something went wrong!');
 			}
-
 			const { token, user } = await response.json();
-			console.log(user);
+			Auth.setUserId(user._id);
 			Auth.login(token);
 		} catch (err) {
 			console.error(err);
+			setUserLoginError(true);
 		}
 
 		setUserFormData({
@@ -50,7 +51,11 @@ const Login = () => {
 	return (
 		<>
 			<div>
-				<img className="img_login" src={loginImg} alt="Buildings in the background."/>
+				<img
+					className="img_login"
+					src={loginImg}
+					alt="Buildings in the background."
+				/>
 				<div className="container">
 					<div className="row d-flex justify-content-center w-100 card_container">
 						<div className="col-6 ">
@@ -76,8 +81,8 @@ const Login = () => {
 												/>
 											</label>
 										</div>
-										<div class="mb-3">
-											<label class="form-label w-100 label_input">
+										<div className="mb-3">
+											<label className="form-label w-100 label_input">
 												Password
 												<input
 													type="password"
@@ -89,6 +94,11 @@ const Login = () => {
 													required
 												/>
 											</label>
+											{userLoginError ? (
+												<div className="label_input">Wrong username or password</div>
+											) : (
+												<div></div>
+											)}
 										</div>
 										<div>
 											<button
@@ -102,7 +112,9 @@ const Login = () => {
 												Submit
 											</button>
 											<Link to="/signup">
-												<button className="btn btn-dark signUp_btn">Signup</button>
+												<button className="btn btn-dark signUp_btn">
+													Signup
+												</button>
 											</Link>
 										</div>
 									</form>

@@ -1,18 +1,24 @@
 import React from "react";
 import { saveContent } from '../utils/api';
-// {buildCode: body.buildCode},{description: body.description},{title: body.title}
-// codeCompileArr
-const save = (props) => {
+import Auth from "../utils/auth";
+
+const save = ({myProp}) => {
 const saveCont = async (e) => {
     e.preventDefault();
     let title = prompt('what would you like to title your project')
     let desc = prompt('describe your project')
+
     let userData = {
-        buildCode: props.codeCompileArr,
+        buildCode: myProp[0],
         title: title,
         description: desc
     }
     try {
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+        if (!token) {
+          return false;
+        }
+        userData.userId = Auth.getUserId();
         const response = await saveContent(userData);
 
         if (!response.ok) {

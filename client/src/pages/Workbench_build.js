@@ -124,9 +124,16 @@ const WRK = () => {
 			setVisibilityUpload(true);
 			setImageSubmitVisibility(false)
 			console.log(imageName)
+<<<<<<< HEAD
 			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')			
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
+=======
+			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
+		} else { alert("Invalid name, please use alphanumeric characters.") }
+	}
+
+>>>>>>> 82080d3aef97f752bea73d10a0f613c8dff8ce3d
 
 	const navSubmit = async (e) => {
 		e.preventDefault();
@@ -152,8 +159,6 @@ const WRK = () => {
 				navFontVal = fontNav[i].value
 			}
 		}
-		console.log(navFontVal)
-
 
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;	
@@ -183,14 +188,12 @@ const WRK = () => {
 		let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
-				console.log('yes')
 				navObj = i;
 			}
 		}
 		if (navObj === -1) {
 		} else {
 			let navRenderObj = codeCompileArr[navObj];
-			console.log(navRenderObj, "OBJECTIFY ME")
 			let header = document.createElement("div");
 			header.setAttribute(
 				"style",
@@ -501,7 +504,7 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
-						<Save {...codeCompileArr}/>
+						<Save myProp = {codeCompileArr}/>
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
