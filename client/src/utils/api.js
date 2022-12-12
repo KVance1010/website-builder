@@ -17,3 +17,15 @@ export const createUser = (userData) => {
       body: JSON.stringify(userData),
     });
   };
+
+  
+  export const saveContent = (userData, token) => {
+    return fetch('/api/users/addProject', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(userData),
+    });
+  };
