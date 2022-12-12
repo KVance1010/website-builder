@@ -32,7 +32,7 @@ function Header() {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 {Auth.loggedIn() ? (
-                                    <a>
+                                    <a href='#'>
                                         <p
                                             className="nav-link active text-white fw-bold"
                                             aria-current="page"

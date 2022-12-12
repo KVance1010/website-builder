@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 
 import { useDrag, useDragDropManager } from 'react-dnd';
-
 import { ItemTypes } from './ItemTypes'
-
 import { Resizable } from 'react-resizable';
 
-export default function Card({ id, left, top }) {
+import Editable from './Editable';
+
+export default function Card({ id, left, top, children }) {
     const [width, setWidth] = useState(200);
     const [height, setHeight] = useState(200);
     // const [canDrag, setCanDrag] = useState(true);
@@ -30,11 +30,7 @@ export default function Card({ id, left, top }) {
     };
 
     const onMouseOver = (e) => {
-        // console.log(e);
-        // console.log('canDrag:', !e.target.matches('.react-resizable-handle'));
         canDrag.current = !e.target.matches('.react-resizable-handle');
-
-        // console.log(canDrag.current);
     };
 
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -71,14 +67,19 @@ export default function Card({ id, left, top }) {
         <Resizable height={height} width={width} onResize={onResize} onMouseOver={onMouseOver}>
             <div ref={drag} className="card text-center"
                 style={styles.card}>
-                <div className="card-header bg-primary text-white">
-                    Greeting from state:
-                </div>
+                {children}
+                {/* <Editable
+                    html={
+                        <div className="card-header bg-primary text-white">
+                            Greeting from state:
+                        </div>
+                    }
+                />
                 <div className="card-body">
                     <p className="card-text text-dark" style={{ fontSize: '50px' }}>
                         Hello!
                     </p>
-                </div>
+                </div> */}
             </div>
         </Resizable>
     );
