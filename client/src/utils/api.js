@@ -19,12 +19,12 @@ export const createUser = (userData) => {
   };
 
   
-  export const saveContent = (userData, token) => {
+  export const saveContent = (userData) => {
+    console.log(userData, "frontend");
     return fetch('/api/users/addProject', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        authorization: `Bearer ${token}`
       },
       body: JSON.stringify(userData),
     });

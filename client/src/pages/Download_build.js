@@ -1,4 +1,4 @@
-import downloadProject from '../file/test/test.txt';
+import downloadProject from '../file/test/test3.txt';
 import downloadProject1 from '../file/test/test2.txt';
 import Footer from '../components/Footer';
 import '../styles/Download_build.css';
@@ -47,9 +47,9 @@ const Download_build = () => {
 							</select>
 						</div>
 						<p className="card-text">how to download info</p>
-						<a className="btn btn-dark" onClick={downloadProjectFolder}>
+						<button className="btn btn-dark" onClick={downloadProjectFolder}>
 							Download
-						</a>
+						</button>
 					</div>
 					<div className="card-footer"></div>
 				</div>

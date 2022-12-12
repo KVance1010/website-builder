@@ -125,10 +125,6 @@ const WRK = () => {
 			setImageSubmitVisibility(false)
 			console.log(imageName)
 			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
-			// let navImage = document.getElementById('imgLink').value;
-			// let navPubId = document.getElementById('imgName').value;
-			// console.log(navPubId)
-
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	}
 
@@ -156,8 +152,6 @@ const WRK = () => {
 				navFontVal = fontNav[i].value
 			}
 		}
-		console.log(navFontVal)
-
 
 		let navDirVal = document.getElementById("navDir").textContent;
 		let navColor = color;
@@ -187,14 +181,12 @@ const WRK = () => {
 		let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
-				console.log('yes')
 				navObj = i;
 			}
 		}
 		if (navObj === -1) {
 		} else {
 			let navRenderObj = codeCompileArr[navObj];
-			console.log(navRenderObj, "OBJECTIFY ME")
 			let header = document.createElement("div");
 			header.setAttribute(
 				"style",
