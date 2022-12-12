@@ -31,3 +31,9 @@ color: var(--main-font);
 .signUp_btn{
     margin-left:20px;
 }
+
+/* @media screen and (max-width: 495) {
+    .signUp_btn {
+        margin:10px 0px;
+    }
+} */
