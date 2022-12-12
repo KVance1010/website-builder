@@ -131,7 +131,7 @@ const WRK = () => {
 				codeCompileArr.splice(indexOfPubId, 0)
 			}
 		}));
-		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
+		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)
 		let tempImg = {
 			navImage: navImage,
 			navPubId: navPubId
