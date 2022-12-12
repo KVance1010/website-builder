@@ -4,8 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import { EditText, EditTextarea } from 'react-edit-text';
 
-export default function Editable({ html }) {
+export default function Editable({ text, cardStyles, setCardStyles }) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -14,7 +15,16 @@ export default function Editable({ html }) {
     const [iconBackground, setIconBackground] = React.useState('rgba(0, 0, 0, 0)');
     const [editText, setEditText] = React.useState(false);
 
-    const [text, setText] = React.useState("Greeting from state:");
+    // const [text, setText] = React.useState("Greetings from state:");
+
+    // const [savedText, setSavedText] = React.useState('');
+
+    // const handleTextReplace = (e) => {
+    //     if (e.key === 'Enter') {
+    //         setSavedText(e.target.value);
+    //         setEditText(false);
+    //     }
+    // }
 
     const styles = {
         opacity: opacity,
@@ -111,15 +121,15 @@ export default function Editable({ html }) {
 
     const handleClose = (e) => {
         closeMenu(e);
-        // if (pointerOverIcon(e.clientX, e.clientY)) {
-        // } else if (pointerOverEditable(e.clientX, e.clientY)) {
-        //     setIconBackground('rgba(0, 0, 0, 0)');
-        // } else {
-        //     removeHoveredEffect();
-        //     setIconBackground('rgba(0, 0, 0, 0)');
-        // }
-
         setAnchorEl(null);
+    };
+
+    const setText = (text) => {
+        const newCardStyles = [...cardStyles];
+        newCardStyles[0][0].text = text;
+        console.log(newCardStyles[0][0].text);
+
+        setCardStyles(newCardStyles);
     };
 
     return (
@@ -139,6 +149,7 @@ export default function Editable({ html }) {
                         size="small"
                         onBlur={handleBlur}
                         onChange={handleTextChange}
+                    // onKeyUp={handleTextReplace}
                     />
                     :
                     <h6 className="card-title text-white m-0">{text}</h6>
