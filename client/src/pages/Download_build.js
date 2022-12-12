@@ -9,46 +9,49 @@ import React from 'react';
 
 const Download_build = () => {
 	const downloadProjectFolder = async () => {
-		console.log("button clicked")
+		console.log('button clicked');
 		let zip = new JSZip();
 		let count = 0;
-		let zipFilename = "zipFilename.zip";
-		let urls = [
-		  downloadProject1,
-		  downloadProject
-		];
+		let zipFilename = 'zipFilename.zip';
+		let urls = [downloadProject1, downloadProject];
 
-		urls.forEach(function(url, i) {
+		urls.forEach(function (url, i) {
 			let filename = 'filename' + i;
-		  JSZipUtils.getBinaryContent(url, function(err, data) {
-			if (err) {
-			  throw err;
-			}
-			zip.file(filename, data, { binary: true });
-			count++;
-			if (count === urls.length) {
-			  zip.generateAsync({ type: "blob" }).then(function(content) {
-				saveAs(content, zipFilename);
-			  });
-			}
-		  });
+			JSZipUtils.getBinaryContent(url, function (err, data) {
+				if (err) {
+					throw err;
+				}
+				zip.file(filename, data, { binary: true });
+				count++;
+				if (count === urls.length) {
+					zip.generateAsync({ type: 'blob' }).then(function (content) {
+						saveAs(content, zipFilename);
+					});
+				}
+			});
 		});
 	};
 
 	return (
 		<>
-			<div class="download_container">
-				<div class="card text-center container px-0 download_card">
-					<div class="card-header">Current</div>
-					<div class="card-body">
-						<h5 class="card-title">Name of project</h5>
-
-						<p class="card-text">how to download info</p>
-						<a class="btn btn-primary" onClick={downloadProjectFolder}>
+			<div className="download_container">
+				<div className="card text-center container px-0 download_card">
+					<div className="card-header">Download Your Project</div>
+					<div className="card-body">
+						<h5 className="card-title">Select Project</h5>
+						<div className="dropdown">
+							<select className="btn btn-secondary dropdown-toggle btn-lg">
+								<option value="Project 1">Project 1</option>
+								<option value="Project 2">Project 2</option>
+								<option value="Project 3">Project 3</option>
+							</select>
+						</div>
+						<p className="card-text">how to download info</p>
+						<a className="btn btn-dark" onClick={downloadProjectFolder}>
 							Download
 						</a>
 					</div>
-					<div class="card-footer"></div>
+					<div className="card-footer"></div>
 				</div>
 			</div>
 			<Footer />
