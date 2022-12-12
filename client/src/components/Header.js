@@ -8,7 +8,7 @@ import logo from '../asset/Images/logo.jpg';
 function Header() {
 	// TODO: set active state on the nav bar and work on toggle drop down also need to save logged in state
 	// const [selected, setSelected] = useState('Home');
-	
+
 	return (
 		<header className="header_container">
 			<Link to="/" className="logo_link">
@@ -47,11 +47,7 @@ function Header() {
 						</Link>
 					</li>
 				</ul>
-				{/* <div class="hamburger">
-					<span class="bar"></span>
-					<span class="bar"></span>
-					<span class="bar"></span>
-				</div> */}
+
 			</nav>
 		</header>
 	);

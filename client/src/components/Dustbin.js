@@ -24,61 +24,43 @@ const style = {
     float: 'left',
 }
 export default function Dustbin() {
-    const editable = useRef(
-        <Editable
-            key={0}
-            html={
-                <div className="card-header bg-primary text-white">
-                    Greeting from state:
-                </div>
-            }
-        />
-    );
-
-    const children =
-        [
-            editable.current,
-            <div className="card-body" key={1}>
-                <p className="card-text text-dark" style={{ fontSize: '50px' }}>
-                    Hello!
-                </p>
-            </div>
-        ];
-
     const [cards, setCards] = useState([
         {
             top: 20,
             left: 20,
-            children: children
-            // [
-            //     <Editable
-            //         key={0}
-            //         html={
-            //             <div className="card-header bg-primary text-white">
-            //                 Greeting from state:
-            //             </div>
-            //         }
-            //     />,
-            //     <div className="card-body" key={1}>
-            //         <p className="card-text text-dark" style={{ fontSize: '50px' }}>
-            //             Hello!
-            //         </p>
-            //     </div>
-            // ]
         }
     ]);
+
+    const [cardStyles, setCardStyles] = useState([
+        [
+            {
+                text: "Greetings from state!",
+                style: {
+                    backgroundColor: '#0d6efd',
+                    color: 'white'
+                }
+            },
+            {
+                text: "Hello!",
+                style: {
+
+                }
+            }
+        ]
+    ])
 
     const cardsRef = useRef(cards);
 
     const createCard = useCallback(
         (item, x, y) => {
-            const newCards = [...cardsRef.current];
+            const newCards = [...cards];
             const headerOffset = document.querySelector('header').offsetHeight;
             const sidebarOffset = document.getElementById('sidebar').offsetWidth;
 
             newCards.push({
                 left: x - (sidebarOffset + item.xOffset),
-                top: y - (headerOffset + item.yOffset)
+                top: y - (headerOffset + item.yOffset),
+                item: <Card key={cards.length} id={cards.length} />
             });
 
             setCards(newCards);
@@ -95,13 +77,10 @@ export default function Dustbin() {
     // };
 
     const moveCard = useCallback(
-        (id, left, top, children) => {
+        (id, left, top) => {
             const newCards = [...cards];
             newCards[id].left = left;
             newCards[id].top = top;
-            newCards[id].children = children;
-
-            console.log(newCards[id].children);
 
             setCards(newCards);
         },
@@ -116,9 +95,9 @@ export default function Dustbin() {
         drop: (item, monitor) => {
             if (item.type === ItemTypes.CARD) {
                 const delta = monitor.getDifferenceFromInitialOffset();
-                const left = Math.round(item.left + delta.x)
-                const top = Math.round(item.top + delta.y)
-                moveCard(item.id, left, top, item.children)
+                const left = Math.round(cards[item.id].left + delta.x)
+                const top = Math.round(cards[item.id].top + delta.y)
+                moveCard(item.id, left, top)
                 return undefined
             } else if (ItemTypes.CARD_COMPONENT) {
 
@@ -151,25 +130,10 @@ export default function Dustbin() {
                 <Card
                     key={index}
                     id={index}
-                    left={card.left}
                     top={card.top}
-                    children={
-                        card.children
-                        // [
-                        //     <Editable
-                        //         html={
-                        //             <div className="card-header bg-primary text-white">
-                        //                 Greeting from state:
-                        //             </div>
-                        //         }
-                        //     />,
-                        //     <div className="card-body">
-                        //         <p className="card-text text-dark" style={{ fontSize: '50px' }}>
-                        //             Hello!
-                        //         </p>
-                        //     </div>
-                        // ]
-                    }
+                    left={card.left}
+                    cardStyles={cardStyles}
+                    setCardStyles={setCardStyles}
                 />
             )}
         </div>

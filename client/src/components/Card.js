@@ -6,21 +6,19 @@ import { Resizable } from 'react-resizable';
 
 import Editable from './Editable';
 
-export default function Card({ id, left, top, children }) {
+export default function Card({ id, top, left, cardStyles, setCardStyles }) {
     const [width, setWidth] = useState(200);
     const [height, setHeight] = useState(200);
     // const [canDrag, setCanDrag] = useState(true);
     const canDrag = useRef(true);
-
-    const [position, setPosition] = useState({ left, top });
 
     const styles = {
         card: {
             width: width,
             height: height,
             position: 'absolute',
-            left: position.left,
-            top: position.top
+            top: top,
+            left: left
         }
     };
 
@@ -40,10 +38,9 @@ export default function Card({ id, left, top, children }) {
         item: (monitor) => {
             return {
                 id,
-                type,
-                left,
                 top,
-                children,
+                left,
+                type,
                 xOffset: monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x,
                 yOffset: monitor.getInitialClientOffset().y - monitor.getInitialSourceClientOffset().y
             }
@@ -59,7 +56,7 @@ export default function Card({ id, left, top, children }) {
             handlerId: monitor.getHandlerId(),
         }),
     }),
-        [id, left, top, children]
+        [id, top, left, width, height]
     )
 
     if (isDragging) {
@@ -70,19 +67,16 @@ export default function Card({ id, left, top, children }) {
         <Resizable height={height} width={width} onResize={onResize} onMouseOver={onMouseOver}>
             <div ref={drag} className="card text-center"
                 style={styles.card}>
-                {children}
-                {/* <Editable
-                    html={
-                        <div className="card-header bg-primary text-white">
-                            Greeting from state:
-                        </div>
-                    }
+                <Editable
+                    cardStyles={cardStyles}
+                    setCardStyles={setCardStyles}
+                    text={cardStyles[0][0].text}
                 />
-                <div className="card-body">
+                <div className="card-body" key={1}>
                     <p className="card-text text-dark" style={{ fontSize: '50px' }}>
                         Hello!
                     </p>
-                </div> */}
+                </div>
             </div>
         </Resizable>
     );
