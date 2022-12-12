@@ -1,4 +1,4 @@
-import downloadProject from '../file/test/test.txt';
+import downloadProject from '../file/test/test3.txt';
 import downloadProject1 from '../file/test/test2.txt';
 import Footer from '../components/Footer';
 import '../styles/Download_build.css';
