@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
-import useClickOutside from "./useClickOutside";
+import useClickOutside from "./UseClickOutside";
 
 export const PopoverPicker = ({ color, onChange }) => {
     const popover = useRef();
@@ -11,7 +11,7 @@ export const PopoverPicker = ({ color, onChange }) => {
     useClickOutside(popover, close);
 
     return (
-        <div className="picker">
+        <div style={{position: 'relative', right: '15px'}} className="picker">
             <div
                 className="swatch"
                 style={{ backgroundColor: color }}

@@ -32,6 +32,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import UploadWidget from "../components/UploadWidget";
 
 import { uploadImage, getAssetInfo, createImageTag } from '../utils/images'
+import { Position } from "@cloudinary/transformation-builder-sdk/qualifiers";
 
 const flair = {
 	addNavBarSizing: {
@@ -39,7 +40,7 @@ const flair = {
 		minHeight: "100%",
 	},
 	addNavBarColor: {
-		backgroundColor: "aquamarine",
+		backgroundColor: "#77C3EC",
 	},
 	className: {
 		display: 'flex',
@@ -73,6 +74,8 @@ const WRK = () => {
 
 
 	const [color, setColor] = useState("#aabbcc");
+	const [colorNavTitle, setColor1] = useState("#aabbcc");
+	const [colorNavLinks, setColor2] = useState("#aabbcc");
 
 	const start = () => {
 		codeCompileArr = [];
@@ -115,41 +118,48 @@ const WRK = () => {
 
 	const imageSubmit = (e) => {
 		e.preventDefault();
-		// if(/^\w+$/ == document.getElementById('imgName').value){
-		setVisibilityUpload(true);
-		setImageSubmitVisibility(false)
-		console.log(imageName)
-		let navImage = document.getElementById('imgLink').value;
-		let navPubId = document.getElementById('imgName').value;
-		console.log(navPubId)
+		let inputVal = document.getElementById('imgName').value
+		let regEx = "^[a-zA-Z0-9_ ]*$"
+		if (inputVal.match(regEx)) {
+			setVisibilityUpload(true);
+			setImageSubmitVisibility(false)
+			console.log(imageName)
+			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
+			// let navImage = document.getElementById('imgLink').value;
+			// let navPubId = document.getElementById('imgName').value;
+			// console.log(navPubId)
 
-		if (codeCompileArr.map(function (x) {
-			if (x == navImage || x == navPubId) {
-				let indexOfImg = codeCompileArr.indexOf(navImage)
-				let indexOfPubId = codeCompileArr.indexOf(navPubId)
-				codeCompileArr.splice(indexOfImg, 0)
-				codeCompileArr.splice(indexOfPubId, 0)
-			}
-		}));
-		// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
-		let tempImg = {
-			navImage: navImage,
-			navPubId: navPubId
-		};
-		// console.log(tempImg, "temp1")
-		codeCompileArr.push(tempImg);
-		console.log(codeCompileArr, "temp2")
-		// return temp;
+			// if (codeCompileArr.map(function (x) {
+			// 	if (x == navImage || x == navPubId) {
+			// 		let indexOfImg = codeCompileArr.indexOf(navImage)
+			// 		let indexOfPubId = codeCompileArr.indexOf(navPubId)
+			// 		codeCompileArr.splice(indexOfImg, 0)
+			// 		codeCompileArr.splice(indexOfPubId, 0)
+			// 	}
+			// }));
+			// let savedImage = uploadImage(codeCompileArr.navImgUrl, codeCompileArr.navPublicId)		
+			// let tempImg = {
+			// 	navImage: navImage,
+			// 	navPubId: navPubId
+			// };
+			// console.log(tempImg, "temp1")
+			// codeCompileArr.push(tempImg);
+			// console.log(codeCompileArr, "temp2")
+		} else { alert("Invalid name, please use alphanumeric characters.") }
 	}
 
 
-	const navSubmit = (e) => {
+	const navSubmit = async (e) => {
 		e.preventDefault();
 		setVisibilityUpload(false);
-		setImageSubmitVisibility(true)
+		setImageSubmitVisibility(true);
+		// let navImgBtn = document.getElementById('imageBtn');
+		let navSubmitBtn = document.getElementById('navBtn');
+		// navImgBtn.text("Try Another Image");
+
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
-		let fontTitle = document.getElementsByName('fontTitle')
+		let fontTitle = document.getElementsByName('fontTitle');
 		let titleFontVal
 		for (let i = 0; i < fontTitle.length; i++) {
 			if (fontTitle[i].checked) {
@@ -167,7 +177,7 @@ const WRK = () => {
 
 
 		let navDirVal = document.getElementById("navDir").textContent;
-		let navColor = color;
+		let navColor = color;	
 		let navLinksString = document.getElementById("navLinksString").value;
 		let homeTitle = document.getElementById("homeTitle").value;
 		let navLinks = navLinksString.split(",");
@@ -180,7 +190,9 @@ const WRK = () => {
 			fontTitle: titleFontVal,
 			fontNavLinks: navFontVal,
 			navImgLink: navImgLink,
-			navImgPubId: imageName
+			navImgPubId: imageName,
+			navTitleColor: colorNavTitle,
+			navLinksColor: colorNavLinks
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
@@ -212,6 +224,7 @@ const WRK = () => {
 				`width: 100%;
 				font-size: 40px;
 				text-align: center;
+				color: ${navRenderObj.navTitleColor};
 				font-family: ${navRenderObj.fontTitle}`
 			);
 			title.textContent = navRenderObj.homeTitle;
@@ -257,6 +270,7 @@ const WRK = () => {
 				navLink.setAttribute(
 					"style",
 					`margin-right: 15px;
+					color: ${navRenderObj.navLinksColor};
 					font-family: ${navRenderObj.fontNavLinks};`)
 
 				navLink.textContent = navRenderObj.navlinks[0][i];
@@ -265,6 +279,7 @@ const WRK = () => {
 
 			// let navImage = uploadImage(image, )	
 
+			navSubmitBtn.textContent = "Update NavBar Settings";
 
 			header.append(title);
 			header.append(navImg);
@@ -280,92 +295,219 @@ const WRK = () => {
 					<aside
 						id="sidebar"
 						className="col-3 d-flex flex-column align-items-center"
-					>
-						<h2 className="mt-3">Workbench</h2>
-						<button
-							className="btn btn-success w-100"
-							type="button"
-							onClick={start}
-						>
-							Start
-						</button>
-						<button
-							className="btn dropdown-toggle w-100"
-							type="button"
-							onClick={addNav}
-							id="addNavBtn"
-						>
-							{nav}
-						</button>
-						{visibilityNav ? (
-							<div style={flair.addNavBarColor} className="inner-container">
-								<div className="d-flex justify-content-between">
-									<label>background color for nav bar</label>
-									{<PopoverPicker color={color} onChange={setColor} />}
+					>	<div className="navInputWrapper">
+							<div className="row d-flex">
+								<div className="col">
+									<h2 className="mt-3 workbenchTitle">Workbench</h2>
 								</div>
-								<label>
-									nav bar links (seperate with a comma)
-									<input type="text" id="navLinksString"></input>
-								</label>
-								<label>
-									Title of home page
-									<input type="text" id="homeTitle"></input>
-								</label>
-								<button id="navDir" onClick={navDir}>
-									Right
-								</button>
-								<label>
-									Add profile image/logo:
-									<input type="text" id="imgName" onKeyUp={handleImageName} placeholder="Add a name and then press 'Upload'!"></input>
-									{visibilityUpload ? (
-										<UploadWidget imageName={imageName} />
-									) : <div></div>}
-								</label>
-								{imageSubmitVisibility ? (
+								<div className="col">
+									<button
+										style={{ position: 'relative', top: '15px' }}
+										className="btn btn-success"
+										type="button"
+										onClick={start}
+									>
+										Start
+									</button>
+								</div>
+							</div>
+							<button
+								style={{ color: 'white' }}
+								className="btn dropdown-toggle w-100"
+								type="button"
+								onClick={addNav}
+								id="addNavBtn"
+							>
+								{nav}
+							</button>
+							{visibilityNav ? (
+
+								<div style={flair.addNavBarColor} className="col-12 inner-container">
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select background color: </label>
+											{<PopoverPicker color={color} onChange={setColor} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Title of home page
+										</label>
+										<input className="col-6" type="text" id="homeTitle"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row labelText">
+										<p>Select a font for header Title:</p>
+									</div>
+
+									<div className="row">
+										<div className="col-4">
+											<label className="labelText" htmlFor="serif" style={{ fontFamily: 'Serif' }}>Serif
+												<input type="radio" name="fontTitle" value="Serif" style={{ fontFamily: 'Serif' }} />
+											</label>
+											<label className="labelText" htmlFor="comic sans MS" style={{ fontFamily: 'Cursive' }}>Comic Sans
+												<input type="radio" name="fontTitle" value="comic sans MS" style={{ fontFamily: 'Cursive' }} />
+											</label>
+											<label className="labelText" htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Impact
+												<input type="radio" name="fontTitle" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="arial" style={{ fontFamily: 'sans-serif' }}>Arial
+												<input type="radio" name="fontTitle" value="arial" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor="Courier" style={{ fontFamily: 'monospace' }}>Courier
+												<input type="radio" name="fontTitle" value="Courier" style={{ fontFamily: 'monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="Tahoma" style={{ fontFamily: 'sans-serif' }}>Tahoma
+												<input type="radio" name="fontTitle" value="Tahoma" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="Monaco" style={{ fontFamily: 'Monospace' }}>Monaco
+												<input type="radio" name="fontTitle" value="Monaco" style={{ fontFamily: 'Monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }}>Brush
+												<input type="radio" name="fontTitle" value="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }} />
+											</label>
+											<label className="labelText" htmlFor="lucida" style={{ fontFamily: 'Monospace' }}>Lucida
+												<input type="radio" name="fontTitle" value="lucida" style={{ fontFamily: 'Monospace' }} />
+											</label>
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select Title Color: </label>
+											{<PopoverPicker color={colorNavTitle} onChange={setColor1} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Add profile image/logo:
+											{imageSubmitVisibility ? (
+												<button
+													className="btn btn-primary col-9 labelText"
+													id="imageBtn"
+													onClick={imageSubmit}
+												>
+													Submit / Update Image
+												</button>
+											) : <div></div>}
+											{visibilityUpload ? (
+												<UploadWidget imageName={imageName} />
+											) : <div></div>}
+										</label>
+										<input className="col-6" type="text" id="imgName" onKeyUp={handleImageName} placeholder="img name here"></input>
+									</div>
+																
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Input navLinks <br /> (<i>Separate by ','!</i>):
+										</label>
+										<input className="col-6" type="text" id="navLinksString"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">Anchor nav links left/right: </label>
+										<button className="col-6 btn btn-primary" id="navDir" onClick={navDir}>
+											Right
+										</button>
+									</div>
+
+									
+
+									
+
+									<hr className="navBenchBreak"></hr>
+
+									
+									
+
+									
+
+									<div className="row labelText">
+										<p>What font would you like to use for your nav links:</p>
+									</div>
+
+									<div className="row">
+										<div className="col-4">
+											<label className="labelText" htmlFor="serif" style={{ fontFamily: 'Serif' }}>Serif
+												<input type="radio" name="fontNav" value="Serif" style={{ fontFamily: 'Serif' }} />
+											</label>
+											<label className="labelText" htmlFor="comic sans MS" style={{ fontFamily: 'Cursive' }}>Comic Sans
+												<input type="radio" name="fontNav" value="comic sans MS" style={{ fontFamily: 'Cursive' }} />
+											</label>
+											<label className="labelText" htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Impact
+												<input type="radio" name="fontNav" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="arial" style={{ fontFamily: 'sans-serif' }}>Arial
+												<input type="radio" name="fontNav" value="arial" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor="Courier" style={{ fontFamily: 'monospace' }}>Courier
+												<input type="radio" name="fontNav" value="Courier" style={{ fontFamily: 'monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="Tahoma" style={{ fontFamily: 'sans-serif' }}>Tahoma
+												<input type="radio" name="fontNav" value="Tahoma" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="Monaco" style={{ fontFamily: 'Monospace' }}>Monaco
+												<input type="radio" name="fontNav" value="Monaco" style={{ fontFamily: 'Monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }}>Brush
+												<input type="radio" name="fontNav" value="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }} />
+											</label>
+											<label className="labelText" htmlFor="lucida" style={{ fontFamily: 'Monospace' }}>Lucida
+												<input type="radio" name="fontNav" value="lucida" style={{ fontFamily: 'Monospace' }} />
+											</label>
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select NavLink Color: </label>
+											{<PopoverPicker color={colorNavLinks} onChange={setColor2} />}
+										</div>
+									</div>
+
 									<button
 										className="btn btn-primary m-3"
-										id="imageBtn"
-										onClick={imageSubmit}
+										id="navBtn"
+										onClick={navSubmit}
 									>
-										Submit Image Name
+										Submit Nav Settings
 									</button>
-								) : <div></div>}
-								<div className="outer-container" style={{ flexDirection: 'column' }} >
-									<p>What font would you like to use for your title:</p>
-									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
-										<input type="radio" id="font-1" name="fontTitle" value="Sarif" />
-									</label>
-									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Cursive
-										<input type="radio" id="font-2" name="fontTitle" value="Cursive" style={{ fontFamily: 'Cursive' }} />
-									</label>
-									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Fantasy
-										<input type="radio" id="font-3" name="fontTitle" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
-									</label>
 								</div>
-								<div className="outer-container" style={{ flexDirection: 'column' }} >
-									<p>What font would you like to use for your nav links:</p>
-									<label htmlFor="sarif" style={{ fontFamily: 'Serif' }}>Sarif
-										<input type="radio" name="fontNav" value="Sarif" />
-									</label>
-									<label htmlFor="cursive" style={{ fontFamily: 'Cursive' }}>Cursive
-										<input type="radio" name="fontNav" value="Cursive" style={{ fontFamily: 'Cursive' }} />
-									</label>
-									<label htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Fantasy
-										<input type="radio" name="fontNav" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
-									</label>
-								</div>
-								<button
-									className="btn btn-primary m-3"
-									id="navBtn"
-									onClick={navSubmit}
-								>
-									Submit Nav Settings
-								</button>
-							</div>
-						) : (
-							<div></div>
-						)}
+							) : (
+								<div></div>
+							)}
+						</div>
 						<button
+							style={{ color: 'white' }}
 							className="btn dropdown-toggle w-100"
 							type="button"
 							onClick={addComp}

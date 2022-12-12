@@ -5,6 +5,7 @@
 .inner-container {
   display: flex;
   flex-direction: column;
+  padding:2px;
 }
 
 
@@ -43,4 +44,40 @@ main {
   left: 0;
   border-radius: 9px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navBenchBreak {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: white;
+  border-style: dashed;
+  border-width: 3px;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+@media screen and (max-width: 1070px) {
+  .workbenchTitle{
+    font-size: 20px;
+    position: relative;
+    top: 10px;
+    left: 15px;
+  }
+  .labelText{
+    font-size: 14px;
+    padding: 2px;
+  }
+}
+
+@media screen and (max-width: 845px) {
+  .workbenchTitle{
+    font-size: 15px;
+    position: relative;
+    top: 10px;
+    left: 30px;
+  }
+
+  
 }
