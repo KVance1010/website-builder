@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const buildSchema = require('./build');
+const Build = require('./build');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
@@ -18,7 +18,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
       },
-      builds: [buildSchema]
+      builds: [Build]
   },
   {
     toJSON: {

@@ -2,7 +2,7 @@ import React, { useState, Component } from "react";
 // import React from 'react';
 // import uploadImage from "../../../server/utils/images";
 import { Cloudinary } from '@cloudinary/url-gen';
-
+import Save from '../components/Save_wrk';
 import { AdvancedImage } from '@cloudinary/react';
 import { CloudinaryImage } from "@cloudinary/url-gen";
 import { URLConfig } from "@cloudinary/url-gen";
@@ -380,6 +380,7 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
+						<Save {...codeCompileArr}/>
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>

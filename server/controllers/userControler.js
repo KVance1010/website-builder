@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Build} = require('../models');
 const { signToken } = require('../utils/auth');
 
 module.exports = {
@@ -8,6 +8,7 @@ module.exports = {
       if (!user) {
         return res.status(400).json({ message: 'Something is wrong!' });
       }
+      console.log(user._id);
       const token = signToken(user);
       res.json({ token, user });
     },
@@ -23,6 +24,19 @@ module.exports = {
       }
       const token = signToken(user);
       res.json({ token, user });
+    },
+
+    async addProject({user, body}, res){
+      // let user 
+      // const build = await Build.create([{buildCode: body.buildCode},{description: body.description},{title: body.title}]);
+      // const build = await Build.create({body})
+      const userUp = await User.findOneAndUpdate(
+        {_id: user._id},
+        {$push:{builds: body}})
+        if (!userUp){
+          return res.status(400).json({ message: 'wrong credentials!' });
+        }
+        res.json({message: "Added Project seccessfully"})
     }
 
 }
