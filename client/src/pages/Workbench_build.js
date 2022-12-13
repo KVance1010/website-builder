@@ -407,16 +407,7 @@ const WRK = () => {
 										</button>
 									</div>
 
-
-
-
-
 									<hr className="navBenchBreak"></hr>
-
-
-
-
-
 
 									<div className="row labelText">
 										<p>What font would you like to use for your nav links:</p>
