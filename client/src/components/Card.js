@@ -4,9 +4,10 @@ import { useDrag, useDragDropManager } from 'react-dnd';
 import { ItemTypes } from './ItemTypes'
 import { Resizable } from 'react-resizable';
 
-import Editable from './Editable';
+import EditableHeader from './EditableHeader';
+import EditableBody from './EditableBody';
 
-export default function Card({ id, top, left, cardStyles, setCardStyles }) {
+export default function Card({ id, top, left, cards, setCards }) {
     const [width, setWidth] = useState(200);
     const [height, setHeight] = useState(200);
     // const [canDrag, setCanDrag] = useState(true);
@@ -67,16 +68,21 @@ export default function Card({ id, top, left, cardStyles, setCardStyles }) {
         <Resizable height={height} width={width} onResize={onResize} onMouseOver={onMouseOver}>
             <div ref={drag} className="card text-center"
                 style={styles.card}>
-                <Editable
-                    cardStyles={cardStyles}
-                    setCardStyles={setCardStyles}
-                    text={cardStyles[0][0].text}
+                <EditableHeader
+                    cards={cards}
+                    setCards={setCards}
+                    parentId={id}
+                    text={cards[id].header.text}
                 />
-                <div className="card-body" key={1}>
+                <EditableBody
+                    parentId={id}
+                    cards={cards}
+                    setCards={setCards}
+                >
                     <p className="card-text text-dark" style={{ fontSize: '50px' }}>
                         Hello!
                     </p>
-                </div>
+                </EditableBody>
             </div>
         </Resizable>
     );
