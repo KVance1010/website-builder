@@ -2,7 +2,8 @@ const router = require('express').Router();
 const {
     createUser,
     login,
-    addProject
+    addProject,
+    findAllProjects
   } = require('../../controllers/userControler');
 
   const { authMiddleware } = require('../../utils/auth');
@@ -12,6 +13,8 @@ const {
   router.route('/login').post(login);
   
   router.route('/addProject').post(addProject, authMiddleware);
+
+  router.route('/findAllProjects/:id').get(findAllProjects);
 
 
 module.exports = router;
