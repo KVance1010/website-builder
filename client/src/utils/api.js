@@ -35,5 +35,4 @@ export const createUser = (userData) => {
             'Content-Type': 'application/json',
           },
         })
-
     }

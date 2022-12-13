@@ -29,7 +29,7 @@ class AuthService {
   setUserId(userId){
     localStorage.setItem('user_id', userId);
   }
-  getUserId(userId){
+  getUserId(){
     return localStorage.getItem('user_id');
   }
 
