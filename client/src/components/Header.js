@@ -15,7 +15,7 @@ function Header() {
 			setActive('active');
 		}
 	};
-	
+
 	return (
 		<header className="header_container">
 			<Link to="/" className="logo_link">
@@ -31,9 +31,9 @@ function Header() {
 					<NavigationLinks />
 				</ul>
 				<div className={`hamburger ${active}`} onClick={handleDropDown}>
-					<span class="bar"></span>
-					<span class="bar"></span>
-					<span class="bar"></span>
+					<span className="bar"></span>
+					<span className="bar"></span>
+					<span className="bar"></span>
 					{dropDown ? (
 						<ul className="navbar_nav2">
 							<NavigationLinks />
