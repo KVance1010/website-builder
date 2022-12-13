@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 import logo from '../asset/Images/logo.jpg';
 import NavigationLinks from './NavLinks';
@@ -18,14 +18,14 @@ function Header() {
 	
 	return (
 		<header className="header_container">
-			<NavLink activeClassName="active" to="/" className="logo_link">
+			<Link to="/" className="logo_link">
 				<img
 					className="logo_img"
 					src={logo}
 					alt="A book called Change by Design is on a table with a watch, tablet, and Iphone."
 				/>
 				<h1 className=" logo_title">Aspiration Architects</h1>
-			</NavLink>
+			</Link>
 			<nav className="nav_container">
 				<ul className="navbar__nav">
 					<NavigationLinks />

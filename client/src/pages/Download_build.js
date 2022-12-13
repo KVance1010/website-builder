@@ -2,9 +2,8 @@ import downloadProject from '../file/reset.txt';
 import downloadProject1 from '../file/index.txt';
 import Footer from '../components/Footer';
 import Render from '../components/render_file';
-// import {findAllProjects} from '../utils/api';
-// import {getUserId} from '../utils/auth';
-
+import {findAllProjects} from '../utils/api';
+import Auth from '../utils/auth';
 import '../styles/Download_build.css';
 import JSZip from 'jszip';
 import JSZipUtils from 'jszip-utils';
@@ -19,9 +18,9 @@ const Download_build = () => {
 		let count = 0;
 		let zipFilename = 'zipFilename.zip';
 		let urls = [downloadProject1, downloadProject];
-
-		// let project = findAllProjects(getUserId());
-
+		let id = Auth.getUserId();
+		let project = findAllProjects(id);
+		console.log(project);
 
 		urls.forEach(function (url, i) {
 			let filename;

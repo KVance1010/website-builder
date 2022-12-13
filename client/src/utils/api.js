@@ -34,5 +34,5 @@ export const createUser = (userData) => {
           headers: {
             'Content-Type': 'application/json',
           },
-        })
+        }).then(response => response.json())
     }

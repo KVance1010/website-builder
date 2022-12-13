@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import '../styles/Header.css';
 
@@ -14,22 +14,22 @@ const NavigationLinks = () => {
 							</p>
 						</p>
 					) : (
-						<NavLink activeClassName="active" to="/login" className="header_link">
+						<Link to="/login" className="header_link">
 							<p className="nav_link">
 								Login
 							</p>
-						</NavLink>
+						</Link>
 					)}
 				</li>
 				<li>
-					<NavLink activeClassName="active" to="/projects" className="header_link">
+					<Link to="/projects" className="header_link">
 						<p className="nav_link">Projects</p>
-					</NavLink>
+					</Link>
 				</li>
 				<li>
-					<NavLink activeClassName="active" to="/export" className="header_link">
+					<Link to="/export" className="header_link">
 						<p className="nav_link">Export</p>
-					</NavLink>
+					</Link>
 				</li>
 			</>
 	);
