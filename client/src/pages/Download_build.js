@@ -1,6 +1,8 @@
-import downloadProject from '../file/test/css.txt';
-import downloadProject1 from '../file/test/index.txt';
+import downloadProject from '../file/reset.txt';
+import downloadProject1 from '../file/index.txt';
 import Footer from '../components/Footer';
+import Render from '../components/render_file';
+
 import '../styles/Download_build.css';
 import JSZip from 'jszip';
 import JSZipUtils from 'jszip-utils';
@@ -54,6 +56,7 @@ const Download_build = () => {
 							</select>
 						</div>
 						<p className="card-text">how to download info</p>
+						<Render />
 						<button className="btn btn-dark" onClick={downloadProjectFolder}>
 							Download
 						</button>

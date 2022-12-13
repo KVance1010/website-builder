@@ -18,7 +18,6 @@ export const createUser = (userData) => {
     });
   };
 
-  
   export const saveContent = (userData) => {
     console.log(userData, "frontend");
     return fetch('/api/users/addProject', {
@@ -28,4 +27,13 @@ export const createUser = (userData) => {
       },
       body: JSON.stringify(userData),
     });
-  };
+  }
+    export const findAllProjects = (id) => {
+        return fetch(`api/users/findAllProjects/${id}`,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+    }
