@@ -1,11 +1,15 @@
-import downloadProject from '../file/test/test3.txt';
-import downloadProject1 from '../file/test/test2.txt';
+import downloadProject from '../file/reset.txt';
+import downloadProject1 from '../file/index.txt';
 import Footer from '../components/Footer';
+import Render from '../components/render_file';
+import {findAllProjects} from '../utils/api';
+import Auth from '../utils/auth';
 import '../styles/Download_build.css';
 import JSZip from 'jszip';
 import JSZipUtils from 'jszip-utils';
 import { saveAs } from 'file-saver';
 import React from 'react';
+
 
 const Download_build = () => {
 	const downloadProjectFolder = async () => {
@@ -14,9 +18,19 @@ const Download_build = () => {
 		let count = 0;
 		let zipFilename = 'zipFilename.zip';
 		let urls = [downloadProject1, downloadProject];
+		let id = Auth.getUserId();
+		let project = findAllProjects(id);
+		console.log(project);
 
 		urls.forEach(function (url, i) {
-			let filename = 'filename' + i;
+			let filename;
+			if(i === 0){
+				filename = 'index.html';
+
+			}else{
+				filename = 'filename' + i
+			}
+			
 			JSZipUtils.getBinaryContent(url, function (err, data) {
 				if (err) {
 					throw err;
@@ -47,6 +61,7 @@ const Download_build = () => {
 							</select>
 						</div>
 						<p className="card-text">how to download info</p>
+						<Render />
 						<button className="btn btn-dark" onClick={downloadProjectFolder}>
 							Download
 						</button>
