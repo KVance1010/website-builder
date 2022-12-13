@@ -4,7 +4,6 @@
 	z-index: 0;
     width: 100%;
     height: 100%;
-    /* margin: -50px;     */
 }
 .card-header{
     padding:1rem;
@@ -32,8 +31,8 @@ color: var(--main-font);
     margin-left:20px;
 }
 
-/* @media screen and (max-width: 495) {
+@media screen and (max-width: 495) {
     .signUp_btn {
-        margin:10px 0px;
+        margin: 10px 0px;
     }
-} */
+}

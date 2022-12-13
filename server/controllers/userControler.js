@@ -30,11 +30,29 @@ module.exports = {
 	async addProject({ body }, res) {
 		const userUp = await User.findOneAndUpdate(
 			{ _id: body.userId },
-			{ $push: { builds: {buildCode: body.buildCode, description: body.description, title: body.title} } }
+			{
+				$push: {
+					builds: {
+						buildCode: body.buildCode,
+						description: body.description,
+						title: body.title,
+					},
+				},
+			}
 		);
 		if (!userUp) {
 			return res.status(400).json({ message: 'wrong credentials!' });
 		}
 		res.json({ message: 'Added Project seccessfully' });
+	},
+
+	async findAllProjects(req, res) {
+		const user = await User.findOne({ _id: req.params.id }).populate('builds');
+		if (!user) {
+			return res
+				.status(400)
+				.json({ message: 'no user found, please try again' });
+		}
+		res.json(user);
 	},
 };
