@@ -126,8 +126,7 @@ const WRK = () => {
 			console.log(imageName)
 			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
 		} else { alert("Invalid name, please use alphanumeric characters.") }
-	}
-
+	};
 
 	const navSubmit = async (e) => {
 		e.preventDefault();
@@ -155,7 +154,7 @@ const WRK = () => {
 		}
 
 		let navDirVal = document.getElementById("navDir").textContent;
-		let navColor = color;	
+		let navColor = color;
 		let navLinksString = document.getElementById("navLinksString").value;
 		let homeTitle = document.getElementById("homeTitle").value;
 		let navLinks = navLinksString.split(",");
@@ -389,7 +388,7 @@ const WRK = () => {
 										</label>
 										<input className="col-6" type="text" id="imgName" onKeyUp={handleImageName} placeholder="img name here"></input>
 									</div>
-																
+
 									<hr className="navBenchBreak"></hr>
 
 									<div className="row-12">
@@ -408,16 +407,16 @@ const WRK = () => {
 										</button>
 									</div>
 
-									
 
-									
+
+
 
 									<hr className="navBenchBreak"></hr>
 
-									
-									
 
-									
+
+
+
 
 									<div className="row labelText">
 										<p>What font would you like to use for your nav links:</p>
@@ -498,7 +497,7 @@ const WRK = () => {
 						) : (
 							<div></div>
 						)}
-						<Save myProp = {codeCompileArr}/>
+						<Save {...codeCompileArr} />
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
