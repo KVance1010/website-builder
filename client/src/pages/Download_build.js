@@ -1,5 +1,5 @@
-import downloadProject from '../file/test/test3.txt';
-import downloadProject1 from '../file/test/test2.txt';
+import downloadProject from '../file/test/css.txt';
+import downloadProject1 from '../file/test/index.txt';
 import Footer from '../components/Footer';
 import '../styles/Download_build.css';
 import JSZip from 'jszip';
@@ -16,7 +16,14 @@ const Download_build = () => {
 		let urls = [downloadProject1, downloadProject];
 
 		urls.forEach(function (url, i) {
-			let filename = 'filename' + i;
+			let filename;
+			if(i === 0){
+				filename = 'index.html';
+
+			}else{
+				filename = 'filename' + i
+			}
+			
 			JSZipUtils.getBinaryContent(url, function (err, data) {
 				if (err) {
 					throw err;
