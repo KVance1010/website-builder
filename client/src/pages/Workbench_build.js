@@ -65,17 +65,26 @@ const WRK = () => {
 
 	let codeCompileArr = [];
 	const [visibilityNav, setVisibilityNav] = useState(false);
+	const [visibilityMain, setVisibilityMain] = useState(false);
 	const [visibilityComp, setVisibilityComp] = useState(false);
 
 	const [nav, setNav] = useState("Add Navigation Bar");
+	const [main, setMain] = useState("Add Main Content Section");
 
 	const [visibilityUpload, setVisibilityUpload] = useState(false);
+	const [visibilityUpload2, setVisibilityUpload2] = useState(false);
+	const [visibilityUpload3, setVisibilityUpload3] = useState(false);
 
 
 
 	const [color, setColor] = useState("#aabbcc");
 	const [colorNavTitle, setColor1] = useState("#aabbcc");
 	const [colorNavLinks, setColor2] = useState("#aabbcc");
+	const [colorMainBackground, setColor3] = useState("#aabbcc");
+	const [colorMainHeaders, setColor4] = useState("#aabbcc");
+	const [colorMainText, setColor5] = useState("#aabbcc");
+	const [colorBody, setColor6] = useState("#aabbcc");
+
 
 	const start = () => {
 		codeCompileArr = [];
@@ -90,6 +99,17 @@ const WRK = () => {
 			setNav("Remove Navigation Bar");
 		}
 	};
+
+	const addMain = () => {
+		if (visibilityMain) {
+			setVisibilityMain(false);
+			setMain("Add Main Content Section");
+		} else {
+			setVisibilityMain(true);
+			setMain("Remove Main Content Section");
+		}
+	};
+
 
 	const addComp = () => {
 		setVisibilityComp(!visibilityComp);
@@ -109,12 +129,30 @@ const WRK = () => {
 	const handleImageName = (e) => {
 		let imgname = e.target.value
 		setImageName(imgname)
-		console.log(imageName, "kyle66")
+		console.log(imageName)
+	};
+
+	const [imageName2, setImageName2] = useState("");
+	const handleImageName2 = (e) => {
+		let imgname2 = e.target.value
+		setImageName2(imgname2)
+		console.log(imageName2, "img2")
+	};
+
+	const [imageName3, setImageName3] = useState("");
+	const handleImageName3 = (e) => {
+		let imgname3 = e.target.value
+		setImageName3(imgname3)
+		console.log(imageName3, "img3")
 	};
 
 	const [navImgLink, setNavImgLink] = useState("")
+	const [mainImgLink, setMainImgLink] = useState("")
+	const [bodyImgLink, setBodyImgLink] = useState("")
 
 	const [imageSubmitVisibility, setImageSubmitVisibility] = useState(true)
+	const [imageSubmitVisibility2, setImageSubmitVisibility2] = useState(true)
+	const [imageSubmitVisibility3, setImageSubmitVisibility3] = useState(true)
 
 	const imageSubmit = (e) => {
 		e.preventDefault();
@@ -123,8 +161,29 @@ const WRK = () => {
 		if (inputVal.match(regEx)) {
 			setVisibilityUpload(true);
 			setImageSubmitVisibility(false)
-			console.log(imageName)
 			setNavImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName.trim()) + '.png')
+		} else { alert("Invalid name, please use alphanumeric characters.") }
+	};
+
+	const imageSubmit2 = (e) => {
+		e.preventDefault();
+		let inputVal2 = document.getElementById('imgName2').value
+		let regEx = "^[a-zA-Z0-9_ ]*$"
+		if (inputVal2.match(regEx)) {
+			setVisibilityUpload2(true);
+			setImageSubmitVisibility2(false)
+			setMainImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName2.trim()) + '.png')
+		} else { alert("Invalid name, please use alphanumeric characters.") }
+	};
+
+	const imageSubmit3 = (e) => {
+		e.preventDefault();
+		let inputVal3 = document.getElementById('imgName3').value
+		let regEx = "^[a-zA-Z0-9_ ]*$"
+		if (inputVal3.match(regEx)) {
+			setVisibilityUpload3(true);
+			setImageSubmitVisibility3(false)
+			setBodyImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName3.trim()) + '.png')
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
 
@@ -263,6 +322,118 @@ const WRK = () => {
 		}
 	};
 
+	const mainSubmit = async (e) => {
+		e.preventDefault();
+		setVisibilityUpload2(false);
+		setVisibilityUpload3(false);
+		setImageSubmitVisibility2(true);
+		setImageSubmitVisibility3(true);
+		// let navImgBtn = document.getElementById('imageBtn');
+		let mainSubmitBtn = document.getElementById('mainBtn');
+		// navImgBtn.text("Try Another Image");
+		
+		// if (!clickedBtn.getAttribute('count'))
+		//render object
+		let fontMainHeaders = document.getElementsByName('fontMainHeaders');
+		let fontMainHeadersVal
+		for (let i = 0; i < fontMainHeaders.length; i++) {
+			if (fontMainHeaders[i].checked) {
+				fontMainHeadersVal = fontMainHeaders[i].value
+			}
+		}
+		let fontMainText = document.getElementsByName('fontMainText')
+		let fontMainTextVal
+		for (let i = 0; i < fontMainText.length; i++) {
+			if (fontMainText[i].checked) {
+				fontMainTextVal = fontMainText[i].value
+			}
+		}
+
+		let mainTitle = document.getElementById("mainTitle").value;
+		
+		let temp = {
+			contentTitle: "body",
+			colorBody: colorBody,
+			mainTitle: mainTitle,
+			colorMainBackground: colorMainBackground,
+			fontMainHeadersVal: fontMainHeadersVal,
+			fontMainTextVal: fontMainTextVal,
+			bodyBackgroundImagePubID: imageName3,
+			mainImagePubID: imageName2,
+			bodyImgLink: bodyImgLink, 
+			mainImgLink: mainImgLink,
+			colorMain: colorMainBackground,
+			colorMainHeaders: colorMainHeaders,
+			mainTextColor: colorMainText
+		};
+		codeCompileArr.push(temp);
+		console.log(codeCompileArr);
+		let renderDiv = document.getElementById("renderDiv");
+		renderDiv.innerHTML = "";
+
+
+		//render page
+		let navObj = -1
+		for (let i = 0; i < codeCompileArr.length; i++) {
+			if (codeCompileArr[i].contentTitle === "body") {
+				navObj = i;
+			}
+		}
+		if (navObj === -1) {
+		} else {
+			let navMainObj = codeCompileArr[navObj];
+			let body = document.createElement("div");
+			body.setAttribute(
+				"style",
+				`width: 100%;
+				height: 100vh;
+				background-image: url(${navMainObj.bodyImgLink});
+				color: ${navMainObj.colorMainText};
+				background-color: ${navMainObj.colorBody};`
+			);
+			body.setAttribute(
+				"public_id",
+				`${navMainObj.bodyBackgroundImagePubID}`
+			);
+			let mainHeader = document.createElement("div");
+			mainHeader.setAttribute(
+				"style",
+				`width: 100%;
+				font-size: 30px;
+				text-align: center;
+				color: ${navMainObj.colorMainHeaders};
+				font-family: ${navMainObj.fontMainHeadersVal}`
+			);
+			mainHeader.textContent = navMainObj.mainTitle;
+			let mainImg = document.createElement("img");
+			mainImg.setAttribute(
+				"style",
+				`width: 300px;
+				height: 300px;
+				font-size: 40px;
+				text-align: center;`
+			);
+			mainImg.setAttribute(
+				"src",
+				`${navMainObj.mainImgLink}`
+			)
+			mainImg.setAttribute(
+				"public_id",
+				`${navMainObj.imageName2}`
+			)
+
+
+
+			// let navImage = uploadImage(image, )	
+
+			mainSubmitBtn.textContent = "Update Main Settings";
+
+			body.append(mainHeader);
+			body.append(mainImg);
+			renderDiv.appendChild(body);
+		}
+	};
+
 	return (
 		<React.Fragment>
 			<div className="container-fluid">
@@ -270,7 +441,7 @@ const WRK = () => {
 					<aside
 						id="sidebar"
 						className="col-3 d-flex flex-column align-items-center"
-					>	<div className="navInputWrapper">
+					>	<div className="workbenchColumnWrapper">
 							<div className="row d-flex">
 								<div className="col">
 									<h2 className="mt-3 workbenchTitle">Workbench</h2>
@@ -347,14 +518,14 @@ const WRK = () => {
 										</div>
 
 										<div className="col-4">
-											<label className="labelText" htmlFor="Monaco" style={{ fontFamily: 'Monospace' }}>Monaco
-												<input type="radio" name="fontTitle" value="Monaco" style={{ fontFamily: 'Monospace' }} />
+											<label className="labelText" htmlFor='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }}>Arial Black
+												<input type="radio" name="fontTitle" value='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }} />
 											</label>
-											<label className="labelText" htmlFor="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }}>Brush
-												<input type="radio" name="fontTitle" value="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }} />
+											<label className="labelText" htmlFor='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }}>Trebuchet MS
+												<input type="radio" name="fontTitle" value='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }} />
 											</label>
-											<label className="labelText" htmlFor="lucida" style={{ fontFamily: 'Monospace' }}>Lucida
-												<input type="radio" name="fontTitle" value="lucida" style={{ fontFamily: 'Monospace' }} />
+											<label className="labelText" htmlFor='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }}>Verdana
+												<input type="radio" name="fontTitle" value='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }} />
 											</label>
 										</div>
 									</div>
@@ -407,16 +578,7 @@ const WRK = () => {
 										</button>
 									</div>
 
-
-
-
-
 									<hr className="navBenchBreak"></hr>
-
-
-
-
-
 
 									<div className="row labelText">
 										<p>What font would you like to use for your nav links:</p>
@@ -448,14 +610,14 @@ const WRK = () => {
 										</div>
 
 										<div className="col-4">
-											<label className="labelText" htmlFor="Monaco" style={{ fontFamily: 'Monospace' }}>Monaco
-												<input type="radio" name="fontNav" value="Monaco" style={{ fontFamily: 'Monospace' }} />
+											<label className="labelText" htmlFor='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }}>Arial Black
+												<input type="radio" name="fontNav" value='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }} />
 											</label>
-											<label className="labelText" htmlFor="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }}>Brush
-												<input type="radio" name="fontNav" value="brush script mt, cursive" style={{ fontFamily: 'brush script mt, cursive' }} />
+											<label className="labelText" htmlFor='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }}>Trebuchet MS
+												<input type="radio" name="fontNav" value='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }} />
 											</label>
-											<label className="labelText" htmlFor="lucida" style={{ fontFamily: 'Monospace' }}>Lucida
-												<input type="radio" name="fontNav" value="lucida" style={{ fontFamily: 'Monospace' }} />
+											<label className="labelText" htmlFor='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }}>Verdana
+												<input type="radio" name="fontNav" value='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }} />
 											</label>
 										</div>
 									</div>
@@ -480,23 +642,228 @@ const WRK = () => {
 							) : (
 								<div></div>
 							)}
+
+							<button
+								style={{ color: 'white' }}
+								className="btn dropdown-toggle w-100"
+								type="button"
+								onClick={addComp}
+								id="addComponentBtn"
+							>
+								Add Components
+							</button>
+							{visibilityComp ? (
+								<div style={flair.componentBar} className="inner-container">
+									<CardComponent />
+								</div>
+							) : (
+								<div></div>
+							)}
+							<button
+								style={{ color: 'white' }}
+								className="btn dropdown-toggle w-100"
+								type="button"
+								onClick={addMain}
+								id="addMainBtn"
+							>
+								{main}
+							</button>
+							{visibilityMain ? (
+								<div style={flair.addNavBarColor} className="col-12 inner-container">
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select entire page background-color: </label>
+											{<PopoverPicker color={colorBody} onChange={setColor6} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Add Background Image for entire page:
+											{imageSubmitVisibility3 ? (
+												<button
+													className="btn btn-primary col-9 labelText"
+													id="imageBtn3"
+													onClick={imageSubmit3}
+												>
+													Submit / Update Image
+												</button>
+											) : <div></div>}
+											{visibilityUpload3 ? (
+												<UploadWidget imageName={imageName3} />
+											) : <div></div>}
+										</label>
+										<input className="col-6" type="text" id="imgName3" onKeyUp={handleImageName3} placeholder="img name here"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select background color: </label>
+											{<PopoverPicker color={colorMainBackground} onChange={setColor3} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Header for main section(optional)
+										</label>
+										<input className="col-6" type="text" id="mainTitle"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row labelText">
+										<p>Select a font for Main Headers: </p>
+									</div>
+
+									<div className="row">
+										<div className="col-4">
+											<label className="labelText" htmlFor="serif" style={{ fontFamily: 'Serif' }}>Serif
+												<input type="radio" name="fontMainHeaders" value="Serif" style={{ fontFamily: 'Serif' }} />
+											</label>
+
+											<label className="labelText" htmlFor="comic sans MS" style={{ fontFamily: 'Cursive' }}>Comic Sans
+												<input type="radio" name="fontMainHeaders" value="comic sans MS" style={{ fontFamily: 'Cursive' }} />
+											</label>
+											<br></br>
+											<label className="labelText" htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Impact
+												<input type="radio" name="fontMainHeaders" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="arial" style={{ fontFamily: 'sans-serif' }}>Arial
+												<input type="radio" name="fontMainHeaders" value="arial" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+											<br></br>
+											<label className="labelText" htmlFor="Courier" style={{ fontFamily: 'monospace' }}>Courier
+												<input type="radio" name="fontMainHeaders" value="Courier" style={{ fontFamily: 'monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="Tahoma" style={{ fontFamily: 'sans-serif' }}>Tahoma
+												<input type="radio" name="fontMainHeaders" value="Tahoma" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }}>Arial Black
+												<input type="radio" name="fontMainHeaders" value='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }}>Trebuchet MS
+												<input type="radio" name="fontMainHeaders" value='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }}>Verdana
+												<input type="radio" name="fontMainHeaders" value='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }} />
+											</label>
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select Main Headers Color: </label>
+											{<PopoverPicker color={colorMainHeaders} onChange={setColor4} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Add Image to main:
+											{imageSubmitVisibility2 ? (
+												<button
+													className="btn btn-primary col-9 labelText"
+													id="imageBtn2"
+													onClick={imageSubmit2}
+												>
+													Submit / Update Image
+												</button>
+											) : <div></div>}
+											{visibilityUpload2 ? (
+												<UploadWidget imageName={imageName2} />
+											) : <div></div>}
+										</label>
+										<input className="col-6" type="text" id="imgName2" onKeyUp={handleImageName2} placeholder="img name here"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row labelText">
+										<p>Select a font for all Text in Main: </p>
+									</div>
+
+									<div className="row">
+										<div className="col-4">
+											<label className="labelText" htmlFor="serif" style={{ fontFamily: 'Serif' }}>Serif
+												<input type="radio" name="fontMainText" value="Serif" style={{ fontFamily: 'Serif' }} />
+											</label>
+
+											<label className="labelText" htmlFor="comic sans MS" style={{ fontFamily: 'Cursive' }}>Comic Sans
+												<input type="radio" name="fontMainText" value="comic sans MS" style={{ fontFamily: 'Cursive' }} />
+											</label>
+											<br></br>
+											<label className="labelText" htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Impact
+												<input type="radio" name="fontMainText" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="arial" style={{ fontFamily: 'sans-serif' }}>Arial
+												<input type="radio" name="fontMainText" value="arial" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+											<br></br>
+											<label className="labelText" htmlFor="Courier" style={{ fontFamily: 'monospace' }}>Courier
+												<input type="radio" name="fontMainText" value="Courier" style={{ fontFamily: 'monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="Tahoma" style={{ fontFamily: 'sans-serif' }}>Tahoma
+												<input type="radio" name="fontMainText" value="Tahoma" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }}>Arial Black
+												<input type="radio" name="fontMainText" value='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }}>Trebuchet MS
+												<input type="radio" name="fontMainText" value='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }}>Verdana
+												<input type="radio" name="fontMainText" value='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }} />
+											</label>
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select Main Text Color: </label>
+											{<PopoverPicker color={colorMainText} onChange={setColor5} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<button
+										className="btn btn-primary m-3"
+										id="mainBtn"
+										onClick={mainSubmit}
+									>
+										Submit Main Settings
+									</button>
+								</div>
+
+							) : (
+								<div></div>
+							)}
 						</div>
-						<button
-							style={{ color: 'white' }}
-							className="btn dropdown-toggle w-100"
-							type="button"
-							onClick={addComp}
-							id="addComponentBtn"
-						>
-							Add Components
-						</button>
-						{visibilityComp ? (
-							<div style={flair.componentBar} className="inner-container">
-								<CardComponent />
-							</div>
-						) : (
-							<div></div>
-						)}
 						<Save {...codeCompileArr} />
 					</aside>
 					<main
