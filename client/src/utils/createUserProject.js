@@ -4,7 +4,7 @@ import {buildBody} from './bodyRender';
 import {buildFooter} from './footerRender';
 
 class RenderProject {
-    renderFiles (myBuildProp) {
+    renderFiles(myBuildProp) {
         let title = myBuildProp.title;
         let buildArr = myBuildProp.buildCode;
         let navTrue = false;
@@ -47,7 +47,7 @@ class RenderProject {
 </head>
         `
         let bodyOpen = `<body>`
-        let bodyClose= `</body>\n</html>`
+        let bodyClose = `</body>\n</html>`
 
         if (navTrue) {
              navRender = buildNav(buildArr[navInd]);
@@ -59,14 +59,14 @@ class RenderProject {
             footerBuild = buildFooter(buildArr[footerInd]);
         }
 
-        let fileContentArr = [headCont,bodyOpen,navRender,footerBuild,bodyClose]
+        let fileContentArr = [headCont, bodyOpen, navRender, footerBuild, bodyClose]
         let fileContent = fileContentArr.join('\n')
 
-			let file = new File([fileContent], {
-				type: 'text/plain;charset=utf-8',
-			});
-			saveAs(file, 'index.html');
-			console.log('save file');
+        let file = new File([fileContent], {
+            type: 'text/plain;charset=utf-8',
+        });
+        saveAs(file, 'index.html');
+        console.log('save file');
     }
-   }
+}
 export default new RenderProject();
