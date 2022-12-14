@@ -6,6 +6,7 @@ import { Resizable } from 'react-resizable';
 
 import EditableHeader from './EditableHeader';
 import EditableBody from './EditableBody';
+import EditableBodyText from './EditableBodyText'
 
 export default function Card({ id, top, left, cards, setCards }) {
     const [width, setWidth] = useState(200);
@@ -79,9 +80,11 @@ export default function Card({ id, top, left, cards, setCards }) {
                     cards={cards}
                     setCards={setCards}
                 >
-                    <p className="card-text text-dark" style={{ fontSize: '50px' }}>
-                        Hello!
-                    </p>
+                    <EditableBodyText
+                        parentId={id}
+                        cards={cards}
+                        setCards={setCards}
+                    />
                 </EditableBody>
             </div>
         </Resizable>

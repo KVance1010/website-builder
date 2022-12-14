@@ -10,6 +10,13 @@ import MultiCarousel from '../components/Carousel';
 import { Link } from 'react-router-dom';
 
 const Projects = () => {
+	
+	// TODO: add back in for page authorization
+	// const token = Auth.loggedIn() ? Auth.getToken() : null;
+	// 			if (!token) {
+	// 			  return false;
+	// 			}
+
 	return (
 		<React.Fragment>
 			<div className="container-fluid">
@@ -19,15 +26,15 @@ const Projects = () => {
 						className="col-3 d-flex flex-column align-items-start"
 					>
 						<h2 className="mt-3 w-100 text-center">Projects</h2>
-                        <Link to="/wrk" className="project_link">
-						<button
-							className="btn project-btn d-flex align-items-center"
-							type="button"
-						>
-							<PlusCircle color="white" size={18} className="me-2" />
-							New Project
-						</button>
-                        </Link>
+						<Link to="/wrk" className="project_link">
+							<button
+								className="btn project-btn d-flex align-items-center"
+								type="button"
+							>
+								<PlusCircle color="white" size={18} className="me-2" />
+								New Project
+							</button>
+						</Link>
 						<Link to="/wrk" className="project_link">
 							<button
 								className="btn project-btn d-flex align-items-center"
