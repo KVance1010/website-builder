@@ -5,3 +5,7 @@
 .card-body-popover .react-colorful__hue {
     border-radius: 0 0 10px 10px;
 }
+
+.card-body {
+    border-radius: 0 0 5px 5px
+}

@@ -15,7 +15,6 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     const [opacity, setOpacity] = useState(1);
     const [iconVisibility, setIconVisibility] = useState(false);
     const [iconBackground, setIconBackground] = useState('rgba(0, 0, 0, 0)');
-    const [editText, setEditText] = useState(false);
 
     /* Background color picker stuff */
     const [backgroundColorEdit, toggleBackgroundColorEdit] = useState(false);
@@ -139,7 +138,9 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                     g: 110,
                     b: 253
                 },
-                color: 'white'
+                color: 'white',
+                fontFamily: 'Arial',
+                fontSize: 16
             }
         };
 
@@ -180,7 +181,8 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                         r: 0,
                         g: 0,
                         b: 0
-                    }
+                    },
+                    fontFamily: 'Arial'
                 }
             }
         );

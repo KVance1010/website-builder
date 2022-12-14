@@ -81,7 +81,9 @@ const WRK = () => {
 						g: 110,
 						b: 253
 					},
-					color: 'white'
+					color: 'white',
+					fontFamily: 'Arial',
+					fontSize: 16
 				}
 			},
 			body: {
@@ -100,7 +102,8 @@ const WRK = () => {
 							r: 0,
 							g: 0,
 							b: 0
-						}
+						},
+						fontFamily: 'Arial'
 					}
 				}
 			]

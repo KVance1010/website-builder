@@ -1,10 +1,10 @@
-export const navBuild = (navSettings) => {
+export const buildNav = (navSettings) => {
     let navLinksArr = navSettings.navlinks[0]
     let navLinksContentArr = []
     let navDir
     let headBack
-    for (let i = 0; i < navLinksArr.lenght; i++) {
-        let content = `<li style="margin-right: 15px;color: ${navSettings.navLinksColor};font-family: ${navSettings.fontNavLinks};>
+    for (let i = 0; i < navLinksArr.length; i++) {
+        let content = `<li style="margin-right: 15px; color: ${navSettings.navLinksColor};font-family: ${navSettings.fontNavLinks};>
     ${navLinksArr[i]}
     </li>`
         navLinksContentArr.push(content)
@@ -23,7 +23,7 @@ export const navBuild = (navSettings) => {
     }
     let navContent = navLinksContentArr.join('')
     let navRender = `
-    <header style=${headBack}>
+    <header style='${headBack}'>
     <h1 style='width: 100%;font-size: 40px;text-align: center; color: ${navSettings.navTitleColor};font-family: ${navSettings.fontTitle}' >
     ${navSettings.homeTitle}
     </h1>

@@ -1,16 +1,34 @@
 import React, { useState, useRef, useCallback } from 'react';
-import Slider from '@mui/material/Slider';
 
 import '../styles/EditableBodyText.css'
 
+/* Material UI Icon */
 import EditIcon from '@mui/icons-material/Edit';
+
+/* Material UI components */
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
 import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Slider from '@mui/material/Slider';
 
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
 import useClickOutside from "./ClickOutside";
+
+import fonts from './Fonts';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 export default function EditableBodyText({ id, cards, setCards, parentId }) {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -20,11 +38,13 @@ export default function EditableBodyText({ id, cards, setCards, parentId }) {
     const [iconBackground, setIconBackground] = useState('rgba(0, 0, 0, 0)');
     const [editText, setEditText] = useState(false);
     const [editSize, setEditSize] = useState(false);
+    const [editFont, setEditFont] = useState(false);
 
     /* Background color picker stuff */
     const [colorEdit, toggleColorEdit] = useState(false);
     const colorPopover = useRef();
     const fontSizeSlider = useRef();
+    const fontSelector = useRef();
 
     const closeColorSelector = useCallback(() => toggleColorEdit(false), []);
     useClickOutside(colorPopover, closeColorSelector);
@@ -32,9 +52,13 @@ export default function EditableBodyText({ id, cards, setCards, parentId }) {
     const closeFontSizeSlider = useCallback(() => setEditSize(false), []);
     useClickOutside(fontSizeSlider, closeFontSizeSlider);
 
-    const { text, style: { fontSize, color: { r, g, b } } } = cards[parentId].bodyStyles[id];
+    const closeFontSelector = useCallback(() => setEditFont(false), []);
+    useClickOutside(fontSelector, closeFontSelector);
+
+    const { text, style: { fontFamily, fontSize, color: { r, g, b } } } = cards[parentId].bodyStyles[id];
 
     const styles = {
+        fontFamily: fontFamily,
         fontSize: fontSize,
         color: `rgba(${r}, ${g}, ${b}, ${opacity})`,
         height: 'fit-content'
@@ -162,10 +186,26 @@ export default function EditableBodyText({ id, cards, setCards, parentId }) {
         setCards(newCards);
     };
 
-    const handleEditText = (e) => {
+    const handleEditFont = (e) => {
         handleClose(e);
 
-        setEditText(true);
+        setEditFont(true);
+    }
+
+    const handleFontChange = (e) => {
+        const newCards = [...cards];
+
+        newCards[parentId].bodyStyles[id].style.fontFamily = e.target.value;
+
+        setCards(newCards);
+    }
+
+    const handleFontSizeChange = (e) => {
+        const newCards = [...cards];
+
+        newCards[parentId].bodyStyles[id].style.fontSize = e.target.value;
+
+        setCards(newCards);
     }
 
     const handleEditSize = (e) => {
@@ -174,14 +214,10 @@ export default function EditableBodyText({ id, cards, setCards, parentId }) {
         setEditSize(true);
     }
 
-    const handleFontChange = (e) => {
-        // console.log(e.target.value);
+    const handleEditText = (e) => {
+        handleClose(e);
 
-        const newCards = [...cards];
-
-        newCards[parentId].bodyStyles[id].style.fontSize = e.target.value;
-
-        setCards(newCards);
+        setEditText(true);
     }
 
     const handleRemoveText = (e) => {
@@ -199,6 +235,12 @@ export default function EditableBodyText({ id, cards, setCards, parentId }) {
         cardHeaderHeight = cardHeader.offsetHeight;
     }
 
+    let bodyTextHeight;
+    const bodyText = document.getElementById(`card-${parentId}-body-text-${id}`);
+    if (bodyText) {
+        bodyTextHeight = bodyText.offsetHeight;
+    }
+
     return (
         <>
             {editText ?
@@ -214,49 +256,81 @@ export default function EditableBodyText({ id, cards, setCards, parentId }) {
                     onKeyDown={onKeyDown}
                 />
                 :
-                <p className="card-text position-relative editable-body-text"
-                    style={{ ...styles }}
-                    onMouseEnter={onMouseEnter}
-                    onMouseLeave={onMouseLeave}
-                    onMouseOver={onMouseEnter}
-                >
-                    {text}
-                    {iconVisibility && (
-                        <>
-                            <EditIcon
-                                sx={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 0,
-                                    color: 'black',
-                                    backgroundColor: iconBackground,
-                                    borderRadius: 1
-                                }}
-                                id="edit-icon"
-                                aria-controls={open ? 'basic-menu' : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={open ? 'true' : undefined}
-                                onMouseEnter={onMouseEnterIcon}
-                                onMouseLeave={onMouseLeaveIcon}
-                                onClick={handleClick}
-                            />
-                            <Menu
-                                id="basic-menu"
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                                MenuListProps={{
-                                    'aria-labelledby': 'edit-icon',
-                                }}
+                <>
+                    <p className="card-text position-relative editable-body-text"
+                        id={`card-${parentId}-body-text-${id}`}
+                        style={{ ...styles }}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        onMouseOver={onMouseEnter}
+                    >
+                        {text}
+                        {iconVisibility && (
+                            <>
+                                <EditIcon
+                                    sx={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        right: 0,
+                                        color: 'black',
+                                        backgroundColor: iconBackground,
+                                        borderRadius: 1
+                                    }}
+                                    id="edit-icon"
+                                    aria-controls={open ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    onMouseEnter={onMouseEnterIcon}
+                                    onMouseLeave={onMouseLeaveIcon}
+                                    onClick={handleClick}
+                                />
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'edit-icon',
+                                    }}
+                                >
+                                    <MenuItem onClick={handleEditColor}>Edit Color</MenuItem>
+                                    <MenuItem onClick={handleEditFont}>Edit Font</MenuItem>
+                                    <MenuItem onClick={handleEditSize}>Edit Size</MenuItem>
+                                    <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
+                                    <MenuItem onClick={handleRemoveText}>Remove Text</MenuItem>
+                                </Menu>
+                            </>
+                        )}
+                    </p>
+                    {editFont && (
+                        <FormControl
+                            sx={{
+                                position: 'absolute',
+                                zIndex: 2,
+                                backgroundColor: 'white',
+                                borderRadius: '5px',
+                                transform: `translateY(-100)`,
+                                left: 0,
+                                bottom: 0
+                            }}
+                            ref={fontSelector}
+                        >
+                            <InputLabel id="demo-simple-select-label">Font</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={fontFamily}
+                                label="Font"
+                                onChange={handleFontChange}
+                                MenuProps={MenuProps}
                             >
-                                <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
-                                <MenuItem onClick={handleEditColor}>Edit Color</MenuItem>
-                                <MenuItem onClick={handleEditSize}>Edit Size</MenuItem>
-                                <MenuItem onClick={handleRemoveText}>Remove Text</MenuItem>
-                            </Menu>
-                        </>
+                                {fonts.map((font, index) =>
+                                    <MenuItem value={font} key={index}>{font}</MenuItem>
+                                )}
+                            </Select>
+                        </FormControl>
                     )}
-                </p>
+                </>
             }
             {colorEdit && (
                 <div className="card-body-text-popover"
@@ -281,7 +355,7 @@ export default function EditableBodyText({ id, cards, setCards, parentId }) {
                     ref={fontSizeSlider}
                     // size="small"
                     value={fontSize}
-                    onChange={handleFontChange}
+                    onChange={handleFontSizeChange}
                     aria-label="Default"
                     valueLabelDisplay="auto"
                     min={16}
