@@ -62,7 +62,7 @@ const WRK = () => {
 	// 			if (!token) {
 	// 			  return false;
 	// 			}
-	
+
 	const cld = new Cloudinary({
 		cloud: {
 			cloudName: 'dkc5agj8u'
@@ -71,6 +71,7 @@ const WRK = () => {
 
 
 	let codeCompileArr = [];
+
 	const [visibilityNav, setVisibilityNav] = useState(false);
 	const [visibilityMain, setVisibilityMain] = useState(false);
 	const [visibilityComp, setVisibilityComp] = useState(false);
@@ -619,7 +620,7 @@ const WRK = () => {
 					color: ${navRenderObj.footerLinksColor};
 					font-family: ${navRenderObj.fontFooterLinks};`)
 
-					footerLink.textContent = navRenderObj.footerlinks[0][i];
+				footerLink.textContent = navRenderObj.footerlinks[0][i];
 				links.append(footerLink);
 			}
 
@@ -850,7 +851,7 @@ const WRK = () => {
 								onClick={addComp}
 								id="addComponentBtn"
 							>
-								{comp}								
+								{comp}
 							</button>
 							{visibilityComp ? (
 								<div style={flair.componentBar} className="inner-container">

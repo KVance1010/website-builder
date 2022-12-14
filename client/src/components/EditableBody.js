@@ -24,6 +24,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     const closeBackgroundColorSelector = useCallback(() => toggleBackgroundColorEdit(false), []);
     useClickOutside(backgroundColorPopover, closeBackgroundColorSelector);
 
+    const { header } = cards[parentId];
     const { r, g, b } = cards[parentId].body.style;
 
     const styles = {
@@ -126,6 +127,10 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         }
     };
 
+    const handleAddHeader = (e) => {
+        handleClose(e);
+    }
+
     const handleBackgroundColorChange = ({ r, g, b }) => {
 
         const newCards = [...cards];
@@ -168,6 +173,8 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         setCards(newCards);
     }
 
+    console.log(header);
+
     return (
         <>
             <div className="card-body d-flex flex-column align-items-start position-relative editable-body"
@@ -206,6 +213,9 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                                 'aria-labelledby': 'edit-icon',
                             }}
                         >
+                            {!header && (
+                                <MenuItem onClick={handleAddHeader}>Add Header</MenuItem>
+                            )}
                             <MenuItem onClick={handleEditBackgroundColor}>Edit Background Color</MenuItem>
                             <MenuItem onClick={handleAddText}>Add Text</MenuItem>
                         </Menu>
