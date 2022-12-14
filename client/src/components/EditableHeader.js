@@ -4,7 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import { EditText, EditTextarea } from 'react-edit-text';
+
+import '../styles/EditableHeader.css'
+
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
 import useClickOutside from "./UseClickOutside";
 
@@ -17,7 +19,7 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     const [iconBackground, setIconBackground] = React.useState('rgba(0, 0, 0, 0)');
     const [editText, setEditText] = React.useState(false);
 
-    const { backgroundColor, color } = cards[parentId].header.style;
+    const { backgroundColor: { r: backgroundR, g: backgroundG, b: backgroundB }, color } = cards[parentId].header.style;
 
     /* background color picker */
     const [backgroundColorEdit, toggleBackgroundColorEdit] = React.useState(false);
@@ -32,8 +34,7 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     useClickOutside(textColorPopover, closeTextColorSelector);
 
     const styles = {
-        opacity: opacity,
-        backgroundColor: backgroundColor,
+        backgroundColor: `rgba(${backgroundR}, ${backgroundG}, ${backgroundB}, ${opacity})`,
         color: color
     };
 
@@ -70,6 +71,12 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
         }
     };
 
+    const onKeyDown = (e) => {
+        if (e.key === "Enter") {
+            setEditText(false);
+        }
+    }
+
     const onMouseEnterIcon = (e) => {
         console.log('MOUSE ENTER ICON');
         setHoveredEffect();
@@ -101,7 +108,7 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
         const elements = document.elementsFromPoint(x, y);
 
         for (const element of elements) {
-            if (element.classList.value.includes('editable')) {
+            if (element.classList.value.includes('editable-header')) {
                 return true;
             }
         }
@@ -109,9 +116,11 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
         return false;
     }
 
-    const handleBackgroundColorChange = (e) => {
+    const handleBackgroundColorChange = ({ r, g, b }) => {
         const newCards = [...cards];
-        newCards[parentId].header.style.backgroundColor = e;
+        newCards[parentId].header.style.backgroundColor.r = r;
+        newCards[parentId].header.style.backgroundColor.g = g;
+        newCards[parentId].header.style.backgroundColor.b = b;
 
         setCards(newCards);
     }
@@ -173,7 +182,8 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     return (
         <>
             <div
-                className="card-header editable"
+                className="card-header editable-header"
+                id={`editable-card-header-${parentId}`}
                 style={styles}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -187,14 +197,14 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
                         size="small"
                         onBlur={handleBlur}
                         onChange={handleTextChange}
-                    // onKeyUp={handleTextReplace}
+                        onKeyDown={onKeyDown}
                     />
                     :
                     <h6 className="card-title m-0">{text}</h6>
                 }
             </div>
             {backgroundColorEdit && (
-                <div className="popover"
+                <div className="card-header-popover"
                     ref={backgroundColorPopover}
                     style={{
                         position: 'absolute',
@@ -202,7 +212,7 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
                         left: '101%'
                     }}
                 >
-                    <HexColorPicker color={backgroundColor} onChange={handleBackgroundColorChange} />
+                    <RgbaColorPicker color={{ r: backgroundR, g: backgroundG, b: backgroundB, a: 1 }} onChange={handleBackgroundColorChange} />
                 </div>
             )}
             {textColorEdit && (

@@ -1,22 +1,33 @@
-import * as React from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+
+import '../styles/EditableBody.css'
 
 import EditIcon from '@mui/icons-material/Edit';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import { EditText, EditTextarea } from 'react-edit-text';
-import { blackwhite } from '@cloudinary/transformation-builder-sdk/actions/effect';
+
+import { HexColorPicker, RgbaColorPicker } from "react-colorful";
+import useClickOutside from "./UseClickOutside";
 
 export default function EditableBody({ cards, setCards, parentId, children }) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const [opacity, setOpacity] = React.useState(1);
-    const [iconVisibility, setIconVisibility] = React.useState(false);
-    const [iconBackground, setIconBackground] = React.useState('rgba(0, 0, 0, 0)');
-    const [editText, setEditText] = React.useState(false);
+    const [opacity, setOpacity] = useState(1);
+    const [iconVisibility, setIconVisibility] = useState(false);
+    const [iconBackground, setIconBackground] = useState('rgba(0, 0, 0, 0)');
+    const [editText, setEditText] = useState(false);
+
+    /* Background color picker stuff */
+    const [backgroundColorEdit, toggleBackgroundColorEdit] = useState(false);
+    const backgroundColorPopover = useRef();
+
+    const closeBackgroundColorSelector = useCallback(() => toggleBackgroundColorEdit(false), []);
+    useClickOutside(backgroundColorPopover, closeBackgroundColorSelector);
+
+    const { r, g, b } = cards[parentId].body.style;
 
     const styles = {
-        opacity: opacity,
+        backgroundColor: `rgba(${r}, ${g}, ${b}, ${opacity} )`
     };
 
     const setHoveredEffect = () => {
@@ -68,20 +79,16 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         return false;
     }
 
-    const pointerOverEditable = (x, y) => {
+    const pointerOverEditableBody = (x, y) => {
         const elements = document.elementsFromPoint(x, y);
 
         for (const element of elements) {
-            if (element.classList.value.includes('editable')) {
+            if (element.classList.value.includes('editable-body')) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    const handleBlur = (e) => {
-        setEditText(false);
     }
 
     const handleClick = (event) => {
@@ -91,7 +98,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     const closeMenu = (e) => {
         if (pointerOverIcon(e.clientX, e.clientY)) {
 
-        } else if (pointerOverEditable(e.clientX, e.clientY)) {
+        } else if (pointerOverEditableBody(e.clientX, e.clientY)) {
             setIconBackground('rgba(0, 0, 0, 0)');
         } else {
             removeHoveredEffect();
@@ -99,8 +106,21 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         }
     };
 
+    const handleBackgroundColorChange = ({ r, g, b }) => {
+
+        const newCards = [...cards];
+        newCards[parentId].body.style.r = r;
+        newCards[parentId].body.style.g = g;
+        newCards[parentId].body.style.b = b;
+
+        setCards(newCards);
+    }
+
     const handleEditBackgroundColor = (e) => {
-        handleClose(e);
+        closeMenu(e);
+        setAnchorEl(null);
+
+        toggleBackgroundColorEdit(true);
     }
 
     const handleClose = (e) => {
@@ -108,18 +128,11 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         setAnchorEl(null);
     };
 
-    const setText = (text) => {
-        const newCards = [...cards];
-        newCards[parentId].header.text = text;
-
-        setCards(newCards);
-    };
-
     return (
         <>
-            <div className="card-body position-relative editable"
+            <div className="card-body position-relative editable-body"
                 key={1}
-                style={{ ...styles, ...cards[parentId].body.style }}
+                style={styles}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onMouseOver={onMouseEnter}
@@ -153,14 +166,25 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                                 'aria-labelledby': 'edit-icon',
                             }}
                         >
-                            <MenuItem onClick={handleClose}>Edit Background Color</MenuItem>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                            <MenuItem onClick={handleEditBackgroundColor}>Edit Background Color</MenuItem>
+                            <MenuItem onClick={handleClose}>Add Text</MenuItem>
                         </Menu>
                     </>
                     :
                     <></>}
             </div>
+            {backgroundColorEdit && (
+                <div className="card-body-popover"
+                    ref={backgroundColorPopover}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '101%'
+                    }}
+                >
+                    <RgbaColorPicker color={{ r, g, b, a: 1 }} onChange={handleBackgroundColorChange} />
+                </div>
+            )}
         </>
         // React.cloneElement(
         //     html,

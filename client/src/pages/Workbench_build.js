@@ -338,7 +338,7 @@ const WRK = () => {
 		// let navImgBtn = document.getElementById('imageBtn');
 		let mainSubmitBtn = document.getElementById('mainBtn');
 		// navImgBtn.text("Try Another Image");
-		
+
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
 		let fontMainHeaders = document.getElementsByName('fontMainHeaders');
@@ -357,7 +357,7 @@ const WRK = () => {
 		}
 
 		let mainTitle = document.getElementById("mainTitle").value;
-		
+
 		let temp = {
 			contentTitle: "body",
 			colorBody: colorBody,
@@ -367,7 +367,7 @@ const WRK = () => {
 			fontMainTextVal: fontMainTextVal,
 			bodyBackgroundImagePubID: imageName3,
 			mainImagePubID: imageName2,
-			bodyImgLink: bodyImgLink, 
+			bodyImgLink: bodyImgLink,
 			mainImgLink: mainImgLink,
 			colorMain: colorMainBackground,
 			colorMainHeaders: colorMainHeaders,
@@ -448,15 +448,15 @@ const WRK = () => {
 					<aside
 						id="sidebar"
 						className="col-3 d-flex flex-column align-items-center"
-					>	<div className="workbenchColumnWrapper">
-							<div className="row d-flex">
+					>	<div className="container-fluid workbenchColumnWrapper">
+							<div className="row d-flex align-items-center">
 								<div className="col">
 									<h2 className="mt-3 workbenchTitle">Workbench</h2>
 								</div>
-								<div className="col">
+								<div className="col d-flex flex-row justify-content-end">
 									<button
-										style={{ position: 'relative', top: '15px' }}
 										className="btn btn-success"
+										id={'startButton'}
 										type="button"
 										onClick={start}
 									>

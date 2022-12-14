@@ -5,7 +5,7 @@
 .inner-container {
   display: flex;
   flex-direction: column;
-  padding:2px;
+  padding: 2px;
 }
 
 
@@ -59,25 +59,26 @@ p {
 }
 
 @media screen and (max-width: 1070px) {
-  .workbenchTitle{
+  .workbenchTitle {
     font-size: 20px;
     position: relative;
     top: 10px;
     left: 15px;
   }
-  .labelText{
+
+  .labelText {
     font-size: 14px;
     padding: 2px;
   }
 }
 
 @media screen and (max-width: 845px) {
-  .workbenchTitle{
+  .workbenchTitle {
     font-size: 15px;
     position: relative;
     top: 10px;
     left: 30px;
   }
 
-  
+
 }
