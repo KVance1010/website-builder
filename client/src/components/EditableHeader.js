@@ -34,8 +34,13 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     useClickOutside(textColorPopover, closeTextColorSelector);
 
     const styles = {
-        backgroundColor: `rgba(${backgroundR}, ${backgroundG}, ${backgroundB}, ${opacity})`,
-        color: color
+        cardHeader: {
+            backgroundColor: `rgba(${backgroundR}, ${backgroundG}, ${backgroundB}, ${opacity})`,
+            color: color
+        },
+        h: {
+            lineHeight: 1.5
+        }
     };
 
     const closeMenu = (e) => {
@@ -184,7 +189,7 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
             <div
                 className="card-header editable-header"
                 id={`editable-card-header-${parentId}`}
-                style={styles}
+                style={styles.cardHeader}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
             >
@@ -200,7 +205,10 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
                         onKeyDown={onKeyDown}
                     />
                     :
-                    <h6 className="card-title m-0">{text}</h6>
+                    <h5
+                        className="card-title m-0"
+                        style={styles.h}
+                    >{text}</h5>
                 }
             </div>
             {backgroundColorEdit && (

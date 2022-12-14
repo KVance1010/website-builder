@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
+import Slider from '@mui/material/Slider';
 
 import '../styles/EditableBodyText.css'
 
@@ -18,19 +19,25 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
     const [iconVisibility, setIconVisibility] = useState(false);
     const [iconBackground, setIconBackground] = useState('rgba(0, 0, 0, 0)');
     const [editText, setEditText] = useState(false);
+    const [editSize, setEditSize] = useState(false);
 
     /* Background color picker stuff */
     const [colorEdit, toggleColorEdit] = useState(false);
     const colorPopover = useRef();
+    const fontSizeSlider = useRef();
 
     const closeColorSelector = useCallback(() => toggleColorEdit(false), []);
     useClickOutside(colorPopover, closeColorSelector);
+
+    const closeFontSizeSlider = useCallback(() => setEditSize(false), []);
+    useClickOutside(fontSizeSlider, closeFontSizeSlider);
 
     const { text, style: { fontSize, color: { r, g, b } } } = cards[parentId].bodyStyles[0];
 
     const styles = {
         fontSize: fontSize,
-        color: `rgba(${r}, ${g}, ${b}, ${opacity})`
+        color: `rgba(${r}, ${g}, ${b}, ${opacity})`,
+        height: 'fit-content'
     };
 
     const setHoveredEffect = () => {
@@ -123,8 +130,7 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
     }
 
     const handleEditColor = (e) => {
-        closeMenu(e);
-        setAnchorEl(null);
+        handleClose(e);
 
         toggleColorEdit(true);
     }
@@ -132,6 +138,9 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
     const handleClose = (e) => {
         closeMenu(e);
         setAnchorEl(null);
+
+        removeHoveredEffect();
+        setIconBackground('rgba(0, 0, 0, 0)');
     };
 
     const onKeyDown = (e) => {
@@ -154,10 +163,25 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
     };
 
     const handleEditText = (e) => {
-        closeMenu(e);
-        setAnchorEl(null);
+        handleClose(e);
 
         setEditText(true);
+    }
+
+    const handleEditSize = (e) => {
+        handleClose(e);
+
+        setEditSize(true);
+    }
+
+    const handleFontChange = (e) => {
+        // console.log(e.target.value);
+
+        const newCards = [...cards];
+
+        newCards[parentId].bodyStyles[0].style.fontSize = e.target.value;
+
+        setCards(newCards);
     }
 
     let cardHeaderHeight;
@@ -171,6 +195,7 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
             {editText ?
                 <TextField
                     hiddenLabel
+                    fullWidth
                     id="hidden-label-small"
                     value={text}
                     variant="outlined"
@@ -193,7 +218,7 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
                                 sx={{
                                     position: 'absolute',
                                     top: 0,
-                                    left: 0,
+                                    right: 0,
                                     color: 'black',
                                     backgroundColor: iconBackground,
                                     borderRadius: 1
@@ -217,6 +242,7 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
                             >
                                 <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
                                 <MenuItem onClick={handleEditColor}>Edit Color</MenuItem>
+                                <MenuItem onClick={handleEditSize}>Edit Size</MenuItem>
                             </Menu>
                         </>
                     )}
@@ -234,6 +260,23 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
                 >
                     <RgbaColorPicker color={{ r, g, b, a: 1 }} onChange={handleColorChange} />
                 </div>
+            )}
+            {editSize && (
+                <Slider
+                    sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                    }}
+                    ref={fontSizeSlider}
+                    // size="small"
+                    value={fontSize}
+                    onChange={handleFontChange}
+                    aria-label="Default"
+                    valueLabelDisplay="auto"
+                    min={14}
+                    max={80}
+                />
             )}
 
             {/* {backgroundColorEdit && (

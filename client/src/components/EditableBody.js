@@ -41,12 +41,22 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     };
 
     const onMouseEnter = (e) => {
-        console.log('MOUSE ENTER EDITABLE');
+        // console.log('MOUSE ENTER EDITABLE');
         setHoveredEffect();
     };
 
+    const onMouseOver = (e) => {
+
+        console.log(pointerOverEditableBodyText(e.clientX, e.clientY));
+        if (!pointerOverEditableBodyText(e.clientX, e.clientY)) {
+            setHoveredEffect();
+        } else {
+            removeHoveredEffect();
+        }
+    }
+
     const onMouseLeave = (e) => {
-        console.log('MOUSE LEAVE EDITABLE');
+        // console.log('MOUSE LEAVE EDITABLE');
         if (!open) {
             removeHoveredEffect();
         }
@@ -84,6 +94,18 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
 
         for (const element of elements) {
             if (element.classList.value.includes('editable-body')) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    const pointerOverEditableBodyText = (x, y) => {
+        const elements = document.elementsFromPoint(x, y);
+
+        for (const element of elements) {
+            if (element.classList.value.includes('editable-body-text')) {
                 return true;
             }
         }
@@ -130,12 +152,12 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
 
     return (
         <>
-            <div className="card-body position-relative editable-body"
+            <div className="card-body d-flex flex-row position-relative editable-body"
                 key={1}
                 style={styles}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                onMouseOver={onMouseEnter}
+                onMouseOver={onMouseOver}
             >
                 {children}
                 {iconVisibility ?
@@ -179,7 +201,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                     style={{
                         position: 'absolute',
                         top: 0,
-                        left: '101%'
+                        left: '101%',
                     }}
                 >
                     <RgbaColorPicker color={{ r, g, b, a: 1 }} onChange={handleBackgroundColorChange} />
