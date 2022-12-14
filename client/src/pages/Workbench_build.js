@@ -128,7 +128,7 @@ const WRK = () => {
 	const [visibilityUpload4, setVisibilityUpload4] = useState(false);
 
 
-	//colorFooterGrad
+	
 	const [color, setColor] = useState("#aabbcc");
 	const [colorAside, setColorAside] = useState("#aabbcc");
 	const [colorAsideGrad, setColorAsideGrad] = useState("#aabbcc");
@@ -527,10 +527,13 @@ const WRK = () => {
 		let mainTitle = document.getElementById("mainTitle").value;
 		let asideVal = document.getElementById("asideVal").textContent;
 		let asideGrad = document.getElementById("asideGrad").textContent;
+		let asideTitle = document.getElementById("asideTitle").value;
 		let asideContent = {
 			asideGrad: asideGrad,
 			asideBackCol: colorAside,
 			asidebackColGrad: colorAsideGrad,
+			asideTitle: asideTitle,
+
 		}
 		let temp = {
 			contentTitle: "body",
