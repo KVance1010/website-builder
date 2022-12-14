@@ -3,7 +3,7 @@ import { findAllProjects } from '../utils/api';
 import Auth from '../utils/auth';
 import '../styles/Download_build.css';
 import React, { useState, useEffect } from 'react';
-// import CreateProject from '../utils/createUserProject';
+import CreateProject from '../utils/createUserProject';
 // import JSZip from 'jszip';
 // import JSZipUtils from 'jszip-utils';
 // import { saveAs } from 'file-saver';
@@ -83,7 +83,7 @@ const Download_build = () => {
 
 	const downloadProjectFolder = async () => {
 		const project = projects[value];
-		// CreateProject.renderFiles(project);
+		CreateProject.renderFiles(project);
 	};
 
 	return (
