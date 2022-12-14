@@ -150,8 +150,6 @@ const WRK = () => {
 
 	useEffect(() => {
 		const dustbin = document.getElementById('dustbin');
-		console.log(dustbin);
-		console.log(dustbin.offsetWidth);
 		setDustbinDimensions({
 			width: dustbin.offsetWidth,
 			height: dustbin.offsetHeight
