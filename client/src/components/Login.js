@@ -49,7 +49,7 @@ const Login = () => {
 	};
 	return (
 		<>
-			<div id="login-section">
+			<div className="login-signup-section">
 				{/* <img
 					className="img_login"
 					src={loginImg}
@@ -57,7 +57,7 @@ const Login = () => {
 				/> */}
 				<div className="container">
 					<div className="row d-flex justify-content-center w-100 card_container">
-						<div className="col-6 ">
+						<div className="col-12 col-md-10 col-lg-8 col-xl-6">
 							<div className="card shadow card_body">
 								<div className="card-body ">
 									<h2>Login</h2>

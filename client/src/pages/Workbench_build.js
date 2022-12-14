@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 // import React from 'react';
 // import uploadImage from "../../../server/utils/images";
 import { Cloudinary } from '@cloudinary/url-gen';
@@ -73,6 +73,8 @@ const WRK = () => {
 		{
 			top: 20,
 			left: 20,
+			width: 200,
+			height: 200,
 			header: {
 				text: "Greetings from state!",
 				style: {
@@ -126,7 +128,7 @@ const WRK = () => {
 	const [visibilityUpload4, setVisibilityUpload4] = useState(false);
 
 
-//colorFooterGrad
+	//colorFooterGrad
 	const [color, setColor] = useState("#aabbcc");
 	const [colorFooterGrad, setcolorFooterGrad] = useState("#aabbcc");
 	const [colorGrad, setColorGrad] = useState("#aabbcc");
@@ -140,6 +142,31 @@ const WRK = () => {
 	const [colorFooterLinks, setColor8] = useState("#aabbcc");
 	const [colorFooterText, setColor9] = useState("#aabbcc");
 
+	const [dustbinDimensions, setDustbinDimensions] = useState({});
+
+	useEffect(() => {
+		const dustbin = document.getElementById('dustbin');
+		console.log(dustbin);
+		console.log(dustbin.offsetWidth);
+		setDustbinDimensions({
+			width: dustbin.offsetWidth,
+			height: dustbin.offsetHeight
+		})
+	}, []);
+
+	useEffect(() => {
+		const dustbin = document.getElementById('dustbin');
+
+		function handleResize() {
+			// console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+			setDustbinDimensions({
+				width: dustbin.offsetWidth,
+				height: dustbin.offsetHeight
+			})
+		}
+
+		window.addEventListener('resize', handleResize)
+	}, []);
 
 	const start = () => {
 		codeCompileArr = [];
@@ -306,8 +333,8 @@ const WRK = () => {
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
 
-const navRender = () => {
-	let navObj = -1
+	const navRender = () => {
+		let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
 				navObj = i;
@@ -400,7 +427,8 @@ const navRender = () => {
 			header.append(navImg);
 			header.append(nav);
 			renderNavDiv.appendChild(header);
-}}
+		}
+	}
 
 
 
@@ -409,7 +437,7 @@ const navRender = () => {
 		setVisibilityUpload(false);
 		setImageSubmitVisibility(true);
 		// let navImgBtn = document.getElementById('imageBtn');
-		
+
 		// navImgBtn.text("Try Another Image");
 
 		// if (!clickedBtn.getAttribute('count'))
@@ -714,6 +742,8 @@ const navRender = () => {
 			renderFooterDiv.appendChild(footer);
 		}
 	};
+
+	// console.log(dustbinDimensions);
 
 	return (
 		<React.Fragment>
@@ -1167,7 +1197,7 @@ const navRender = () => {
 								<div style={flair.addNavBarColor} className="col-12 inner-container">
 
 									<div className="row">
-									<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
+										<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
 										<label className="col-6 labelText">Would you like a gradiant: </label>
 										<button className="col-6 btn btn-primary" id="footerGrad" onClick={footerGrad}>
 											No
@@ -1180,7 +1210,7 @@ const navRender = () => {
 											<label className="labelText">Select background color for gradiant: </label>
 											{<PopoverPicker color={colorFooterGrad} onChange={setcolorFooterGrad} />}
 										</div>
-										
+
 									</div>
 
 									<hr className="navBenchBreak"></hr>
@@ -1349,8 +1379,8 @@ const navRender = () => {
 								<div></div>
 							)}
 						</div>
-            
-						<Save myProp = {codeCompileArr} cards={cards}/>
+
+						<Save myProp={codeCompileArr} cards={cards} dustbinDimensions={dustbinDimensions} />
 
 					</aside>
 					<main
@@ -1365,7 +1395,7 @@ const navRender = () => {
 			</div>
 		</React.Fragment>
 
-		
+
 	);
 };
 

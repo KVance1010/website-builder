@@ -9,9 +9,9 @@ const Home = () => {
 		<>
 			<section className="hero_section">
 				<div className="hero_content">
-					<div className="hero_content_background">
-						<h1>Building Better Websites</h1>
-						<h2>Design and developed your website today!</h2>
+					<div className="hero_content_background ms-3">
+						<h1 className="me-0">Building Better Websites</h1>
+						<h2 className="me-0">Design and developed your website today!</h2>
 						<Link to="/login">
 							<button className="hero_btn">Start</button>
 						</Link>

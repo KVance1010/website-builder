@@ -10,11 +10,11 @@ import EditableHeader from './EditableHeader';
 import EditableBody from './EditableBody';
 import EditableBodyText from './EditableBodyText'
 
-export default function Card({ id, top, left, cards, setCards }) {
-    const [width, setWidth] = useState(200);
-    const [height, setHeight] = useState(200);
+export default function Card({ id, cards, setCards }) {
     const [iconVisibility, setIconVisibility] = useState(false);
     const [iconBackground, setIconBackground] = useState(`rgba(0, 0, 0, 0)`);
+
+    const { top, left, width, height } = cards[id];
 
     const canDrag = useRef(true);
 
@@ -40,8 +40,12 @@ export default function Card({ id, top, left, cards, setCards }) {
     }
 
     const onResize = (event, { element, size, handle }) => {
-        setWidth(size.width);
-        setHeight(size.height);
+        const newCards = [...cards];
+
+        newCards[id].width = size.width;
+        newCards[id].height = size.height;
+
+        setCards(newCards);
     };
 
     const onMouseLeave = (e) => {

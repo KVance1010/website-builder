@@ -4,7 +4,7 @@ import "../styles/Footer.css";
 export default function Footer() {
 	return (
 		<footer>
-			<ul className="m-o">
+			<ul className="m-0">
 				<li>
 					<p
 						className="footer"
