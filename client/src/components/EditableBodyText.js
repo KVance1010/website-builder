@@ -10,9 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
-import useClickOutside from "./UseClickOutside";
+import useClickOutside from "./ClickOutside";
 
-export default function EditableBodyText({ cards, setCards, parentId }) {
+export default function EditableBodyText({ id, cards, setCards, parentId }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [opacity, setOpacity] = useState(1);
@@ -32,7 +32,7 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
     const closeFontSizeSlider = useCallback(() => setEditSize(false), []);
     useClickOutside(fontSizeSlider, closeFontSizeSlider);
 
-    const { text, style: { fontSize, color: { r, g, b } } } = cards[parentId].bodyStyles[0];
+    const { text, style: { fontSize, color: { r, g, b } } } = cards[parentId].bodyStyles[id];
 
     const styles = {
         fontSize: fontSize,
@@ -122,9 +122,9 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
 
     const handleColorChange = ({ r, g, b }) => {
         const newCards = [...cards];
-        newCards[parentId].bodyStyles[0].style.color.r = r;
-        newCards[parentId].bodyStyles[0].style.color.g = g;
-        newCards[parentId].bodyStyles[0].style.color.b = b;
+        newCards[parentId].bodyStyles[id].style.color.r = r;
+        newCards[parentId].bodyStyles[id].style.color.g = g;
+        newCards[parentId].bodyStyles[id].style.color.b = b;
 
         setCards(newCards);
     }
@@ -157,7 +157,7 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
 
     const setText = (text) => {
         const newCards = [...cards];
-        newCards[parentId].bodyStyles[0].text = text;
+        newCards[parentId].bodyStyles[id].text = text;
 
         setCards(newCards);
     };
@@ -179,7 +179,16 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
 
         const newCards = [...cards];
 
-        newCards[parentId].bodyStyles[0].style.fontSize = e.target.value;
+        newCards[parentId].bodyStyles[id].style.fontSize = e.target.value;
+
+        setCards(newCards);
+    }
+
+    const handleRemoveText = (e) => {
+        handleClose(e);
+
+        const newCards = [...cards];
+        newCards[parentId].bodyStyles.splice(id, 1);
 
         setCards(newCards);
     }
@@ -243,6 +252,7 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
                                 <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
                                 <MenuItem onClick={handleEditColor}>Edit Color</MenuItem>
                                 <MenuItem onClick={handleEditSize}>Edit Size</MenuItem>
+                                <MenuItem onClick={handleRemoveText}>Remove Text</MenuItem>
                             </Menu>
                         </>
                     )}
@@ -274,8 +284,8 @@ export default function EditableBodyText({ cards, setCards, parentId }) {
                     onChange={handleFontChange}
                     aria-label="Default"
                     valueLabelDisplay="auto"
-                    min={14}
-                    max={80}
+                    min={16}
+                    max={75}
                 />
             )}
 

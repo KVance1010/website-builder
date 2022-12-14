@@ -1,9 +1,9 @@
 import React from 'react';
-import '../styles/Home.css';
+import '../styles/Main.css';
 import hero from '.././asset/Images/heroImg.jpg';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-
+//
 const Home = () => {
 	return (
 		<>
