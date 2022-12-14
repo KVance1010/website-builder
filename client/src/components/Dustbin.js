@@ -24,64 +24,44 @@ const style = {
     float: 'left',
 }
 
-export default function Dustbin() {
-    const [cards, setCards] = useState([
-        {
-            top: 20,
-            left: 20,
-            header: {
-                text: "Greetings from state!",
-                style: {
-                    backgroundColor: {
-                        r: 13,
-                        g: 110,
-                        b: 253
-                    },
-                    color: 'white'
-                }
-            },
-            body: {
-                style: {
-                    r: 255,
-                    g: 255,
-                    b: 255
-                }
-            },
-            bodyStyles: [
-                {
-                    text: "Hello!",
-                    style: {
-                        fontSize: 50,
-                        color: {
-                            r: 0,
-                            g: 0,
-                            b: 0
-                        }
-                    }
-                }
-            ]
-        }
-    ]);
-
-    // const [cardStyles, setCardStyles] = useState([
-    //     [
-    //         {
+export default function Dustbin({ cards, setCards }) {
+    // const [cards, setCards] = useState([
+    //     {
+    //         top: 20,
+    //         left: 20,
+    //         header: {
     //             text: "Greetings from state!",
     //             style: {
-    //                 backgroundColor: '#0d6efd',
+    //                 backgroundColor: {
+    //                     r: 13,
+    //                     g: 110,
+    //                     b: 253
+    //                 },
     //                 color: 'white'
     //             }
     //         },
-    //         {
-    //             text: "Hello!",
+    //         body: {
     //             style: {
-
+    //                 r: 255,
+    //                 g: 255,
+    //                 b: 255
     //             }
-    //         }
-    //     ]
-    // ])
-
-    const cardsRef = useRef(cards);
+    //         },
+    //         bodyStyles: [
+    //             {
+    //                 text: "Hello!",
+    //                 style: {
+    //                     fontSize: 50,
+    //                     color: {
+    //                         r: 0,
+    //                         g: 0,
+    //                         b: 0
+    //                     }
+    //                 }
+    //             }
+    //         ]
+    //     }
+    // ]);
 
     const createCard = useCallback(
         (item, x, y) => {
@@ -95,20 +75,31 @@ export default function Dustbin() {
                 header: {
                     text: "Greetings from state!",
                     style: {
-                        backgroundColor: '#0d6efd',
+                        backgroundColor: {
+                            r: 13,
+                            g: 110,
+                            b: 253
+                        },
                         color: 'white'
-                    },
+                    }
                 },
                 body: {
                     style: {
-                        backgroundColor: 'white'
+                        r: 255,
+                        g: 255,
+                        b: 255
                     }
                 },
-                bodyText: [
+                bodyStyles: [
                     {
                         text: "Hello!",
                         style: {
-                            color: 'white'
+                            fontSize: 50,
+                            color: {
+                                r: 0,
+                                g: 0,
+                                b: 0
+                            }
                         }
                     }
                 ]
