@@ -56,6 +56,13 @@ const flair = {
 };
 
 const WRK = () => {
+
+	// TODO: add back in for page authorization
+	// const token = Auth.loggedIn() ? Auth.getToken() : null;
+	// 			if (!token) {
+	// 			  return false;
+	// 			}
+	
 	const cld = new Cloudinary({
 		cloud: {
 			cloudName: 'dkc5agj8u'
