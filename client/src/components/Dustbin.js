@@ -24,7 +24,7 @@ const style = {
     float: 'left',
 }
 
-export default function Dustbin({ cards, setCards }) {
+export default function Dustbin({ cards, setCards, setDustbinRef }) {
     // const [cards, setCards] = useState([
     //     {
     //         top: 20,
@@ -72,6 +72,8 @@ export default function Dustbin({ cards, setCards }) {
             newCards.push({
                 left: x - (sidebarOffset + item.xOffset),
                 top: y - (headerOffset + item.yOffset),
+                width: 200,
+                height: 200,
                 header: {
                     text: "Greetings from state!",
                     style: {
@@ -169,7 +171,11 @@ export default function Dustbin({ cards, setCards }) {
         backgroundColor = 'darkkhaki'
     }
     return (
-        <div ref={drop} style={{ ...style, backgroundColor }} data-testid="dustbin">
+        <div
+            id='dustbin'
+            ref={drop}
+            style={{ ...style, backgroundColor }}
+            data-testid="dustbin">
             <div id="renderNavDiv"></div>
             <div id="renderBodyDiv"></div>
             <div id="renderFooterDiv"></div>

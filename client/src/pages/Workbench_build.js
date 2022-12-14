@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 // import React from 'react';
 // import uploadImage from "../../../server/utils/images";
 import { Cloudinary } from '@cloudinary/url-gen';
@@ -73,6 +73,8 @@ const WRK = () => {
 		{
 			top: 20,
 			left: 20,
+			width: 200,
+			height: 200,
 			header: {
 				text: "Greetings from state!",
 				style: {
@@ -144,6 +146,31 @@ const WRK = () => {
 	const [colorFooterLinks, setColor8] = useState("#aabbcc");
 	const [colorFooterText, setColor9] = useState("#aabbcc");
 
+	const [dustbinDimensions, setDustbinDimensions] = useState({});
+
+	useEffect(() => {
+		const dustbin = document.getElementById('dustbin');
+		console.log(dustbin);
+		console.log(dustbin.offsetWidth);
+		setDustbinDimensions({
+			width: dustbin.offsetWidth,
+			height: dustbin.offsetHeight
+		})
+	}, []);
+
+	useEffect(() => {
+		const dustbin = document.getElementById('dustbin');
+
+		function handleResize() {
+			// console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+			setDustbinDimensions({
+				width: dustbin.offsetWidth,
+				height: dustbin.offsetHeight
+			})
+		}
+
+		window.addEventListener('resize', handleResize)
+	}, []);
 
 	const start = () => {
 		codeCompileArr = [];
@@ -757,6 +784,8 @@ const WRK = () => {
 			renderFooterDiv.appendChild(footer);
 		}
 	};
+
+	// console.log(dustbinDimensions);
 
 	return (
 		<React.Fragment>
@@ -1447,7 +1476,7 @@ const WRK = () => {
 							)}
 						</div>
 
-						<Save myProp={codeCompileArr} cards={cards} />
+						<Save myProp={codeCompileArr} cards={cards} dustbinDimensions={dustbinDimensions} />
 
 					</aside>
 					<main

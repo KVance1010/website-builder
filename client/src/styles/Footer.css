@@ -1,7 +1,9 @@
 footer {
 	background-color: var(--header-footer-color);
 	width: 100%;
+	height: 100px;
 }
+
 footer ul {
 	display: flex;
 	background-color: var(--header-footer-color);
@@ -19,6 +21,7 @@ footer li {
 .footer {
 	text-decoration: none;
 }
+
 .footer:hover {
 	font-weight: bolder;
 	color: var(--aside);
@@ -30,7 +33,8 @@ footer li {
 	height: 2em;
 }
 
-.svgGit:hover, .svgLinkedIn:hover {
+.svgGit:hover,
+.svgLinkedIn:hover {
 	fill: var(--aside);
 }
 

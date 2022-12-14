@@ -5,33 +5,36 @@ import '../styles/Header.css';
 
 const NavigationLinks = () => {
 	return (
-			<>
-				<li className="">
-					{Auth.loggedIn() ? (
-						<p className="header_link">
-							<p className="nav_link" onClick={Auth.logout}>
-								Logout
-							</p>
+		<>
+			<li className="">
+				{Auth.loggedIn() ? (
+					<a className="header_link">
+						<p
+							id='logout_button'
+							className="nav_link"
+							onClick={Auth.logout}>
+							Logout
 						</p>
-					) : (
-						<Link to="/login" className="header_link">
-							<p className="nav_link">
-								Login
-							</p>
-						</Link>
-					)}
-				</li>
-				<li>
-					<Link to="/projects" className="header_link">
-						<p className="nav_link">Projects</p>
+					</a>
+				) : (
+					<Link to="/login" className="header_link">
+						<p className="nav_link">
+							Login
+						</p>
 					</Link>
-				</li>
-				<li>
-					<Link to="/export" className="header_link">
-						<p className="nav_link">Export</p>
-					</Link>
-				</li>
-			</>
+				)}
+			</li>
+			<li>
+				<Link to="/projects" className="header_link">
+					<p className="nav_link">Projects</p>
+				</Link>
+			</li>
+			<li>
+				<Link to="/export" className="header_link">
+					<p className="nav_link">Export</p>
+				</Link>
+			</li>
+		</>
 	);
 };
 
