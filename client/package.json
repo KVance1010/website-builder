@@ -1,6 +1,9 @@
 {
   "name": "website-builder",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.17.1"
+  },
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
@@ -46,7 +49,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cloud": "node server/utils/images.js"
+    "heroku-postbuild": "react-scripts build --prod"
   },
   "eslintConfig": {
     "extends": [
