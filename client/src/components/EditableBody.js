@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
-import useClickOutside from "./UseClickOutside";
+import useClickOutside from "./ClickOutside";
 
 export default function EditableBody({ cards, setCards, parentId, children }) {
     const [anchorEl, setAnchorEl] = useState(null);

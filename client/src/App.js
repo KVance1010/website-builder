@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './pages/Main';
 import BuildWrkBnch from './pages/Workbench_build';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -43,7 +43,6 @@ function App() {
     //           <Route path='/signup' element={<Signup />} />
     //           <Route path='/wrk' element={<BuildWrkBnch />} />
     //           <Route path='/Projects' element={<Projects />} />
-
     //           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
     //         </Routes>
     //       </>
