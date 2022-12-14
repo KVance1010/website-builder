@@ -24,6 +24,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     const closeBackgroundColorSelector = useCallback(() => toggleBackgroundColorEdit(false), []);
     useClickOutside(backgroundColorPopover, closeBackgroundColorSelector);
 
+    const { header } = cards[parentId];
     const { r, g, b } = cards[parentId].body.style;
 
     const styles = {
@@ -126,6 +127,25 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         }
     };
 
+    const handleAddHeader = (e) => {
+        handleClose(e);
+
+        const newCards = [...cards];
+        newCards[parentId].header = {
+            text: "Greetings from state!",
+            style: {
+                backgroundColor: {
+                    r: 13,
+                    g: 110,
+                    b: 253
+                },
+                color: 'white'
+            }
+        };
+
+        setCards(newCards);
+    }
+
     const handleBackgroundColorChange = ({ r, g, b }) => {
 
         const newCards = [...cards];
@@ -206,6 +226,9 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                                 'aria-labelledby': 'edit-icon',
                             }}
                         >
+                            {!header && (
+                                <MenuItem onClick={handleAddHeader}>Add Header</MenuItem>
+                            )}
                             <MenuItem onClick={handleEditBackgroundColor}>Edit Background Color</MenuItem>
                             <MenuItem onClick={handleAddText}>Add Text</MenuItem>
                         </Menu>
@@ -226,14 +249,5 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                 </div>
             )}
         </>
-        // React.cloneElement(
-        //     html,
-        //     {
-        //         onDrag: onDrag,
-        //         onMouseOver: onMouseOver,
-        //         onMouseOut: onMouseOut,
-        //     },
-        //     [html.props.children]
-        // )
     );
 }

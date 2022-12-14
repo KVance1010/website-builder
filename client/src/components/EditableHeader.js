@@ -160,10 +160,9 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     };
 
     const handleEditText = (e) => {
-        closeMenu(e);
-        setEditText(true);
+        handleClose(e);
 
-        setAnchorEl(null);
+        setEditText(true);
     };
 
     const handleTextChange = (e) => {
@@ -176,6 +175,15 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
         closeMenu(e);
         setAnchorEl(null);
     };
+
+    const handleRemoveHeader = (e) => {
+        handleClose(e);
+
+        const newCards = [...cards];
+        newCards[parentId].header = null;
+
+        setCards(newCards);
+    }
 
     const setText = (text) => {
         const newCards = [...cards];
@@ -205,10 +213,10 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
                         onKeyDown={onKeyDown}
                     />
                     :
-                    <h5
+                    <h6
                         className="card-title m-0"
                         style={styles.h}
-                    >{text}</h5>
+                    >{text}</h6>
                 }
             </div>
             {backgroundColorEdit && (
@@ -265,6 +273,7 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
                         <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
                         <MenuItem onClick={handleEditBackgroundColor}>Edit Background Color</MenuItem>
                         <MenuItem onClick={handleEditTextColor}>Edit Text Color</MenuItem>
+                        <MenuItem onClick={handleRemoveHeader}>Remove Header</MenuItem>
                     </Menu>
                 </>
                 :

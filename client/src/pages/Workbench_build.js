@@ -62,15 +62,51 @@ const WRK = () => {
 	// 			if (!token) {
 	// 			  return false;
 	// 			}
-	
+
 	const cld = new Cloudinary({
 		cloud: {
 			cloudName: 'dkc5agj8u'
 		}
 	});
 
+	const [cards, setCards] = useState([
+		{
+			top: 20,
+			left: 20,
+			header: {
+				text: "Greetings from state!",
+				style: {
+					backgroundColor: {
+						r: 13,
+						g: 110,
+						b: 253
+					},
+					color: 'white'
+				}
+			},
+			body: {
+				style: {
+					r: 255,
+					g: 255,
+					b: 255
+				}
+			},
+			bodyStyles: [
+				{
+					text: "Hello!",
+					style: {
+						fontSize: 50,
+						color: {
+							r: 0,
+							g: 0,
+							b: 0
+						}
+					}
+				}
+			]
+		}
+	]);
 
-	
 	const [visibilityNav, setVisibilityNav] = useState(false);
 	const [visibilityMain, setVisibilityMain] = useState(false);
 	const [visibilityComp, setVisibilityComp] = useState(false);
@@ -280,10 +316,10 @@ const navRender = () => {
 			let navRenderObj = codeCompileArr[navObj];
 			let header = document.createElement("div");
 			let headBack
-			if(navRenderObj.gradVal == 'Yes'){
+			if (navRenderObj.gradVal == 'Yes') {
 				headBack = ` background-image: linear-gradient(to bottom right, ${navRenderObj.navColor}, ${navRenderObj.navgradColor});`
 			}
-			if(navRenderObj.gradVal == 'No'){
+			if (navRenderObj.gradVal == 'No') {
 				headBack = `background-color: ${navRenderObj.navColor};`
 			}
 			header.setAttribute(
@@ -661,7 +697,7 @@ const navRender = () => {
 					color: ${navRenderObj.footerLinksColor};
 					font-family: ${navRenderObj.fontFooterLinks};`)
 
-					footerLink.textContent = navRenderObj.footerlinks[0][i];
+				footerLink.textContent = navRenderObj.footerlinks[0][i];
 				links.append(footerLink);
 			}
 
@@ -901,7 +937,7 @@ const navRender = () => {
 								onClick={addComp}
 								id="addComponentBtn"
 							>
-								{comp}								
+								{comp}
 							</button>
 							{visibilityComp ? (
 								<div style={flair.componentBar} className="inner-container">
@@ -1310,12 +1346,17 @@ const navRender = () => {
 								<div></div>
 							)}
 						</div>
-						<Save myProp = {codeCompileArr} />
+            
+						<Save myProp = {codeCompileArr} cards={cards}/>
+
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
 
-						<Dustbin />
+						<Dustbin
+							cards={cards}
+							setCards={setCards}
+						/>
 					</main>
 				</div>
 			</div>
