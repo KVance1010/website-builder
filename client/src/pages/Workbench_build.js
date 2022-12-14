@@ -67,13 +67,17 @@ const WRK = () => {
 	const [visibilityNav, setVisibilityNav] = useState(false);
 	const [visibilityMain, setVisibilityMain] = useState(false);
 	const [visibilityComp, setVisibilityComp] = useState(false);
+	const [visibilityFooter, setVisibilityFooter] = useState(false);
 
 	const [nav, setNav] = useState("Add Navigation Bar");
 	const [main, setMain] = useState("Add Main Content Section");
+	const [comp, setComp] = useState("Add Components");
+	const [Footer, setFooter] = useState("Add Footer Section");
 
 	const [visibilityUpload, setVisibilityUpload] = useState(false);
 	const [visibilityUpload2, setVisibilityUpload2] = useState(false);
 	const [visibilityUpload3, setVisibilityUpload3] = useState(false);
+	const [visibilityUpload4, setVisibilityUpload4] = useState(false);
 
 
 
@@ -84,6 +88,9 @@ const WRK = () => {
 	const [colorMainHeaders, setColor4] = useState("#aabbcc");
 	const [colorMainText, setColor5] = useState("#aabbcc");
 	const [colorBody, setColor6] = useState("#aabbcc");
+	const [colorFooter, setColor7] = useState("#aabbcc");
+	const [colorFooterLinks, setColor8] = useState("#aabbcc");
+	const [colorFooterText, setColor9] = useState("#aabbcc");
 
 
 	const start = () => {
@@ -96,7 +103,7 @@ const WRK = () => {
 			setNav("Add Navigation Bar");
 		} else {
 			setVisibilityNav(true);
-			setNav("Remove Navigation Bar");
+			setNav("Collapse NavBar Bench");
 		}
 	};
 
@@ -106,14 +113,30 @@ const WRK = () => {
 			setMain("Add Main Content Section");
 		} else {
 			setVisibilityMain(true);
-			setMain("Remove Main Content Section");
+			setMain("Collapse Main Bench");
+		}
+	};
+
+	const addFooter = () => {
+		if (visibilityFooter) {
+			setVisibilityFooter(false);
+			setFooter("Add Footer");
+		} else {
+			setVisibilityFooter(true);
+			setFooter("Collapse Footer Bench");
 		}
 	};
 
 
 	const addComp = () => {
-		setVisibilityComp(!visibilityComp);
-	}
+		if (visibilityComp) {
+			setVisibilityComp(false);
+			setComp("Add Components");
+		} else {
+			setVisibilityComp(true);
+			setComp("Collapse Component Bench");
+		}
+	};
 
 	const navDir = () => {
 		let navDirVal = document.getElementById("navDir").textContent;
@@ -122,6 +145,16 @@ const WRK = () => {
 		}
 		if (navDirVal === "Left") {
 			document.getElementById("navDir").innerHTML = "Right";
+		}
+	};
+
+	const footerDir = () => {
+		let footerDirVal = document.getElementById("footerLinkDir").textContent;
+		if (footerDirVal === "Right") {
+			document.getElementById("footerLinkDir").innerHTML = "Left";
+		}
+		if (footerDirVal === "Left") {
+			document.getElementById("footerLinkDir").innerHTML = "Right";
 		}
 	};
 
@@ -146,13 +179,22 @@ const WRK = () => {
 		console.log(imageName3, "img3")
 	};
 
+	const [imageName4, setImageName4] = useState("");
+	const handleImageName4 = (e) => {
+		let imgname4 = e.target.value
+		setImageName4(imgname4)
+		console.log(imageName4, "img4")
+	};
+
 	const [navImgLink, setNavImgLink] = useState("")
 	const [mainImgLink, setMainImgLink] = useState("")
 	const [bodyImgLink, setBodyImgLink] = useState("")
+	const [footerImgLink, setFooterImgLink] = useState("")
 
 	const [imageSubmitVisibility, setImageSubmitVisibility] = useState(true)
 	const [imageSubmitVisibility2, setImageSubmitVisibility2] = useState(true)
 	const [imageSubmitVisibility3, setImageSubmitVisibility3] = useState(true)
+	const [imageSubmitVisibility4, setImageSubmitVisibility4] = useState(true)
 
 	const imageSubmit = (e) => {
 		e.preventDefault();
@@ -184,6 +226,17 @@ const WRK = () => {
 			setVisibilityUpload3(true);
 			setImageSubmitVisibility3(false)
 			setBodyImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName3.trim()) + '.png')
+		} else { alert("Invalid name, please use alphanumeric characters.") }
+	};
+
+	const imageSubmit4 = (e) => {
+		e.preventDefault();
+		let inputVal4 = document.getElementById('imgName4').value
+		let regEx = "^[a-zA-Z0-9_ ]*$"
+		if (inputVal4.match(regEx)) {
+			setVisibilityUpload4(true);
+			setImageSubmitVisibility4(false)
+			setFooterImgLink('https://res.cloudinary.com/dkc5agj8u/image/upload/' + encodeURIComponent(imageName4.trim()) + '.png')
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
 
@@ -232,8 +285,8 @@ const WRK = () => {
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
-		let renderDiv = document.getElementById("renderDiv");
-		renderDiv.innerHTML = "";
+		let renderNavDiv = document.getElementById("renderNavDiv");
+		renderNavDiv.innerHTML = "";
 
 
 		//render page
@@ -294,6 +347,7 @@ const WRK = () => {
 					`width: 100%;
 				display: flex;
 				margin-right: 15px;
+				margin-bottom: 0px;
 				justify-content: end;`
 				)
 			}
@@ -318,7 +372,7 @@ const WRK = () => {
 			header.append(title);
 			header.append(navImg);
 			header.append(nav);
-			renderDiv.appendChild(header);
+			renderNavDiv.appendChild(header);
 		}
 	};
 
@@ -368,8 +422,8 @@ const WRK = () => {
 		};
 		codeCompileArr.push(temp);
 		console.log(codeCompileArr);
-		let renderDiv = document.getElementById("renderDiv");
-		renderDiv.innerHTML = "";
+		let renderBodyDiv = document.getElementById("renderBodyDiv");
+		renderBodyDiv.innerHTML = "";
 
 
 		//render page
@@ -430,7 +484,146 @@ const WRK = () => {
 
 			body.append(mainHeader);
 			body.append(mainImg);
-			renderDiv.appendChild(body);
+			renderBodyDiv.appendChild(body);
+		}
+	};
+
+	const footerSubmit = async (e) => {
+		e.preventDefault();
+		setVisibilityUpload4(false);
+		setImageSubmitVisibility4(true);
+		// let navImgBtn = document.getElementById('imageBtn');
+		let footerSubmitBtn = document.getElementById('footerBtn');
+		// navImgBtn.text("Try Another Image");
+
+		// if (!clickedBtn.getAttribute('count'))
+		//render object
+		let fontFooter = document.getElementsByName('fontFooter');
+		let footerFontVal
+		for (let i = 0; i < fontFooter.length; i++) {
+			if (fontFooter[i].checked) {
+				footerFontVal = fontFooter[i].value
+			}
+		}
+
+		let fontFooterLinks = document.getElementsByName('fontFooterLinks')
+		let footerLinkFontVal
+		for (let i = 0; i < fontFooterLinks.length; i++) {
+			if (fontFooterLinks[i].checked) {
+				footerLinkFontVal = fontFooterLinks[i].value
+			}
+		}
+
+		let footerLinkDirVal = document.getElementById("footerLinkDir").textContent;
+		let footerLinksString = document.getElementById("footerLinksString").value;
+		let footerBottomText = document.getElementById("bottomText").value;
+
+		let footerLinks = footerLinksString.split(",");
+		let temp = {
+			contentTitle: "footer",
+			footerColor: colorFooter,
+			footerBottomText: footerBottomText,
+			footerlinks: [footerLinks],
+			footerLinksDir: footerLinkDirVal,
+			fontFooter: footerFontVal,
+			fontFooterLinks: footerLinkFontVal,
+			footerImgLink: footerImgLink,
+			footerImgPubId: imageName4,
+			footerFontColor: colorFooterText,
+			footerLinksColor: colorFooterLinks
+		};
+		codeCompileArr.push(temp);
+		console.log(codeCompileArr);
+		let renderFooterDiv = document.getElementById("renderFooterDiv");
+		renderFooterDiv.innerHTML = "";
+
+
+		//render page
+		let navObj = -1
+		for (let i = 0; i < codeCompileArr.length; i++) {
+			if (codeCompileArr[i].contentTitle === "footer") {
+				navObj = i;
+			}
+		}
+		if (navObj === -1) {
+		} else {
+			let navRenderObj = codeCompileArr[navObj];
+			let footer = document.createElement("div");
+			footer.setAttribute(
+				"style",
+				`width: 100%;
+				background-color: ${navRenderObj.footerColor};`
+			);
+			let bottomText = document.createElement("div");
+			bottomText.setAttribute(
+				"style",
+				`width: 100%;
+				font-size: 18px;
+				font-style: italic;
+				text-align: center;
+				color: ${navRenderObj.footerFontColor};
+				font-family: ${navRenderObj.fontFooter}`
+			);
+			bottomText.textContent = navRenderObj.footerBottomText;
+			let footerImg = document.createElement("img");
+			footerImg.setAttribute(
+				"style",
+				`width: 150px;
+				height: 150px;
+				font-size: 40px;
+				text-align: center;`
+			);
+			footerImg.setAttribute(
+				"src",
+				`${navRenderObj.footerImgLink}`
+			)
+			footerImg.setAttribute(
+				"public_id",
+				`${navRenderObj.footerImgPubId}`
+			)
+			let links = document.createElement("ul");
+			if (navRenderObj.footerLinksDir === 'Left') {
+				links.setAttribute(
+					"style",
+					`width: 100%;
+					display: flex;
+					flex-direction: column;
+					margin-right: 15px;
+					align-items: flex-start;`
+				)
+			}
+			if (navRenderObj.footerLinksDir === 'Right') {
+				links.setAttribute(
+					"style",
+					`width: 100%;
+				display: flex;
+				flex-direction: column;
+				margin-right: 15px;
+				align-items: flex-end;`
+				)
+			}
+
+			let tempLinks = navRenderObj.footerlinks[0]
+			for (let i = 0; i < tempLinks.length; i++) {
+				let footerLink = document.createElement("li");
+				footerLink.setAttribute(
+					"style",
+					`margin-right: 15px;
+					color: ${navRenderObj.footerLinksColor};
+					font-family: ${navRenderObj.fontFooterLinks};`)
+
+					footerLink.textContent = navRenderObj.footerlinks[0][i];
+				links.append(footerLink);
+			}
+
+			// let navImage = uploadImage(image, )	
+
+			footerSubmitBtn.textContent = "Update Footer Settings";
+
+			footer.append(bottomText);
+			footer.append(footerImg);
+			footer.append(links);
+			renderFooterDiv.appendChild(footer);
 		}
 	};
 
@@ -650,7 +843,7 @@ const WRK = () => {
 								onClick={addComp}
 								id="addComponentBtn"
 							>
-								Add Components
+								{comp}								
 							</button>
 							{visibilityComp ? (
 								<div style={flair.componentBar} className="inner-container">
@@ -860,6 +1053,191 @@ const WRK = () => {
 									</button>
 								</div>
 
+							) : (
+								<div></div>
+							)}
+							<button
+								style={{ color: 'white' }}
+								className="btn dropdown-toggle w-100"
+								type="button"
+								onClick={addFooter}
+								id="addFooterBtn"
+							>
+								{Footer}
+							</button>
+							{visibilityFooter ? (
+
+								<div style={flair.addNavBarColor} className="col-12 inner-container">
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select footer background color: </label>
+											{<PopoverPicker color={colorFooter} onChange={setColor7} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Bottom Text of footer
+										</label>
+										<input className="col-6" type="text" id="bottomText"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row labelText">
+										<p>Select a font for bottom text</p>
+									</div>
+
+									<div className="row">
+										<div className="col-4">
+											<label className="labelText" htmlFor="serif" style={{ fontFamily: 'Serif' }}>Serif
+												<input type="radio" name="fontFooter" value="Serif" style={{ fontFamily: 'Serif' }} />
+											</label>
+											<label className="labelText" htmlFor="comic sans MS" style={{ fontFamily: 'Cursive' }}>Comic Sans
+												<input type="radio" name="fontFooter" value="comic sans MS" style={{ fontFamily: 'Cursive' }} />
+											</label>
+											<label className="labelText" htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Impact
+												<input type="radio" name="fontFooter" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="arial" style={{ fontFamily: 'sans-serif' }}>Arial
+												<input type="radio" name="fontFooter" value="arial" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor="Courier" style={{ fontFamily: 'monospace' }}>Courier
+												<input type="radio" name="fontFooter" value="Courier" style={{ fontFamily: 'monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="Tahoma" style={{ fontFamily: 'sans-serif' }}>Tahoma
+												<input type="radio" name="fontFooter" value="Tahoma" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }}>Arial Black
+												<input type="radio" name="fontFooter" value='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }}>Trebuchet MS
+												<input type="radio" name="fontFooter" value='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }}>Verdana
+												<input type="radio" name="fontFooter" value='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }} />
+											</label>
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select Bottom Text Color: </label>
+											{<PopoverPicker color={colorFooterText} onChange={setColor9} />}
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Add Image for Footer:
+											{imageSubmitVisibility4 ? (
+												<button
+													className="btn btn-primary col-9 labelText"
+													id="imageBtn4"
+													onClick={imageSubmit4}
+												>
+													Submit / Update Image
+												</button>
+											) : <div></div>}
+											{visibilityUpload4 ? (
+												<UploadWidget imageName={imageName4} />
+											) : <div></div>}
+										</label>
+										<input className="col-6" type="text" id="imgName4" onKeyUp={handleImageName4} placeholder="img name here"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">
+											Input Footer Links <br /> (<i>Separate by ','!</i>):
+										</label>
+										<input className="col-6" type="text" id="footerLinksString"></input>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row-12">
+										<label className="col-6 labelText">Anchor footer links left/right: </label>
+										<button className="col-6 btn btn-primary" id="footerLinkDir" onClick={footerDir}>
+											Right
+										</button>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row labelText">
+										<p>Footer Link Fonts: </p>
+									</div>
+
+									<div className="row">
+										<div className="col-4">
+											<label className="labelText" htmlFor="serif" style={{ fontFamily: 'Serif' }}>Serif
+												<input type="radio" name="fontFooterLinks" value="Serif" style={{ fontFamily: 'Serif' }} />
+											</label>
+											<label className="labelText" htmlFor="comic sans MS" style={{ fontFamily: 'Cursive' }}>Comic Sans
+												<input type="radio" name="fontFooterLinks" value="comic sans MS" style={{ fontFamily: 'Cursive' }} />
+											</label>
+											<label className="labelText" htmlFor="fantasy" style={{ fontFamily: 'Fantasy' }}>Impact
+												<input type="radio" name="fontFooterLinks" value="Fantasy" style={{ fontFamily: 'Fantasy' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor="arial" style={{ fontFamily: 'sans-serif' }}>Arial
+												<input type="radio" name="fontFooterLinks" value="arial" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor="Courier" style={{ fontFamily: 'monospace' }}>Courier
+												<input type="radio" name="fontFooterLinks" value="Courier" style={{ fontFamily: 'monospace' }} />
+											</label>
+											<label className="labelText" htmlFor="Tahoma" style={{ fontFamily: 'sans-serif' }}>Tahoma
+												<input type="radio" name="fontFooterLinks" value="Tahoma" style={{ fontFamily: 'sans-serif' }} />
+											</label>
+										</div>
+
+										<div className="col-4">
+											<label className="labelText" htmlFor='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }}>Arial Black
+												<input type="radio" name="fontFooterLinks" value='arial black, sans-serif' style={{ fontFamily: 'arial black, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }}>Trebuchet MS
+												<input type="radio" name="fontFooterLinks" value='trebuchet ms, sans-serif' style={{ fontFamily: 'trebuchet ms, sans-serif' }} />
+											</label>
+											<label className="labelText" htmlFor='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }}>Verdana
+												<input type="radio" name="fontFooterLinks" value='verdana, sans-serif' style={{ fontFamily: 'verdana, sans-serif' }} />
+											</label>
+										</div>
+									</div>
+
+									<hr className="navBenchBreak"></hr>
+
+									<div className="row">
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select Footer Links Color: </label>
+											{<PopoverPicker color={colorFooterLinks} onChange={setColor8} />}
+										</div>
+									</div>
+
+									<button
+										className="btn btn-primary m-3"
+										id="footerBtn"
+										onClick={footerSubmit}
+									>
+										Submit Footer Settings
+									</button>
+								</div>
 							) : (
 								<div></div>
 							)}

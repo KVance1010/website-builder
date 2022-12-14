@@ -165,7 +165,9 @@ export default function Dustbin() {
     }
     return (
         <div ref={drop} style={{ ...style, backgroundColor }} data-testid="dustbin">
-            <div id="renderDiv"></div>
+            <div id="renderNavDiv"></div>
+            <div id="renderBodyDiv"></div>
+            <div id="renderFooterDiv"></div>
             {isActive ? 'Release to drop' : 'Drag a box here'}
             {cards.map((card, index) =>
                 <Card
