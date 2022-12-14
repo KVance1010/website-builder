@@ -50,10 +50,19 @@ export default function CardComponent() {
     return (
         <div ref={drag} className="card text-center" style={styles.card}>
             <div className="card-header bg-primary text-white">
-                <h6 className="m-0">Greeting from state:</h6>
+                <h6 className="m-0"
+                    style={{
+                        fontFamily: 'Arial',
+                        fontSize: 16,
+                        fontWeight: 'bold'
+                    }}>
+                    Greetings from state:
+                </h6>
             </div>
             <div className="card-body d-flex flex-column align-items-start">
-                <p className="card-text text-dark" style={{ fontSize: '50px' }}>
+                <p className="card-text text-dark" style={{
+                    fontSize: '50px'
+                }}>
                     Hello!
                 </p>
             </div>

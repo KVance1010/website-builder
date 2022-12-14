@@ -4,11 +4,28 @@ import EditIcon from '@mui/icons-material/Edit';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Slider from '@mui/material/Slider';
 
 import '../styles/EditableHeader.css'
 
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
 import useClickOutside from "./ClickOutside";
+
+import fonts from './Fonts'
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 export default function EditableHeader({ text, cards, setCards, parentId }) {
 
@@ -18,14 +35,16 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     const [iconVisibility, setIconVisibility] = React.useState(false);
     const [iconBackground, setIconBackground] = React.useState('rgba(0, 0, 0, 0)');
     const [editText, setEditText] = React.useState(false);
-
-    const { backgroundColor: { r: backgroundR, g: backgroundG, b: backgroundB }, color } = cards[parentId].header.style;
+    const [editSize, setEditSize] = React.useState(false);
 
     /* background color picker */
     const [backgroundColorEdit, toggleBackgroundColorEdit] = React.useState(false);
     const [textColorEdit, toggleTextColorEdit] = React.useState(false);
+    const [editFont, setEditFont] = React.useState(false);
     const backgroundColorPopover = React.useRef();
     const textColorPopover = React.useRef();
+    const fontSelector = React.useRef();
+    const fontSizeSlider = React.useRef();
 
     const closeBackgroundColorSelector = React.useCallback(() => toggleBackgroundColorEdit(false), []);
     useClickOutside(backgroundColorPopover, closeBackgroundColorSelector);
@@ -33,13 +52,24 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     const closeTextColorSelector = React.useCallback(() => toggleTextColorEdit(false), []);
     useClickOutside(textColorPopover, closeTextColorSelector);
 
+    const closeFontSelector = React.useCallback(() => setEditFont(false), []);
+    useClickOutside(fontSelector, closeFontSelector);
+
+    const closeFontSize = React.useCallback(() => setEditSize(false), []);
+    useClickOutside(fontSizeSlider, closeFontSize);
+
+    const { backgroundColor: { r: backgroundR, g: backgroundG, b: backgroundB }, color, fontFamily, fontSize } = cards[parentId].header.style;
+
     const styles = {
         cardHeader: {
             backgroundColor: `rgba(${backgroundR}, ${backgroundG}, ${backgroundB}, ${opacity})`,
-            color: color
+            color: color,
         },
         h: {
-            lineHeight: 1.5
+            lineHeight: 1.5,
+            fontFamily,
+            fontSize,
+            fontWeight: 'bold'
         }
     };
 
@@ -165,6 +195,34 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
         setEditText(true);
     };
 
+    const handleEditTextFont = (e) => {
+        handleClose(e);
+
+        setEditFont(true);
+    }
+
+    const handleEditTextSize = (e) => {
+        handleClose(e);
+
+        setEditSize(true);
+    }
+
+    const handleFontChange = (e) => {
+        const newCards = [...cards];
+
+        newCards[parentId].header.style.fontFamily = e.target.value;
+
+        setCards(newCards);
+    }
+
+    const handleFontSizeChange = (e) => {
+        const newCards = [...cards];
+
+        newCards[parentId].header.style.fontSize = e.target.value;
+
+        setCards(newCards);
+    }
+
     const handleTextChange = (e) => {
         const input = e.target.value;
 
@@ -243,6 +301,55 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
                     <HexColorPicker color={color} onChange={handleTextColorChange} />
                 </div>
             )}
+            {editFont && (
+                <FormControl
+                    sx={{
+                        position: 'absolute',
+                        zIndex: 2,
+                        backgroundColor: 'white',
+                        borderRadius: '5px',
+                        // transform: `translateY(100%)`,
+                        left: 0,
+                        bottom: 0
+                    }}
+                    ref={fontSelector}
+                >
+                    <InputLabel id="demo-simple-select-label">Font</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={fontFamily}
+                        label="Font"
+                        onChange={handleFontChange}
+                        MenuProps={MenuProps}
+                    >
+                        {fonts.map((font, index) =>
+                            <MenuItem
+                                key={index}
+                                value={font}>{font}
+                            </MenuItem>
+                        )}
+                    </Select>
+                </FormControl>
+            )}
+            {editSize && (
+                <Slider
+                    sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        transform: `translateY(-100%)`,
+                    }}
+                    ref={fontSizeSlider}
+                    // size="small"
+                    value={fontSize}
+                    onChange={handleFontSizeChange}
+                    aria-label="Default"
+                    valueLabelDisplay="auto"
+                    min={16}
+                    max={50}
+                />
+            )}
             {iconVisibility ?
                 <>
                     <EditIcon
@@ -270,9 +377,11 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
                             'aria-labelledby': 'edit-icon',
                         }}
                     >
-                        <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
                         <MenuItem onClick={handleEditBackgroundColor}>Edit Background Color</MenuItem>
+                        <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
                         <MenuItem onClick={handleEditTextColor}>Edit Text Color</MenuItem>
+                        <MenuItem onClick={handleEditTextFont}>Edit Text Font</MenuItem>
+                        <MenuItem onClick={handleEditTextSize}>Edit Text Size</MenuItem>
                         <MenuItem onClick={handleRemoveHeader}>Remove Header</MenuItem>
                     </Menu>
                 </>
