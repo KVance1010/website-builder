@@ -78,9 +78,7 @@
 }
 
 @media screen and (max-width: 1234px) {
-	.hero_content {
-		/* height: 70%; */
-	}
+	
 
 	.hero_content h1 {
 		font-size: 45px;
@@ -92,9 +90,7 @@
 }
 
 @media screen and (max-width: 968px) {
-	.hero_content {
-		/* height: 50%; */
-	}
+	
 
 	.hero_content h1 {
 		font-size: 30px;
@@ -106,9 +102,7 @@
 }
 
 @media screen and (max-width: 744px) {
-	.hero_content {
-		/* height: 30%; */
-	}
+	
 
 	.hero_content h1 {
 		font-size: 30px;
