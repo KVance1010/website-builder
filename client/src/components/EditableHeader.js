@@ -65,12 +65,12 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     };
 
     const onMouseEnter = (e) => {
-        console.log('MOUSE ENTER EDITABLE');
+        // console.log('MOUSE ENTER EDITABLE');
         setHoveredEffect();
     };
 
     const onMouseLeave = (e) => {
-        console.log('MOUSE LEAVE EDITABLE');
+        // console.log('MOUSE LEAVE EDITABLE');
         if (!open) {
             removeHoveredEffect();
         }
@@ -83,13 +83,13 @@ export default function EditableHeader({ text, cards, setCards, parentId }) {
     }
 
     const onMouseEnterIcon = (e) => {
-        console.log('MOUSE ENTER ICON');
+        // console.log('MOUSE ENTER ICON');
         setHoveredEffect();
         setIconBackground('rgba(0, 0, 0, .30)');
     };
 
     const onMouseLeaveIcon = (e) => {
-        console.log('MOUSE LEAVE ICON');
+        // console.log('MOUSE LEAVE ICON');
         if (!open) {
             removeHoveredEffect();
             setIconBackground('rgba(0, 0, 0, 0)');
