@@ -46,8 +46,6 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     };
 
     const onMouseOver = (e) => {
-
-        console.log(pointerOverEditableBodyText(e.clientX, e.clientY));
         if (!pointerOverEditableBodyText(e.clientX, e.clientY)) {
             setHoveredEffect();
         } else {
@@ -63,13 +61,13 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     };
 
     const onMouseEnterIcon = (e) => {
-        console.log('MOUSE ENTER ICON');
+        // console.log('MOUSE ENTER ICON');
         setHoveredEffect();
         setIconBackground('rgba(0, 0, 0, .30)');
     };
 
     const onMouseLeaveIcon = (e) => {
-        console.log('MOUSE LEAVE ICON');
+        // console.log('MOUSE LEAVE ICON');
         if (!open) {
             removeHoveredEffect();
             setIconBackground('rgba(0, 0, 0, 0)');
@@ -139,8 +137,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     }
 
     const handleEditBackgroundColor = (e) => {
-        closeMenu(e);
-        setAnchorEl(null);
+        handleClose(e);
 
         toggleBackgroundColorEdit(true);
     }
@@ -150,9 +147,30 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         setAnchorEl(null);
     };
 
+    const handleAddText = (e) => {
+        handleClose(e);
+
+        const newCards = [...cards];
+        newCards[parentId].bodyStyles.push(
+            {
+                text: "Hello!",
+                style: {
+                    fontSize: 50,
+                    color: {
+                        r: 0,
+                        g: 0,
+                        b: 0
+                    }
+                }
+            }
+        );
+
+        setCards(newCards);
+    }
+
     return (
         <>
-            <div className="card-body d-flex flex-row position-relative editable-body"
+            <div className="card-body d-flex flex-column align-items-start position-relative editable-body"
                 key={1}
                 style={styles}
                 onMouseEnter={onMouseEnter}
@@ -189,7 +207,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                             }}
                         >
                             <MenuItem onClick={handleEditBackgroundColor}>Edit Background Color</MenuItem>
-                            <MenuItem onClick={handleClose}>Add Text</MenuItem>
+                            <MenuItem onClick={handleAddText}>Add Text</MenuItem>
                         </Menu>
                     </>
                     :
