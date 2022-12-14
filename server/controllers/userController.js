@@ -60,6 +60,18 @@ module.exports = {
 		}
 		res.json(userData);
 	},
+	async findProject({ body }, res) {
+		const userData = await User.aggregate([
+			{$match: {_id: body.userId}},
+			{$eq:{builds: body.build}}
+		])
+		if (!userData) {
+			return res
+				.status(400)
+				.json({ message: 'no user found, please try again' });
+		}
+		res.json(userData);
+	},
 	async deleteProject(req, res) {
 		const user = await User.findOneAndUpdate(
 			{ _id: req.params.id },

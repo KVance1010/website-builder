@@ -1,4 +1,7 @@
 export const buildBody = (bodySettings) => {
 
-return
+
+
+    let bodyRender=``
+return bodyRender;
 }

@@ -112,11 +112,13 @@ const WRK = () => {
 
 	const [visibilityNav, setVisibilityNav] = useState(false);
 	const [visibilityMain, setVisibilityMain] = useState(false);
+	const [visibilityAside, setVisibilityAside] = useState(false)
 	const [visibilityComp, setVisibilityComp] = useState(false);
 	const [visibilityFooter, setVisibilityFooter] = useState(false);
 
 	const [nav, setNav] = useState("Add Navigation Bar");
 	const [main, setMain] = useState("Add Main Content Section");
+	const [aside, setAside] = useState("Add Aside Content Section")
 	const [comp, setComp] = useState("Add Components");
 	const [Footer, setFooter] = useState("Add Footer Section");
 
@@ -126,8 +128,10 @@ const WRK = () => {
 	const [visibilityUpload4, setVisibilityUpload4] = useState(false);
 
 
-//colorFooterGrad
+	//colorFooterGrad
 	const [color, setColor] = useState("#aabbcc");
+	const [colorAside, setColorAside] = useState("#aabbcc");
+	const [colorAsideGrad, setColorAsideGrad] = useState("#aabbcc");
 	const [colorFooterGrad, setcolorFooterGrad] = useState("#aabbcc");
 	const [colorGrad, setColorGrad] = useState("#aabbcc");
 	const [colorNavTitle, setColor1] = useState("#aabbcc");
@@ -165,6 +169,16 @@ const WRK = () => {
 		}
 	};
 
+	const addAside = () => {
+		if (visibilityAside) {
+			setVisibilityAside(false);
+			setAside("Add aside Content Section");
+		} else {
+			setVisibilityAside(true);
+			setAside("Collapse Aside Bench");
+		}
+	};
+
 	const addFooter = () => {
 		if (visibilityFooter) {
 			setVisibilityFooter(false);
@@ -196,6 +210,16 @@ const WRK = () => {
 		}
 	};
 
+	const asideVal = () => {
+		let asideVal = document.getElementById("asideVal").textContent;
+		if (asideVal === "No") {
+			document.getElementById("asideVal").innerHTML = "Yes";
+		}
+		if (asideVal === "Yes") {
+			document.getElementById("asideVal").innerHTML = "No";
+		}
+	};
+
 	const footerDir = () => {
 		let footerDirVal = document.getElementById("footerLinkDir").textContent;
 		if (footerDirVal === "Right") {
@@ -212,6 +236,16 @@ const WRK = () => {
 		}
 		if (navGradVal === "Yes") {
 			document.getElementById("navGrad").innerHTML = "No";
+		}
+	};
+
+	const asideGrad = () => {
+		let asideGrad = document.getElementById("asideGrad").textContent;
+		if (asideGrad === "No") {
+			document.getElementById("asideGrad").innerHTML = "Yes";
+		}
+		if (asideGrad === "Yes") {
+			document.getElementById("asideGrad").innerHTML = "No";
 		}
 	};
 	const footerGrad = () => {
@@ -306,8 +340,8 @@ const WRK = () => {
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
 
-const navRender = () => {
-	let navObj = -1
+	const navRender = () => {
+		let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
 				navObj = i;
@@ -400,7 +434,8 @@ const navRender = () => {
 			header.append(navImg);
 			header.append(nav);
 			renderNavDiv.appendChild(header);
-}}
+		}
+	}
 
 
 
@@ -409,7 +444,7 @@ const navRender = () => {
 		setVisibilityUpload(false);
 		setImageSubmitVisibility(true);
 		// let navImgBtn = document.getElementById('imageBtn');
-		
+
 		// navImgBtn.text("Try Another Image");
 
 		// if (!clickedBtn.getAttribute('count'))
@@ -490,9 +525,17 @@ const navRender = () => {
 		}
 
 		let mainTitle = document.getElementById("mainTitle").value;
-
+		let asideVal = document.getElementById("asideVal").textContent;
+		let asideGrad = document.getElementById("asideGrad").textContent;
+		let asideContent = {
+			asideGrad: asideGrad,
+			asideBackCol: colorAside,
+			asidebackColGrad: colorAsideGrad,
+		}
 		let temp = {
 			contentTitle: "body",
+			aside: asideVal,
+			asideContent: asideContent,
 			colorBody: colorBody,
 			mainTitle: mainTitle,
 			colorMainBackground: colorMainBackground,
@@ -960,6 +1003,60 @@ const navRender = () => {
 							</button>
 							{visibilityMain ? (
 								<div style={flair.addNavBarColor} className="col-12 inner-container">
+									<button
+										style={{ color: 'white' }}
+										className="btn dropdown-toggle w-100"
+										type="button"
+										onClick={addAside}
+										id="addMainBtn"
+									>
+										{aside}
+									</button>
+									{visibilityAside ? (
+										<div style={flair.addNavBarColor} className="col-12 inner-container">
+											<div className="row-12">
+												<label className="col-6 labelText">Would you like an Aside section: </label>
+												<button className="col-6 btn btn-primary" id="asideVal" onClick={asideVal}>
+													No
+												</button>
+											</div>
+
+											<hr className="navBenchBreak"></hr>
+
+											<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
+											<label className="col-6 labelText">Would you like a gradiant: </label>
+											<button className="col-6 btn btn-primary" id="asideGrad" onClick={asideGrad}>
+												No
+											</button>
+
+											<hr className="navBenchBreak"></hr>
+
+											<div className="row">
+												<div className="d-flex justify-content-between">
+													<label className="labelText">Select entire Aside background-color: </label>
+													{<PopoverPicker color={colorAside} onChange={setColorAside} />}
+												</div>
+											</div>
+											<div className="row">
+												<div className="d-flex justify-content-between">
+													<label className="labelText">Select entire Aside background-color for gradiant: </label>
+													{<PopoverPicker color={colorAsideGrad} onChange={setColorAsideGrad} />}
+												</div>
+											</div>
+											<hr className="navBenchBreak"></hr>
+
+											<div className="row-12">
+												<label className="col-6 labelText">
+													Title of Aside
+												</label>
+												<input className="col-6" type="text" id="asideTitle"></input>
+											</div>
+										</div>
+									) : (
+										<div></div>
+									)}
+									<hr className="navBenchBreak"></hr>
+
 									<div className="row">
 										<div className="d-flex justify-content-between">
 											<label className="labelText">Select entire page background-color: </label>
@@ -1167,7 +1264,7 @@ const navRender = () => {
 								<div style={flair.addNavBarColor} className="col-12 inner-container">
 
 									<div className="row">
-									<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
+										<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
 										<label className="col-6 labelText">Would you like a gradiant: </label>
 										<button className="col-6 btn btn-primary" id="footerGrad" onClick={footerGrad}>
 											No
@@ -1180,7 +1277,7 @@ const navRender = () => {
 											<label className="labelText">Select background color for gradiant: </label>
 											{<PopoverPicker color={colorFooterGrad} onChange={setcolorFooterGrad} />}
 										</div>
-										
+
 									</div>
 
 									<hr className="navBenchBreak"></hr>
@@ -1349,8 +1446,8 @@ const navRender = () => {
 								<div></div>
 							)}
 						</div>
-            
-						<Save myProp = {codeCompileArr} cards={cards}/>
+
+						<Save myProp={codeCompileArr} cards={cards} />
 
 					</aside>
 					<main
@@ -1365,7 +1462,7 @@ const navRender = () => {
 			</div>
 		</React.Fragment>
 
-		
+
 	);
 };
 
