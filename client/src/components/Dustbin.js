@@ -80,7 +80,9 @@ export default function Dustbin({ cards, setCards }) {
                             g: 110,
                             b: 253
                         },
-                        color: 'white'
+                        color: 'white',
+                        fontFamily: 'Arial',
+                        fontSize: 16
                     }
                 },
                 body: {
@@ -99,7 +101,8 @@ export default function Dustbin({ cards, setCards }) {
                                 r: 0,
                                 g: 0,
                                 b: 0
-                            }
+                            },
+                            fontFamily: 'Arial'
                         }
                     }
                 ]
@@ -170,7 +173,7 @@ export default function Dustbin({ cards, setCards }) {
             <div id="renderNavDiv"></div>
             <div id="renderBodyDiv"></div>
             <div id="renderFooterDiv"></div>
-            {isActive ? 'Release to drop' : 'Drag a box here'}
+            {/* {isActive ? 'Release to drop' : 'Drag a box here'} */}
             {cards.map((card, index) =>
                 <Card
                     key={index}
