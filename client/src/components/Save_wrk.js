@@ -15,11 +15,6 @@ const saveCont = async (e) => {
         title: title,
         description: desc
     }
-    try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
-        if (!token) {
-          return false;
-        }
         try {
             const token = Auth.loggedIn() ? Auth.getToken() : null;
             if (!token) {
