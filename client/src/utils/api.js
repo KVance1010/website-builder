@@ -30,7 +30,7 @@ export const saveContent = (userData) => {
 };
 
 export const findAllProjects = (token) => {
-	return fetch(`api/users/findAllProjects/`, {
+	return fetch(`api/builds/`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',

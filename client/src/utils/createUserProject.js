@@ -82,12 +82,6 @@ class RenderProject {
         let fileContentArr = [headCont,bodyOpen,navRender,bodyClose]
         let fileContent = fileContentArr.join('\n')
 
-            // fs.writeFile('./file/index.txt',fileContent ,function(err){
-            //     if(err){
-            //         console.log(err)
-            //     }
-            // })
-
 			let file = new File([fileContent], {
 				type: 'text/plain;charset=utf-8',
 			});
