@@ -26,10 +26,8 @@ const Download_build = () => {
 				if (!response.ok) {
 					throw new Error('something went wrong!');
 				}
-
 				const user = await response.json();
 				setProjects(user.builds);
-				console.log(projects);
 			} catch (err) {
 				console.error(err);
 			}
