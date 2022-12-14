@@ -19,7 +19,7 @@ export const login = (userData) => {
 };
 
 export const saveContent = (userData) => {
-	console.log(userData, 'frontend');
+	console.log(userData);
 	return fetch('/api/users/addProject', {
 		method: 'POST',
 		headers: {
@@ -30,7 +30,7 @@ export const saveContent = (userData) => {
 };
 
 export const findAllProjects = (token) => {
-	return fetch(`api/builds/`, {
+	return fetch(`api/users/findAllProjects/`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
