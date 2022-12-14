@@ -69,7 +69,43 @@ const WRK = () => {
 		}
 	});
 
-
+	const [cards, setCards] = useState([
+		{
+			top: 20,
+			left: 20,
+			header: {
+				text: "Greetings from state!",
+				style: {
+					backgroundColor: {
+						r: 13,
+						g: 110,
+						b: 253
+					},
+					color: 'white'
+				}
+			},
+			body: {
+				style: {
+					r: 255,
+					g: 255,
+					b: 255
+				}
+			},
+			bodyStyles: [
+				{
+					text: "Hello!",
+					style: {
+						fontSize: 50,
+						color: {
+							r: 0,
+							g: 0,
+							b: 0
+						}
+					}
+				}
+			]
+		}
+	]);
 
 	const [visibilityNav, setVisibilityNav] = useState(false);
 	const [visibilityMain, setVisibilityMain] = useState(false);
@@ -1278,12 +1314,15 @@ const WRK = () => {
 								<div></div>
 							)}
 						</div>
-						<Save {...codeCompileArr} />
+						<Save {...codeCompileArr} cards={cards} />
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
 
-						<Dustbin />
+						<Dustbin
+							cards={cards}
+							setCards={setCards}
+						/>
 					</main>
 				</div>
 			</div>

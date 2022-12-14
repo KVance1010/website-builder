@@ -129,6 +129,21 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
 
     const handleAddHeader = (e) => {
         handleClose(e);
+
+        const newCards = [...cards];
+        newCards[parentId].header = {
+            text: "Greetings from state!",
+            style: {
+                backgroundColor: {
+                    r: 13,
+                    g: 110,
+                    b: 253
+                },
+                color: 'white'
+            }
+        };
+
+        setCards(newCards);
     }
 
     const handleBackgroundColorChange = ({ r, g, b }) => {
@@ -172,8 +187,6 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
 
         setCards(newCards);
     }
-
-    console.log(header);
 
     return (
         <>
@@ -236,14 +249,5 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
                 </div>
             )}
         </>
-        // React.cloneElement(
-        //     html,
-        //     {
-        //         onDrag: onDrag,
-        //         onMouseOver: onMouseOver,
-        //         onMouseOut: onMouseOut,
-        //     },
-        //     [html.props.children]
-        // )
     );
 }
