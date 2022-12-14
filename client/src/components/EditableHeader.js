@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import '../styles/EditableHeader.css'
 
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
-import useClickOutside from "./UseClickOutside";
+import useClickOutside from "./ClickOutside";
 
 export default function EditableHeader({ text, cards, setCards, parentId }) {
 
