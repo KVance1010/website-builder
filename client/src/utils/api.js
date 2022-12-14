@@ -19,7 +19,7 @@ export const login = (userData) => {
 };
 
 export const saveContent = (userData) => {
-	console.log(userData, 'frontend');
+	console.log(userData);
 	return fetch('/api/users/addProject', {
 		method: 'POST',
 		headers: {
