@@ -78,6 +78,7 @@ const WRK = () => {
 
 
 	const [color, setColor] = useState("#aabbcc");
+	const [colorGrad, setColorGrad] = useState("#aabbcc");
 	const [colorNavTitle, setColor1] = useState("#aabbcc");
 	const [colorNavLinks, setColor2] = useState("#aabbcc");
 	const [colorMainBackground, setColor3] = useState("#aabbcc");
@@ -124,7 +125,15 @@ const WRK = () => {
 			document.getElementById("navDir").innerHTML = "Right";
 		}
 	};
-
+	const navgrad = () => {
+		let navGradVal = document.getElementById("navGrad").textContent;
+		if (navGradVal === "No") {
+			document.getElementById("navGrad").innerHTML = "Yes";
+		}
+		if (navGradVal === "Yes") {
+			document.getElementById("navGrad").innerHTML = "No";
+		}
+	};
 	const [imageName, setImageName] = useState("");
 	const handleImageName = (e) => {
 		let imgname = e.target.value
@@ -217,9 +226,12 @@ const WRK = () => {
 		let navLinksString = document.getElementById("navLinksString").value;
 		let homeTitle = document.getElementById("homeTitle").value;
 		let navLinks = navLinksString.split(",");
+		let NavGradVal = document.getElementById("navGrad").textContent;
 		let temp = {
 			contentTitle: "navbar",
+			gradVal: NavGradVal,
 			navColor: navColor,
+			navgradColor: colorGrad,
 			homeTitle: homeTitle,
 			navlinks: [navLinks],
 			navDir: navDirVal,
@@ -235,7 +247,7 @@ const WRK = () => {
 		let renderDiv = document.getElementById("renderDiv");
 		renderDiv.innerHTML = "";
 
-
+		//add gradiant here
 		//render page
 		let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
@@ -243,14 +255,22 @@ const WRK = () => {
 				navObj = i;
 			}
 		}
+
 		if (navObj === -1) {
 		} else {
 			let navRenderObj = codeCompileArr[navObj];
 			let header = document.createElement("div");
+			let headBack
+			if(navRenderObj.gradVal == 'Yes'){
+				headBack = ` background-image: linear-gradient(to bottom right, ${navRenderObj.navColor}, ${navRenderObj.navgradColor});`
+			}
+			if(navRenderObj.gradVal == 'No'){
+				headBack = `background-color: ${navRenderObj.navColor};`
+			}
 			header.setAttribute(
 				"style",
 				`width: 100%;
-				background-color: ${navRenderObj.navColor};`
+				${headBack};`
 			);
 			let title = document.createElement("div");
 			title.setAttribute(
@@ -471,9 +491,18 @@ const WRK = () => {
 								<div style={flair.addNavBarColor} className="col-12 inner-container">
 
 									<div className="row">
+										<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
+										<label className="col-6 labelText">Would you like a gradiant: </label>
+										<button className="col-6 btn btn-primary" id="navGrad" onClick={navgrad}>
+											No
+										</button>
 										<div className="d-flex justify-content-between">
 											<label className="labelText">Select background color: </label>
 											{<PopoverPicker color={color} onChange={setColor} />}
+										</div>
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select background color: </label>
+											{<PopoverPicker color={colorGrad} onChange={setColorGrad} />}
 										</div>
 									</div>
 
