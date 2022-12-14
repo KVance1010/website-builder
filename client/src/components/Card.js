@@ -80,11 +80,15 @@ export default function Card({ id, top, left, cards, setCards }) {
                     cards={cards}
                     setCards={setCards}
                 >
-                    <EditableBodyText
+                    {cards[id].bodyStyles.map((child, index) =>
+                    (<EditableBodyText
+                        id={index}
+                        key={index}
                         parentId={id}
                         cards={cards}
                         setCards={setCards}
                     />
+                    ))}
                 </EditableBody>
             </div>
         </Resizable>
