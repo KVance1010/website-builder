@@ -50,12 +50,12 @@ const Login = () => {
 	};
 	return (
 		<>
-			<div>
-				<img
+			<div id="login-section">
+				{/* <img
 					className="img_login"
 					src={loginImg}
 					alt="Buildings in the background."
-				/>
+				/> */}
 				<div className="container">
 					<div className="row d-flex justify-content-center w-100 card_container">
 						<div className="col-6 ">
