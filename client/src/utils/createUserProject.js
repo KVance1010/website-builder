@@ -62,11 +62,11 @@ class RenderProject {
         let fileContentArr = [headCont, bodyOpen, navRender, footerBuild, bodyClose]
         let fileContent = fileContentArr.join('\n')
 
-        let file = new File([fileContent], {
-            type: 'text/plain;charset=utf-8',
-        });
-        saveAs(file, 'index.html');
-        console.log('save file');
+			let file = new File([fileContent], {
+				type: 'text/plain;charset=utf-8',
+			});
+			saveAs(file, 'index.html');
+			console.log('save file');
     }
-}
+   }
 export default new RenderProject();
