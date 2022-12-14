@@ -4,7 +4,7 @@ import { ItemTypes } from './ItemTypes.js'
 import React, { useState, useRef, useCallback } from 'react';
 
 import Card from './Card';
-import Editable from './Editable'
+import EditableHeader from './EditableHeader'
 
 import { useDragDropManager } from 'react-dnd'
 import update from 'immutability-helper'
@@ -23,31 +23,63 @@ const style = {
     lineHeight: 'normal',
     float: 'left',
 }
+
 export default function Dustbin() {
     const [cards, setCards] = useState([
         {
             top: 20,
             left: 20,
-        }
-    ]);
-
-    const [cardStyles, setCardStyles] = useState([
-        [
-            {
+            header: {
                 text: "Greetings from state!",
                 style: {
-                    backgroundColor: '#0d6efd',
+                    backgroundColor: {
+                        r: 13,
+                        g: 110,
+                        b: 253
+                    },
                     color: 'white'
                 }
             },
-            {
-                text: "Hello!",
+            body: {
                 style: {
-
+                    r: 255,
+                    g: 255,
+                    b: 255
                 }
-            }
-        ]
-    ])
+            },
+            bodyStyles: [
+                {
+                    text: "Hello!",
+                    style: {
+                        fontSize: 50,
+                        color: {
+                            r: 0,
+                            g: 0,
+                            b: 0
+                        }
+                    }
+                }
+            ]
+        }
+    ]);
+
+    // const [cardStyles, setCardStyles] = useState([
+    //     [
+    //         {
+    //             text: "Greetings from state!",
+    //             style: {
+    //                 backgroundColor: '#0d6efd',
+    //                 color: 'white'
+    //             }
+    //         },
+    //         {
+    //             text: "Hello!",
+    //             style: {
+
+    //             }
+    //         }
+    //     ]
+    // ])
 
     const cardsRef = useRef(cards);
 
@@ -60,8 +92,28 @@ export default function Dustbin() {
             newCards.push({
                 left: x - (sidebarOffset + item.xOffset),
                 top: y - (headerOffset + item.yOffset),
-                item: <Card key={cards.length} id={cards.length} />
-            });
+                header: {
+                    text: "Greetings from state!",
+                    style: {
+                        backgroundColor: '#0d6efd',
+                        color: 'white'
+                    },
+                },
+                body: {
+                    style: {
+                        backgroundColor: 'white'
+                    }
+                },
+                bodyText: [
+                    {
+                        text: "Hello!",
+                        style: {
+                            color: 'white'
+                        }
+                    }
+                ]
+            },
+            );
 
             setCards(newCards);
         },
@@ -124,7 +176,9 @@ export default function Dustbin() {
     }
     return (
         <div ref={drop} style={{ ...style, backgroundColor }} data-testid="dustbin">
-            <div id="renderDiv"></div>
+            <div id="renderNavDiv"></div>
+            <div id="renderBodyDiv"></div>
+            <div id="renderFooterDiv"></div>
             {isActive ? 'Release to drop' : 'Drag a box here'}
             {cards.map((card, index) =>
                 <Card
@@ -132,8 +186,8 @@ export default function Dustbin() {
                     id={index}
                     top={card.top}
                     left={card.left}
-                    cardStyles={cardStyles}
-                    setCardStyles={setCardStyles}
+                    cards={cards}
+                    setCards={setCards}
                 />
             )}
         </div>

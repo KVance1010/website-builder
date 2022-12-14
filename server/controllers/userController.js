@@ -46,13 +46,30 @@ module.exports = {
 		res.json({ message: 'Added Project seccessfully' });
 	},
 
-	async findAllProjects(req, res) {
-		const user = await User.findOne({ _id: req.params.id }).populate('builds');
-		if (!user) {
+	async findAllProjects({ user = null, params }, res) {
+		const userData = await User.findOne({
+			$or: [
+				{ _id: user ? user._id : params.id },
+				{ username: params.username },
+			],
+		}).populate('builds');
+		if (!userData) {
 			return res
 				.status(400)
 				.json({ message: 'no user found, please try again' });
 		}
-		res.json(user);
+		res.json(userData);
 	},
+	async deleteProject(req, res) {
+		const user = await User.findOneAndUpdate(
+			{ _id: req.params.id },
+			{ $pull: { builds: { build: req.params.buildId } } }
+		);
+		if (!user) {
+			return res
+				.status(400)
+				.json({ message: 'unable to delete, please try again' });
+		}
+		res.json(user);
+	}
 };

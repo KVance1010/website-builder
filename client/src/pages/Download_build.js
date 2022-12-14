@@ -1,49 +1,89 @@
-import downloadProject from '../file/reset.txt';
-import downloadProject1 from '../file/index.txt';
 import Footer from '../components/Footer';
-import Render from '../components/render_file';
-import {findAllProjects} from '../utils/api';
+import { findAllProjects } from '../utils/api';
 import Auth from '../utils/auth';
 import '../styles/Download_build.css';
-import JSZip from 'jszip';
-import JSZipUtils from 'jszip-utils';
-import { saveAs } from 'file-saver';
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import CreateProject from '../utils/createUserProject';
+// import JSZip from 'jszip';
+// import JSZipUtils from 'jszip-utils';
+// import { saveAs } from 'file-saver';
+// import downloadProject from '../file/reset.txt';
+// import downloadProject1 from '../file/index.txt';
+// import Render from '../components/render_file';
 
 const Download_build = () => {
-	const downloadProjectFolder = async () => {
-		console.log('button clicked');
-		let zip = new JSZip();
-		let count = 0;
-		let zipFilename = 'zipFilename.zip';
-		let urls = [downloadProject1, downloadProject];
-		let id = Auth.getUserId();
-		let project = findAllProjects(id);
-		console.log(project);
+	const [projects, setProjects] = useState([]);
+	const [projectSelected, setProjectSelected] = useState(false);
 
-		urls.forEach(function (url, i) {
-			let filename;
-			if(i === 0){
-				filename = 'index.html';
+	useEffect(() => {
+		const token = Auth.loggedIn() ? Auth.getToken() : null;
+		if (!token) {
+			return false;
+		}
+		const getUserBuilds = async () => {
+			try {
+				const response = await findAllProjects(token);
+				if (!response.ok) {
+					throw new Error('something went wrong!');
+				}
 
-			}else{
-				filename = 'filename' + i
+				const user = await response.json();
+				setProjects(user.builds);
+				console.log(projects);
+			} catch (err) {
+				console.error(err);
 			}
-			
-			JSZipUtils.getBinaryContent(url, function (err, data) {
-				if (err) {
-					throw err;
-				}
-				zip.file(filename, data, { binary: true });
-				count++;
-				if (count === urls.length) {
-					zip.generateAsync({ type: 'blob' }).then(function (content) {
-						saveAs(content, zipFilename);
-					});
-				}
-			});
-		});
+		};
+		getUserBuilds();
+	}, []);
+
+	// we only need to save this if we can not get the files to save to ./file
+	const [value, setValue] = useState();
+
+	const selectedProject = async (e) => {
+		const value1 = e.target.value;
+		if (value1) {
+			console.log('project selected');
+			setValue(value1 - 1);
+
+			//use this if we can not get the files to save to ./file
+			// const project = projects[value]
+			// CreateProject.renderFiles(project);
+			setProjectSelected(true);
+		}
+	};
+	//use this if we can not get the files to save to ./file
+	// const downloadProjectFolder = async () => {
+	// 	console.log('button clicked');
+	// 	let zip = new JSZip();
+	// 	let count = 0;
+	// 	const zipFilename = 'zipFilename.zip';
+	// 	const urls = [downloadProject1, downloadProject];
+	// 	urls.forEach(function (url, i) {
+	// 		let filename;
+	// 		if (i === 0) {
+	// 			filename = 'index.html';
+	// 		} else {
+	// 			filename = 'filename' + i;
+	// 		}
+	// 		JSZipUtils.getBinaryContent(url, function (err, data) {
+	// 			if (err) {
+	// 				throw err;
+	// 			}
+	// 			zip.file(filename, data, { binary: true });
+	// 			count++;
+	// 			if (count === urls.length) {
+	// 				zip.generateAsync({ type: 'blob' }).then(function (content) {
+	// 					saveAs(content, zipFilename);
+	// 				});
+	// 			}
+	// 		});
+	// 	});
+	// };
+
+	const downloadProjectFolder = async () => {
+		const project = projects[value];
+		CreateProject.renderFiles(project);
 	};
 
 	return (
@@ -54,15 +94,25 @@ const Download_build = () => {
 					<div className="card-body">
 						<h5 className="card-title">Select Project</h5>
 						<div className="dropdown">
-							<select className="btn btn-secondary dropdown-toggle btn-lg">
-								<option value="Project 1">Project 1</option>
-								<option value="Project 2">Project 2</option>
-								<option value="Project 3">Project 3</option>
+							<select
+								className="btn btn-secondary dropdown-toggle btn-lg"
+								onChange={selectedProject}
+							>
+								<option value="">--select--</option>
+								{projects.map((project, index) => (
+									<option value={index + 1}>{project.title}</option>
+								))}
 							</select>
 						</div>
 						<p className="card-text">how to download info</p>
-						<Render />
-						<button className="btn btn-dark" onClick={downloadProjectFolder}>
+						{/* <Render /> */}
+						<button
+							disabled={!projectSelected}
+							type="submit"
+							variant="success"
+							className="btn btn-dark"
+							onClick={downloadProjectFolder}
+						>
 							Download
 						</button>
 					</div>
@@ -75,3 +125,16 @@ const Download_build = () => {
 };
 
 export default Download_build;
+
+// const token = Auth.loggedIn() ? Auth.getToken() : null;
+// if (!token) {
+//   return false;
+// }
+// const response = await getMe(token);
+// console.log(response + ' from response');
+// if (!response.ok) {
+//   throw new Error('something went wrong!');
+// }
+
+// const user = await response.json();
+// console.log(user + ' from user');

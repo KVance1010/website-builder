@@ -4,9 +4,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import { EditText, EditTextarea } from 'react-edit-text';
 
-export default function Editable({ text, cardStyles, setCardStyles }) {
+import '../styles/EditableHeader.css'
+
+import { HexColorPicker, RgbaColorPicker } from "react-colorful";
+import useClickOutside from "./UseClickOutside";
+
+export default function EditableHeader({ text, cards, setCards, parentId }) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -15,19 +19,34 @@ export default function Editable({ text, cardStyles, setCardStyles }) {
     const [iconBackground, setIconBackground] = React.useState('rgba(0, 0, 0, 0)');
     const [editText, setEditText] = React.useState(false);
 
-    // const [text, setText] = React.useState("Greetings from state:");
+    const { backgroundColor: { r: backgroundR, g: backgroundG, b: backgroundB }, color } = cards[parentId].header.style;
 
-    // const [savedText, setSavedText] = React.useState('');
+    /* background color picker */
+    const [backgroundColorEdit, toggleBackgroundColorEdit] = React.useState(false);
+    const [textColorEdit, toggleTextColorEdit] = React.useState(false);
+    const backgroundColorPopover = React.useRef();
+    const textColorPopover = React.useRef();
 
-    // const handleTextReplace = (e) => {
-    //     if (e.key === 'Enter') {
-    //         setSavedText(e.target.value);
-    //         setEditText(false);
-    //     }
-    // }
+    const closeBackgroundColorSelector = React.useCallback(() => toggleBackgroundColorEdit(false), []);
+    useClickOutside(backgroundColorPopover, closeBackgroundColorSelector);
+
+    const closeTextColorSelector = React.useCallback(() => toggleTextColorEdit(false), []);
+    useClickOutside(textColorPopover, closeTextColorSelector);
 
     const styles = {
-        opacity: opacity,
+        backgroundColor: `rgba(${backgroundR}, ${backgroundG}, ${backgroundB}, ${opacity})`,
+        color: color
+    };
+
+    const closeMenu = (e) => {
+        if (pointerOverIcon(e.clientX, e.clientY)) {
+
+        } else if (pointerOverEditable(e.clientX, e.clientY)) {
+            setIconBackground('rgba(0, 0, 0, 0)');
+        } else {
+            removeHoveredEffect();
+            setIconBackground('rgba(0, 0, 0, 0)');
+        }
     };
 
     const setHoveredEffect = () => {
@@ -41,21 +60,31 @@ export default function Editable({ text, cardStyles, setCardStyles }) {
     };
 
     const onMouseEnter = (e) => {
+        console.log('MOUSE ENTER EDITABLE');
         setHoveredEffect();
     };
 
     const onMouseLeave = (e) => {
+        console.log('MOUSE LEAVE EDITABLE');
         if (!open) {
             removeHoveredEffect();
         }
     };
 
+    const onKeyDown = (e) => {
+        if (e.key === "Enter") {
+            setEditText(false);
+        }
+    }
+
     const onMouseEnterIcon = (e) => {
+        console.log('MOUSE ENTER ICON');
         setHoveredEffect();
         setIconBackground('rgba(0, 0, 0, .30)');
     };
 
     const onMouseLeaveIcon = (e) => {
+        console.log('MOUSE LEAVE ICON');
         if (!open) {
             removeHoveredEffect();
             setIconBackground('rgba(0, 0, 0, 0)');
@@ -79,12 +108,42 @@ export default function Editable({ text, cardStyles, setCardStyles }) {
         const elements = document.elementsFromPoint(x, y);
 
         for (const element of elements) {
-            if (element.classList.value.includes('editable')) {
+            if (element.classList.value.includes('editable-header')) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    const handleBackgroundColorChange = ({ r, g, b }) => {
+        const newCards = [...cards];
+        newCards[parentId].header.style.backgroundColor.r = r;
+        newCards[parentId].header.style.backgroundColor.g = g;
+        newCards[parentId].header.style.backgroundColor.b = b;
+
+        setCards(newCards);
+    }
+
+    const handleTextColorChange = (e) => {
+        const newCards = [...cards];
+        newCards[parentId].header.style.color = e;
+
+        setCards(newCards);
+    }
+
+    const handleEditBackgroundColor = (e) => {
+        closeMenu(e);
+        setAnchorEl(null);
+
+        toggleBackgroundColorEdit(true);
+    }
+
+    const handleEditTextColor = (e) => {
+        closeMenu(e);
+        setAnchorEl(null);
+
+        toggleTextColorEdit(true);
     }
 
     const handleBlur = (e) => {
@@ -93,17 +152,6 @@ export default function Editable({ text, cardStyles, setCardStyles }) {
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-    };
-
-    const closeMenu = (e) => {
-        if (pointerOverIcon(e.clientX, e.clientY)) {
-
-        } else if (pointerOverEditable(e.clientX, e.clientY)) {
-            setIconBackground('rgba(0, 0, 0, 0)');
-        } else {
-            removeHoveredEffect();
-            setIconBackground('rgba(0, 0, 0, 0)');
-        }
     };
 
     const handleEditText = (e) => {
@@ -125,17 +173,17 @@ export default function Editable({ text, cardStyles, setCardStyles }) {
     };
 
     const setText = (text) => {
-        const newCardStyles = [...cardStyles];
-        newCardStyles[0][0].text = text;
-        console.log(newCardStyles[0][0].text);
+        const newCards = [...cards];
+        newCards[parentId].header.text = text;
 
-        setCardStyles(newCardStyles);
+        setCards(newCards);
     };
 
     return (
         <>
             <div
-                className="card-header bg-primary editable"
+                className="card-header editable-header"
+                id={`editable-card-header-${parentId}`}
                 style={styles}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -149,12 +197,36 @@ export default function Editable({ text, cardStyles, setCardStyles }) {
                         size="small"
                         onBlur={handleBlur}
                         onChange={handleTextChange}
-                    // onKeyUp={handleTextReplace}
+                        onKeyDown={onKeyDown}
                     />
                     :
-                    <h6 className="card-title text-white m-0">{text}</h6>
+                    <h6 className="card-title m-0">{text}</h6>
                 }
             </div>
+            {backgroundColorEdit && (
+                <div className="card-header-popover"
+                    ref={backgroundColorPopover}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '101%'
+                    }}
+                >
+                    <RgbaColorPicker color={{ r: backgroundR, g: backgroundG, b: backgroundB, a: 1 }} onChange={handleBackgroundColorChange} />
+                </div>
+            )}
+            {textColorEdit && (
+                <div className="popover"
+                    ref={textColorPopover}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: '101%'
+                    }}
+                >
+                    <HexColorPicker color={color} onChange={handleTextColorChange} />
+                </div>
+            )}
             {iconVisibility ?
                 <>
                     <EditIcon
@@ -183,8 +255,8 @@ export default function Editable({ text, cardStyles, setCardStyles }) {
                         }}
                     >
                         <MenuItem onClick={handleEditText}>Edit Text</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem onClick={handleEditBackgroundColor}>Edit Background Color</MenuItem>
+                        <MenuItem onClick={handleEditTextColor}>Edit Text Color</MenuItem>
                     </Menu>
                 </>
                 :

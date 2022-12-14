@@ -1,20 +1,22 @@
 const router = require('express').Router();
 const {
-    createUser,
-    login,
-    addProject,
-    findAllProjects
-  } = require('../../controllers/userControler');
+	createUser,
+	login,
+	addProject,
+	findAllProjects,
+	deleteProject
+} = require('../../controllers/userController');
 
-  const { authMiddleware } = require('../../utils/auth');
+const { authMiddleware } = require('../../utils/auth');
 
-  router.route('/').post(createUser).put(authMiddleware);
+router.route('/').post(createUser).put(authMiddleware);
 
-  router.route('/login').post(login);
-  
-  router.route('/addProject').post(addProject, authMiddleware);
+router.route('/login').post(login);
 
-  router.route('/findAllProjects/:id').get(findAllProjects);
+router.route('/addProject').post(authMiddleware, addProject);
 
+router.route('/findAllProjects').get(authMiddleware, findAllProjects);
+
+router.route('/deleteProject/:id').post(authMiddleware, deleteProject);
 
 module.exports = router;
