@@ -167,7 +167,11 @@ const WRK = () => {
 			})
 		}
 
-		window.addEventListener('resize', handleResize)
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
 	}, []);
 
 	const start = () => {
