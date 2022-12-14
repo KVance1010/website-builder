@@ -5,11 +5,12 @@ import Auth from "../utils/auth";
 const save = ({myProp}) => {
 const saveCont = async (e) => {
     e.preventDefault();
+    console.log(myProp)
     let title = prompt('what would you like to title your project')
     let desc = prompt('describe your project')
 
     let userData = {
-        buildCode: myProp[0],
+        buildCode: myProp,
         title: title,
         description: desc
     }

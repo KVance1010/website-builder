@@ -13,7 +13,7 @@ router.route('/').post(createUser).put(authMiddleware);
 
 router.route('/login').post(login);
 
-router.route('/addProject').post(authMiddleware, addProject);
+router.route('/addProject').post(addProject); //authMiddleware,
 
 router.route('/findAllProjects').get(authMiddleware, findAllProjects);
 

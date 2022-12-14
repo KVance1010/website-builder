@@ -87,8 +87,9 @@ const WRK = () => {
 	const [visibilityUpload4, setVisibilityUpload4] = useState(false);
 
 
-
+//colorFooterGrad
 	const [color, setColor] = useState("#aabbcc");
+	const [colorFooterGrad, setcolorFooterGrad] = useState("#aabbcc");
 	const [colorGrad, setColorGrad] = useState("#aabbcc");
 	const [colorNavTitle, setColor1] = useState("#aabbcc");
 	const [colorNavLinks, setColor2] = useState("#aabbcc");
@@ -174,6 +175,16 @@ const WRK = () => {
 			document.getElementById("navGrad").innerHTML = "No";
 		}
 	};
+	const footerGrad = () => {
+		let footerGradVal = document.getElementById("footerGrad").textContent;
+		if (footerGradVal === "No") {
+			document.getElementById("footerGrad").innerHTML = "Yes";
+		}
+		if (footerGradVal === "Yes") {
+			document.getElementById("footerGrad").innerHTML = "No";
+		}
+	};
+	//footerGrad
 	const [imageName, setImageName] = useState("");
 	const handleImageName = (e) => {
 		let imgname = e.target.value
@@ -256,60 +267,8 @@ const WRK = () => {
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
 
-	const navSubmit = async (e) => {
-		e.preventDefault();
-		setVisibilityUpload(false);
-		setImageSubmitVisibility(true);
-		// let navImgBtn = document.getElementById('imageBtn');
-		let navSubmitBtn = document.getElementById('navBtn');
-		// navImgBtn.text("Try Another Image");
-
-		// if (!clickedBtn.getAttribute('count'))
-		//render object
-		let fontTitle = document.getElementsByName('fontTitle');
-		let titleFontVal
-		for (let i = 0; i < fontTitle.length; i++) {
-			if (fontTitle[i].checked) {
-				titleFontVal = fontTitle[i].value
-			}
-		}
-		let fontNav = document.getElementsByName('fontNav')
-		let navFontVal
-		for (let i = 0; i < fontNav.length; i++) {
-			if (fontNav[i].checked) {
-				navFontVal = fontNav[i].value
-			}
-		}
-
-		let navDirVal = document.getElementById("navDir").textContent;
-		let navColor = color;
-		let navLinksString = document.getElementById("navLinksString").value;
-		let homeTitle = document.getElementById("homeTitle").value;
-		let navLinks = navLinksString.split(",");
-		let NavGradVal = document.getElementById("navGrad").textContent;
-		let temp = {
-			contentTitle: "navbar",
-			gradVal: NavGradVal,
-			navColor: navColor,
-			navgradColor: colorGrad,
-			homeTitle: homeTitle,
-			navlinks: [navLinks],
-			navDir: navDirVal,
-			fontTitle: titleFontVal,
-			fontNavLinks: navFontVal,
-			navImgLink: navImgLink,
-			navImgPubId: imageName,
-			navTitleColor: colorNavTitle,
-			navLinksColor: colorNavLinks
-		};
-		codeCompileArr.push(temp);
-		console.log(codeCompileArr);
-		let renderNavDiv = document.getElementById("renderNavDiv");
-		renderNavDiv.innerHTML = "";
-
-		//add gradiant here
-		//render page
-		let navObj = -1
+const navRender = () => {
+	let navObj = -1
 		for (let i = 0; i < codeCompileArr.length; i++) {
 			if (codeCompileArr[i].contentTitle === "navbar") {
 				navObj = i;
@@ -365,6 +324,7 @@ const WRK = () => {
 					`width: 100%;
 					display: flex;
 					margin-right: 15px;
+					margin-bottom: 0px;
 					justify-content: start;`
 				)
 			}
@@ -393,14 +353,74 @@ const WRK = () => {
 			}
 
 			// let navImage = uploadImage(image, )	
-
+			let renderNavDiv = document.getElementById("renderNavDiv");
+			let navSubmitBtn = document.getElementById('navBtn');
 			navSubmitBtn.textContent = "Update NavBar Settings";
 
 			header.append(title);
 			header.append(navImg);
 			header.append(nav);
 			renderNavDiv.appendChild(header);
+}}
+
+
+
+	const navSubmit = async (e) => {
+		e.preventDefault();
+		setVisibilityUpload(false);
+		setImageSubmitVisibility(true);
+		// let navImgBtn = document.getElementById('imageBtn');
+		
+		// navImgBtn.text("Try Another Image");
+
+		// if (!clickedBtn.getAttribute('count'))
+		//render object
+		let fontTitle = document.getElementsByName('fontTitle');
+		let titleFontVal
+		for (let i = 0; i < fontTitle.length; i++) {
+			if (fontTitle[i].checked) {
+				titleFontVal = fontTitle[i].value
+			}
 		}
+		let fontNav = document.getElementsByName('fontNav')
+		let navFontVal
+		for (let i = 0; i < fontNav.length; i++) {
+			if (fontNav[i].checked) {
+				navFontVal = fontNav[i].value
+			}
+		}
+
+		let navDirVal = document.getElementById("navDir").textContent;
+		let navColor = color;
+		let navLinksString = document.getElementById("navLinksString").value;
+		let homeTitle = document.getElementById("homeTitle").value;
+		let navLinks = navLinksString.split(",");
+		let NavGradVal = document.getElementById("navGrad").textContent;
+		let temp = {
+			contentTitle: "navbar",
+			gradVal: NavGradVal,
+			navColor: navColor,
+			navgradColor: colorGrad,
+			homeTitle: homeTitle,
+			navlinks: [navLinks],
+			navDir: navDirVal,
+			fontTitle: titleFontVal,
+			fontNavLinks: navFontVal,
+			navImgLink: navImgLink,
+			navImgPubId: imageName,
+			navTitleColor: colorNavTitle,
+			navLinksColor: colorNavLinks
+		};
+		codeCompileArr.push(temp);
+		console.log(codeCompileArr);
+		let renderNavDiv = document.getElementById("renderNavDiv");
+		renderNavDiv.innerHTML = "";
+
+		//add gradiant here
+		//render page
+		navRender()
+
+
 	};
 
 	const mainSubmit = async (e) => {
@@ -544,11 +564,13 @@ const WRK = () => {
 		let footerLinkDirVal = document.getElementById("footerLinkDir").textContent;
 		let footerLinksString = document.getElementById("footerLinksString").value;
 		let footerBottomText = document.getElementById("bottomText").value;
-
+		let footerGradVal = document.getElementById("footerGrad").textContent;
 		let footerLinks = footerLinksString.split(",");
 		let temp = {
 			contentTitle: "footer",
+			footerGradVal: footerGradVal,
 			footerColor: colorFooter,
+			footerColorGrad: colorFooterGrad,
 			footerBottomText: footerBottomText,
 			footerlinks: [footerLinks],
 			footerLinksDir: footerLinkDirVal,
@@ -1106,10 +1128,20 @@ const WRK = () => {
 								<div style={flair.addNavBarColor} className="col-12 inner-container">
 
 									<div className="row">
+									<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
+										<label className="col-6 labelText">Would you like a gradiant: </label>
+										<button className="col-6 btn btn-primary" id="footerGrad" onClick={footerGrad}>
+											No
+										</button>
 										<div className="d-flex justify-content-between">
 											<label className="labelText">Select footer background color: </label>
 											{<PopoverPicker color={colorFooter} onChange={setColor7} />}
 										</div>
+										<div className="d-flex justify-content-between">
+											<label className="labelText">Select background color for gradiant: </label>
+											{<PopoverPicker color={colorFooterGrad} onChange={setcolorFooterGrad} />}
+										</div>
+										
 									</div>
 
 									<hr className="navBenchBreak"></hr>
@@ -1278,7 +1310,7 @@ const WRK = () => {
 								<div></div>
 							)}
 						</div>
-						<Save {...codeCompileArr} />
+						<Save myProp = {codeCompileArr} />
 					</aside>
 					<main
 						className="col-9 wrk-concept-container" style={{ padding: '0px' }}>
@@ -1289,46 +1321,7 @@ const WRK = () => {
 			</div>
 		</React.Fragment>
 
-		// <div >
-		// 	<h1>Build Workbench Page</h1>
-		// 	<div className="d-flex">
-		// 		<div style={flair.addNavBarSizing} className="inner-container">
-		// 			<button className="startBtn" onClick={start}>
-		// 				start
-		// 			</button>
-		// 			<button onClick={addNav} id="addNavBtn">
-		// 				{nav}
-		// 			</button>
-		// 			{visibilityNav ? (
-		// 				<div style={flair.addNavBarColor} className="inner-container">
-		// 					<label>
-		// 						background color for nav bar
-		// 						<input type="text" id="navColor"></input>
-		// 					</label>
-		// 					<label>
-		// 						nav bar links followed by , to separate them
-		// 						<input type="text" id="navLinksString"></input>
-		// 					</label>
-		// 					<label>
-		// 						Title of home page
-		// 						<input type="text" id="homeTitle"></input>
-		// 					</label>
-		// 					<button id="navBtn" onClick={navSubmit}>
-		// 						submit nav settings
-		// 					</button>
-
-		// 				</div>
-		// 			) : (
-		// 				<div></div>
-		// 			)}
-
-		// 		</div>
-		// 		<div style={flair.templateWrapper} className="wrk-concept-container">
-		// 			<div id="renderDiv"></div>
-		// 		</div>
-		// 	</div>
-
-		// </div>
+		
 	);
 };
 
