@@ -2,6 +2,7 @@ import { saveAs } from 'file-saver';
 import {buildNav} from './navRender';
 import {buildBody} from './bodyRender';
 import {buildFooter} from './footerRender';
+import {buildCard} from './cardRender';
 
 class RenderProject {
     renderFiles(myBuildProp) {
@@ -16,18 +17,25 @@ class RenderProject {
         let footerInd;
         let navRender;
         let footerBuild
+        let cardTrue = false;
+        let cardInd;
+        let cardBuild;
         for (let i = 0; i < buildArr.length; i++) {
-            if (buildArr[i].contentTitle == 'navbar') {
-                navTrue = true
-                navInd = i
+            if (buildArr[i].contentTitle === 'navbar') {
+                navTrue = true;
+                navInd = i;          
             }
-            if (buildArr[i].contentTitle == 'body') {
-                bodyTrue = true
-                bodyInd = i
+            if (buildArr[i].contentTitle === 'cards') {
+                cardTrue = true;
+                cardInd = i;
+            }
+            if (buildArr[i].contentTitle === 'body') {
+                bodyTrue = true;
+                bodyInd = i;
             }
             if (buildArr[i].contentTitle == 'footer') {
-                footerTrue = true
-                footerInd = i
+                footerTrue = true;
+                footerInd = i;
             }
         }
         let headCont = `
@@ -55,11 +63,14 @@ class RenderProject {
         if (bodyTrue) {
             bodyBuild = buildBody(buildArr[bodyInd]);
         }
+        if (cardTrue){
+            cardBuild = buildCard(buildArr[cardInd]);
+        }
         if (footerTrue) {
             footerBuild = buildFooter(buildArr[footerInd]);
         }
 
-        let fileContentArr = [headCont, bodyOpen, navRender, bodyBuild, footerBuild, bodyClose]
+        let fileContentArr = [headCont, cardBuild, bodyOpen, navRender, bodyBuild, footerBuild, bodyClose]
         let fileContent = fileContentArr.join('\n')
 
 			let file = new File([fileContent], {
