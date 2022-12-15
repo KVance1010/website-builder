@@ -57,7 +57,7 @@ const Login = () => {
 				/> */}
 				<div className="container-fluid m-3">
 					<div className="row d-flex justify-content-center card_container m-0">
-						<div className="col-12 col-md-10 col-lg-8 col-xl-6 p-0">
+						<div className="col-12 col-md-10 col-lg-8 col-xl-6 col-xxl-4 p-0">
 							<div className="card shadow card_body">
 								<div className="card-body ">
 									<h2>Login</h2>

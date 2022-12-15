@@ -37,7 +37,14 @@ export default function Card({ id, cards, setCards }) {
 
     const createImage = (item, monitor) => {
         const newCards = [...cards];
-        newCards[id].bodyStyles.push({ type: ItemTypes.IMAGE, ...item.image });
+        newCards[id].bodyStyles.push({
+            type: ItemTypes.IMAGE,
+            ...item.image,
+            style: {
+                width: 100,
+                height: 66.66
+            }
+        });
 
         setCards(newCards);
     }
