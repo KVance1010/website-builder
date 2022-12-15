@@ -9,7 +9,7 @@ import { Resizable } from 'react-resizable';
 import EditableHeader from './EditableHeader';
 import EditableBody from './EditableBody';
 import EditableBodyText from './EditableBodyText'
-import DraggableImage from './DraggableImage';
+import EditableImage from './EditableImage';
 
 export default function Card({ id, cards, setCards }) {
     const [iconVisibility, setIconVisibility] = useState(false);
@@ -127,7 +127,7 @@ export default function Card({ id, cards, setCards }) {
                 setCards={setCards}
             />;
         } else if (child.type === ItemTypes.IMAGE) {
-            return <DraggableImage
+            return <EditableImage
                 id={index}
                 key={index}
                 parentId={id}

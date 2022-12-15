@@ -163,13 +163,13 @@ export default function Dustbin({ cards, setCards }) {
         [cards, setCards]
     )
 
-    const isActive = canDrop && isOver
-    let backgroundColor = '#222'
-    if (isActive) {
-        backgroundColor = 'darkgreen'
-    } else if (canDrop) {
-        backgroundColor = 'darkkhaki'
-    }
+    // const isActive = canDrop && isOver
+    const backgroundColor = '#222'
+    // if (isActive) {
+    //     backgroundColor = 'darkgreen'
+    // } else if (canDrop) {
+    //     backgroundColor = 'darkkhaki'
+    // }
     return (
         <div
             id='dustbin'
