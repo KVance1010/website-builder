@@ -2,13 +2,14 @@ import React, { useState, useRef } from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useDrag, useDragDropManager } from 'react-dnd';
+import { useDrag, useDrop, useDragDropManager } from 'react-dnd';
 import { ItemTypes } from './ItemTypes'
 import { Resizable } from 'react-resizable';
 
 import EditableHeader from './EditableHeader';
 import EditableBody from './EditableBody';
 import EditableBodyText from './EditableBodyText'
+import DraggableImage from './DraggableImage';
 
 export default function Card({ id, cards, setCards }) {
     const [iconVisibility, setIconVisibility] = useState(false);
@@ -19,18 +20,27 @@ export default function Card({ id, cards, setCards }) {
     const canDrag = useRef(true);
 
     const styles = {
-        card: {
-            minWidth: width,
-            minHeight: height,
+        div: {
             position: 'absolute',
             top: top,
             left: left
+        },
+        card: {
+            minWidth: width,
+            minHeight: height,
         }
     };
 
     const type = ItemTypes.CARD;
 
     const { header } = cards[id];
+
+    const createImage = (item, monitor) => {
+        const newCards = [...cards];
+        newCards[id].bodyStyles.push({ type: ItemTypes.IMAGE, ...item.image });
+
+        setCards(newCards);
+    }
 
     const handleRemoveCard = (e) => {
         const newCards = [...cards];
@@ -91,6 +101,44 @@ export default function Card({ id, cards, setCards }) {
         [id, top, left, width, height]
     )
 
+    const [{ canDrop, isOver }, drop] = useDrop(() => ({
+        accept: [
+            ItemTypes.IMAGE_COMPONENT
+        ],
+        drop: (item, monitor) => {
+            createImage(item);
+            return undefined;
+        },
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
+        }),
+    }),
+        [cards, setCards]
+    );
+
+    const renderChild = (child, index) => {
+        if (child.type === ItemTypes.BODY_TEXT) {
+            return <EditableBodyText
+                id={index}
+                key={index}
+                parentId={id}
+                cards={cards}
+                setCards={setCards}
+            />;
+        } else if (child.type === ItemTypes.IMAGE) {
+            return <DraggableImage
+                id={index}
+                key={index}
+                parentId={id}
+                cards={cards}
+                setCards={setCards}
+            />;
+        } else {
+            return null;
+        }
+    }
+
     if (isDragging) {
         return <div ref={drag}></div>
     }
@@ -103,47 +151,41 @@ export default function Card({ id, cards, setCards }) {
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
         >
-            <div
-                ref={drag}
-                className="card text-center"
-                style={styles.card}
-            >
-                {header && (
-                    <EditableHeader
-                        cards={cards}
-                        setCards={setCards}
-                        parentId={id}
-                        text={cards[id].header.text}
-                    />
-                )}
-                <EditableBody
-                    parentId={id}
-                    cards={cards}
-                    setCards={setCards}
+            <div ref={drop} style={styles.div}>
+                <div
+                    ref={drag}
+                    className="card text-center"
+                    style={styles.card}
                 >
-                    {cards[id].bodyStyles.map((child, index) =>
-                    (<EditableBodyText
-                        id={index}
-                        key={index}
+                    {header && (
+                        <EditableHeader
+                            cards={cards}
+                            setCards={setCards}
+                            parentId={id}
+                            text={cards[id].header.text}
+                        />
+                    )}
+                    <EditableBody
                         parentId={id}
                         cards={cards}
                         setCards={setCards}
-                    />
-                    ))}
-                </EditableBody>
-                {iconVisibility && (
-                    <CloseIcon
-                        sx={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            backgroundColor: iconBackground,
-                            borderRadius: 1
-                        }}
-                        onMouseEnter={onMouseIconEnter}
-                        onMouseLeave={onMouseIconLeave}
-                        onClick={handleRemoveCard}
-                    />)}
+                    >
+                        {cards[id].bodyStyles.map((child, index) => renderChild(child, index))}
+                    </EditableBody>
+                    {iconVisibility && (
+                        <CloseIcon
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                backgroundColor: iconBackground,
+                                borderRadius: 1
+                            }}
+                            onMouseEnter={onMouseIconEnter}
+                            onMouseLeave={onMouseIconLeave}
+                            onClick={handleRemoveCard}
+                        />)}
+                </div>
             </div>
         </Resizable>
     );

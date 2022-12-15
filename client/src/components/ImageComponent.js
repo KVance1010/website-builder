@@ -25,9 +25,10 @@ export default function ImageComponent(props) {
     };
 
     const [{ isDragging, }, drag] = useDrag(() => ({
-        type: ItemTypes.IMAGE,
+        type: ItemTypes.IMAGE_COMPONENT,
         item: (monitor) => {
             return {
+                image,
                 xOffset: monitor.getInitialClientOffset().x - monitor.getInitialSourceClientOffset().x,
                 yOffset: monitor.getInitialClientOffset().y - monitor.getInitialSourceClientOffset().y,
                 position: monitor.getClientOffset()
@@ -40,7 +41,8 @@ export default function ImageComponent(props) {
             isDragging: monitor.isDragging(),
             handlerId: monitor.getHandlerId(),
         }),
-    }))
+    }), [image, setImage]
+    )
 
     console.log(image);
 
@@ -82,7 +84,7 @@ export default function ImageComponent(props) {
                         </div>
                         :
                         <button
-                            style={isDragging ? { color: "red", ...styles.button } : { ...styles.button }}
+                            style={{ ...styles.button }}
                             onClick={onImageUpload}
                             {...dragProps}
                         >

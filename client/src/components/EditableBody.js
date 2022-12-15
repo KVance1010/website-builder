@@ -190,6 +190,22 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         setCards(newCards);
     }
 
+    // const [{ canDrop, isOver }, drop] = useDrop(() => ({
+    //     accept: [
+    //         ItemTypes.IMAGE
+    //     ],
+    //     drop: (item, monitor) => {
+    //         console.log(item);
+    //         return undefined;
+    //     },
+    //     collect: (monitor) => ({
+    //         isOver: monitor.isOver(),
+    //         canDrop: monitor.canDrop(),
+    //     }),
+    // }),
+    //     [cards, setCards]
+    // )
+
     return (
         <>
             <div className="card-body d-flex flex-column align-items-start position-relative editable-body"
