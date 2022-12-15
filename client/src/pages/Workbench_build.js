@@ -894,11 +894,12 @@ const WRK = () => {
 								<div style={flair.addNavBarColor} className="col-12 inner-container">
 
 									<div className="row">
-										<p>If you would like a solid backgrouond select no to gradiant and only select one color::</p>
-										<label className="col-6 labelText">Would you like a gradiant: </label>
-										<button className="col-6 btn btn-primary" id="navGrad" onClick={navgrad}>
+								
+										<label className="col-7 labelText">"Yes" for gradient, "No" for solid background color: </label>
+										<button className="col-4 btn btn-primary" id="navGrad" onClick={navgrad}>
 											No
 										</button>
+										</div>
 										<div className="d-flex justify-content-between">
 											<label className="labelText">Select background color: </label>
 											{<PopoverPicker color={color} onChange={setColor} />}
@@ -907,7 +908,7 @@ const WRK = () => {
 											<label className="labelText">Select background color: </label>
 											{<PopoverPicker color={colorGrad} onChange={setColorGrad} />}
 										</div>
-									</div>
+									
 
 									<hr className="navBenchBreak"></hr>
 
