@@ -10,8 +10,6 @@ export default function ImageComponent(props) {
     const [image, setImage] = React.useState(null);
     const [imageVisibility, setImageVisibility] = useState(false);
     const onChange = (imageList, addUpdateIndex) => {
-        // data for submit
-        // console.log(imageList, addUpdateIndex);
         setImage(imageList[0]);
         setImageVisibility(true);
     };
@@ -43,8 +41,6 @@ export default function ImageComponent(props) {
         }),
     }), [image, setImage]
     )
-
-    console.log(image);
 
     return (
         <ImageUploading
@@ -91,23 +87,6 @@ export default function ImageComponent(props) {
                             Click or Drop here
                         </button>
                     }
-                    {/* {imageVisibility && (
-                        <div
-                            key={0}
-                            className="image-item">
-                            <img src={image.data_url} alt="" width="100" />
-                        </div>
-                    )} */}
-                    {/* &nbsp;
-                    {imageList.map((image, index) => (
-                        <div key={index} className="image-item">
-                            <img src={image.data_url} alt="" width="100" />
-                            <div className="image-item__btn-wrapper">
-                                <button onClick={() => onImageUpdate(index)}>Update</button>
-                                <button onClick={() => onImageRemove(index)}>Remove</button>
-                            </div>
-                        </div>
-                    ))} */}
                 </div>
             )}
         </ImageUploading>

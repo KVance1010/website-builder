@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { HexColorPicker, RgbaColorPicker } from "react-colorful";
 import useClickOutside from "./ClickOutside";
+import { ItemTypes } from './ItemTypes';
 
 export default function EditableBody({ cards, setCards, parentId, children }) {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -175,6 +176,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         newCards[parentId].bodyStyles.push(
             {
                 text: "Hello!",
+                type: ItemTypes.BODY_TEXT,
                 style: {
                     fontSize: 50,
                     color: {
