@@ -1,6 +1,4 @@
 import Footer from '../components/Footer';
-import { findAllProjects } from '../utils/api';
-import Auth from '../utils/auth';
 import '../styles/Download_build.css';
 import React, { useState, useEffect } from 'react';
 import CreateProject from '../utils/createUserProject';
@@ -11,29 +9,8 @@ import CreateProject from '../utils/createUserProject';
 // import downloadProject1 from '../file/index.txt';
 // import Render from '../components/render_file';
 
-const Download_build = () => {
-	const [projects, setProjects] = useState([]);
+const Download_build = ({projects}) => {
 	const [projectSelected, setProjectSelected] = useState(false);
-
-	useEffect(() => {
-		const token = Auth.loggedIn() ? Auth.getToken() : null;
-		if (!token) {
-			return false;
-		}
-		const getUserBuilds = async () => {
-			try {
-				const response = await findAllProjects(token);
-				if (!response.ok) {
-					throw new Error('something went wrong!');
-				}
-				const user = await response.json();
-				setProjects(user.builds);
-			} catch (err) {
-				console.error(err);
-			}
-		};
-		getUserBuilds();
-	}, []);
 
 	// we only need to save this if we can not get the files to save to ./file
 	const [value, setValue] = useState();
@@ -103,7 +80,6 @@ const Download_build = () => {
 							</select>
 						</div>
 						<p className="card-text">how to download info</p>
-						{/* <Render /> */}
 						<button
 							disabled={!projectSelected}
 							type="submit"
@@ -124,15 +100,3 @@ const Download_build = () => {
 
 export default Download_build;
 
-// const token = Auth.loggedIn() ? Auth.getToken() : null;
-// if (!token) {
-//   return false;
-// }
-// const response = await getMe(token);
-// console.log(response + ' from response');
-// if (!response.ok) {
-//   throw new Error('something went wrong!');
-// }
-
-// const user = await response.json();
-// console.log(user + ' from user');

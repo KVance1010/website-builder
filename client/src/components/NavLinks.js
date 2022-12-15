@@ -9,30 +9,37 @@ const NavigationLinks = () => {
 			<li className="">
 				{Auth.loggedIn() ? (
 					<a className="header_link">
-						<p
-							id='logout_button'
-							className="nav_link"
-							onClick={Auth.logout}>
+						<p id="logout_button" className="nav_link" onClick={Auth.logout}>
 							Logout
 						</p>
 					</a>
 				) : (
 					<Link to="/login" className="header_link">
-						<p className="nav_link">
-							Login
-						</p>
+						<p className="nav_link">Login</p>
 					</Link>
 				)}
 			</li>
 			<li>
-				<Link to="/projects" className="header_link">
-					<p className="nav_link">Projects</p>
-				</Link>
+				{Auth.loggedIn() ? (
+					<Link to="/projects" className="header_link">
+						<p className="nav_link">Projects</p>
+					</Link>
+				) : (
+					<Link to="/login" className="header_link">
+						<p className="nav_link">Projects</p>
+					</Link>
+				)}
 			</li>
 			<li>
-				<Link to="/export" className="header_link">
-					<p className="nav_link">Export</p>
-				</Link>
+				{Auth.loggedIn() ? (
+					<Link to="/export" className="header_link">
+						<p className="nav_link">Export</p>
+					</Link>
+				) : (
+					<Link to="/login" className="header_link">
+						<p className="nav_link">Export</p>
+					</Link>
+				)}
 			</li>
 		</>
 	);
