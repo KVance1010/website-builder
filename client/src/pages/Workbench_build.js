@@ -18,6 +18,7 @@ import "../styles/Workbench_build.css";
 
 import { PopoverPicker } from "../components/PopoverPicker";
 import CardComponent from '../components/CardComponent';
+import ImageComponent from '../components/ImageComponent';
 import Dustbin from '../components/Dustbin';
 
 import { DndProvider } from 'react-dnd'
@@ -150,8 +151,6 @@ const WRK = () => {
 
 	useEffect(() => {
 		const dustbin = document.getElementById('dustbin');
-		console.log(dustbin);
-		console.log(dustbin.offsetWidth);
 		setDustbinDimensions({
 			width: dustbin.offsetWidth,
 			height: dustbin.offsetHeight
@@ -169,7 +168,11 @@ const WRK = () => {
 			})
 		}
 
-		window.addEventListener('resize', handleResize)
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
 	}, []);
 
 	const start = () => {
@@ -1046,6 +1049,7 @@ const navRender = () => {
 							{visibilityComp ? (
 								<div style={flair.componentBar} className="inner-container">
 									<CardComponent />
+									<ImageComponent />
 								</div>
 							) : (
 								<div></div>
