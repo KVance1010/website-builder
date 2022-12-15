@@ -426,22 +426,6 @@ const WRK = () => {
 			font-family: ${navRenderObj.fontTitle}`
 			);
 			title.textContent = navRenderObj.homeTitle;
-			let navImg = document.createElement("img");
-			navImg.setAttribute(
-				"style",
-				`width: 150px;
-				height: 150px;
-				font-size: 40px;
-				text-align: center;`
-			);
-			navImg.setAttribute(
-				"src",
-				`${navRenderObj.navImgLink}`
-			)
-			navImg.setAttribute(
-				"public_id",
-				`${navRenderObj.navImgPubId}`
-			)
 			let nav = document.createElement("ul");
 			if (navRenderObj.navDir === 'Left') {
 				nav.setAttribute(
@@ -483,7 +467,6 @@ const WRK = () => {
 			navSubmitBtn.textContent = "Update NavBar Settings";
 
 			header.append(title);
-			header.append(navImg);
 			header.append(nav);
 			renderNavDiv.appendChild(header);
 		}
@@ -492,6 +475,11 @@ const WRK = () => {
 
 
 	const navSubmit = async (e) => {
+		for(let i = 0 ;i<codeCompileArr.length;i++){
+			if(codeCompileArr[i].contentTitle === 'navbar'){
+				codeCompileArr.splice(i,1)
+			}
+		}
 		e.preventDefault();
 		setVisibilityUpload(false);
 		setImageSubmitVisibility(true);
@@ -550,6 +538,11 @@ const WRK = () => {
 	};
 
 	const mainSubmit = async (e) => {
+		for(let i = 0 ;i<codeCompileArr.length;i++){
+			if(codeCompileArr[i].contentTitle === 'body'){
+				codeCompileArr.splice(i,1)
+			}
+		}
 		e.preventDefault();
 		setVisibilityUpload2(false);
 		setVisibilityUpload3(false);
@@ -630,14 +623,9 @@ const WRK = () => {
 			body.setAttribute(
 				"style",
 				`width: 100%;
-				height: 100vh;
-				background-image: url(${navMainObj.bodyImgLink});
+				height: auto;
 				color: ${navMainObj.colorMainText};
 				background-color: ${navMainObj.colorBody};`
-			);
-			body.setAttribute(
-				"public_id",
-				`${navMainObj.bodyBackgroundImagePubID}`
 			);
 			let mainHeader = document.createElement("div");
 			mainHeader.setAttribute(
@@ -649,36 +637,84 @@ const WRK = () => {
 				font-family: ${navMainObj.fontMainHeadersVal}`
 			);
 			mainHeader.textContent = navMainObj.mainTitle;
-			let mainImg = document.createElement("img");
-			mainImg.setAttribute(
+			let Aside
+			if(navMainObj.aside === 'Yes'){
+				Aside = document.createElement("div");
+				let AsideTitle = document.createElement("h2");
+				let AsideContent = document.createElement("p");
+				let asideColor
+				let pop
+				if(navMainObj.asideContent.asideGrad === 'Yes'){
+					asideColor = `background-image: linear-gradient(to bottom right,${navMainObj.asideContent.asideBackCol}, ${navMainObj.asideContent.asidebackColGrad})`
+				}else{
+					asideColor = `background-color:${navMainObj.asideContent.asideBackCol}`
+				}
+				if(navMainObj.asideContent.asidePop === 'Pop'){
+					pop = 'margin: 3px; box-shadow: 2px 0px 20px'
+				}else{
+					pop = ''
+				}
+
+				Aside.setAttribute(
+					'style',
+					`${asideColor};
+					font-family:${navMainObj.asideContent.asideTextFont};
+					${pop};
+					height:100vh;
+					width: 20%;
+					`
+				);
+				AsideTitle.setAttribute(
+					'style',
+					`
+					font-family:sarif
+					`
+				);
+				AsideContent.textContent = navMainObj.asideContent.asideContentText
+				AsideTitle.textContent = navMainObj.asideContent.asideTitle
+				Aside.append(AsideTitle)
+				Aside.append(AsideContent)
+			}
+			let mainContent = document.createElement("div");
+			let content = document.createElement("div");
+			content.setAttribute(
 				"style",
-				`width: 300px;
-				height: 300px;
-				font-size: 40px;
-				text-align: center;`
+				`width: 100%;
+				font-size: 30px;
+				height: 100%;
+				display: flex;`
 			);
-			mainImg.setAttribute(
-				"src",
-				`${navMainObj.mainImgLink}`
+			mainContent.setAttribute(
+				"style",
+				`background-color:${navMainObj.colorMainBackground};
+				 color:${navMainObj.mainTextColor};
+				 font-family:${navMainObj.fontMainTextVal};
+				 height:100vh;
+				 width: 100%;`
 			)
-			mainImg.setAttribute(
-				"public_id",
-				`${navMainObj.imageName2}`
-			)
-
-
-
+			if(navMainObj.aside === 'Yes'){
+				if(navMainObj.asideDir === 'Left'){
+					content.append(Aside)
+					content.append(mainContent)
+				}else{
+					content.append(mainContent)
+					content.append(Aside)
+				}
+			}
 			// let navImage = uploadImage(image, )	
-
 			mainSubmitBtn.textContent = "Update Main Settings";
-
 			body.append(mainHeader);
-			body.append(mainImg);
+			body.append(content);
 			renderBodyDiv.appendChild(body);
 		}
 	};
 
 	const footerSubmit = async (e) => {
+		for(let i = 0 ;i<codeCompileArr.length;i++){
+			if(codeCompileArr[i].contentTitle === 'footer'){
+				codeCompileArr.splice(i,1)
+			}
+		}
 		e.preventDefault();
 		setVisibilityUpload4(false);
 		setImageSubmitVisibility4(true);

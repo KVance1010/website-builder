@@ -10,7 +10,7 @@ export const buildAside = (asideSettings) => {
 
   if (asideSettings.asideGrad === 'Yes') {
     // TODO: color:${asideSettings}
-    asideStyle = `background-image: 'linear-gradient(to bottom right,${asideSettings.colorAside}, ${asideSettings.colorAsideGrad})'; ; font-family:${asideSettings.asideTextFont}; ${pop} height:100vh; width: 20%;`;
+    asideStyle = `background-image: 'linear-gradient(to bottom right,${asideSettings. asideBackCol}, ${asideSettings. asideBackColGrad})'; ; font-family:${asideSettings.asideTextFont}; ${pop} height:100vh; width: 20%;`;
   } else {
     asideStyle = `background-color:${asideSettings.asideBackCol}; font-family:${asideSettings.asideTextFont}; ${pop} height:100vh; width: 20%;`;
   }
