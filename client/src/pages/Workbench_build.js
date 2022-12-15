@@ -490,6 +490,11 @@ const navRender = () => {
 
 
 	const navSubmit = async (e) => {
+		for(let i = 0 ;i<codeCompileArr.length;i++){
+			if(codeCompileArr[i].contentTitle === 'navbar'){
+				codeCompileArr.splice(i,1)
+			}
+		}
 		e.preventDefault();
 		setVisibilityUpload(false);
 		setImageSubmitVisibility(true);
@@ -548,6 +553,11 @@ const navRender = () => {
 	};
 
 	const mainSubmit = async (e) => {
+		for(let i = 0 ;i<codeCompileArr.length;i++){
+			if(codeCompileArr[i].contentTitle === 'body'){
+				codeCompileArr.splice(i,1)
+			}
+		}
 		e.preventDefault();
 		setVisibilityUpload2(false);
 		setVisibilityUpload3(false);
@@ -677,6 +687,11 @@ const navRender = () => {
 	};
 
 	const footerSubmit = async (e) => {
+		for(let i = 0 ;i<codeCompileArr.length;i++){
+			if(codeCompileArr[i].contentTitle === 'footer'){
+				codeCompileArr.splice(i,1)
+			}
+		}
 		e.preventDefault();
 		setVisibilityUpload4(false);
 		setImageSubmitVisibility4(true);
