@@ -24,7 +24,7 @@ const style = {
     float: 'left',
 }
 
-export default function Dustbin({ cards, setCards, setDustbinRef }) {
+export default function Dustbin({ cards, setCards }) {
     // const [cards, setCards] = useState([
     //     {
     //         top: 20,
@@ -97,6 +97,7 @@ export default function Dustbin({ cards, setCards, setDustbinRef }) {
                 bodyStyles: [
                     {
                         text: "Hello!",
+                        type: ItemTypes.BODY_TEXT,
                         style: {
                             fontSize: 50,
                             color: {
@@ -148,7 +149,6 @@ export default function Dustbin({ cards, setCards, setDustbinRef }) {
                 moveCard(item.id, left, top)
                 return undefined
             } else if (ItemTypes.CARD_COMPONENT) {
-
                 const position = monitor.getClientOffset();
                 createCard(item, position.x, position.y);
 
