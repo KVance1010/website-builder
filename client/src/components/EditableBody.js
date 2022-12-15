@@ -47,7 +47,7 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
     };
 
     const onMouseOver = (e) => {
-        if (!pointerOverEditableBodyText(e.clientX, e.clientY)) {
+        if (!pointerOverEditableBodyElement(e.clientX, e.clientY)) {
             setHoveredEffect();
         } else {
             removeHoveredEffect();
@@ -100,11 +100,11 @@ export default function EditableBody({ cards, setCards, parentId, children }) {
         return false;
     }
 
-    const pointerOverEditableBodyText = (x, y) => {
+    const pointerOverEditableBodyElement = (x, y) => {
         const elements = document.elementsFromPoint(x, y);
 
         for (const element of elements) {
-            if (element.classList.value.includes('editable-body-text')) {
+            if (element.classList.value.includes('editable-body-text') || element.classList.value.includes('editable-image')) {
                 return true;
             }
         }
