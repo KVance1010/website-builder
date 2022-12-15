@@ -12,3 +12,4 @@ const imageSchema = new Schema({
 });
 
 module.exports = imageSchema;
+

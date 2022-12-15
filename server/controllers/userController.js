@@ -5,7 +5,7 @@ module.exports = {
 	async createUser({ body }, res) {
 		const user = await User.create(body);
 		if (!user) {
-			return res.status(400).json({ message: 'Something is wrong!' });
+			return res.status(400).json({ message: 'Wrong credentials!' });
 		}
 		const token = signToken(user);
 		res.json({ token, user });
@@ -13,7 +13,7 @@ module.exports = {
 
 	async login({ body }, res) {
 		const user = await User.findOne({
-			$or: [{ username: body.username }, { email: body.email }],
+			username: body.username 
 		});
 		if (!user) {
 			return res.status(400).json({ message: 'user not found!' });
@@ -21,7 +21,7 @@ module.exports = {
 
 		const correctPw = await user.isCorrectPassword(body.password);
 		if (!correctPw) {
-			return res.status(400).json({ message: 'wrong credentials!' });
+			return res.status(400).json({ message: 'Wrong credentials!' });
 		}
 		const token = signToken(user);
 		res.json({ token, user });
