@@ -59,7 +59,7 @@ class RenderProject {
             footerBuild = buildFooter(buildArr[footerInd]);
         }
 
-        let fileContentArr = [headCont, bodyOpen, navRender, footerBuild, bodyClose]
+        let fileContentArr = [headCont, bodyOpen, navRender, bodyBuild, footerBuild, bodyClose]
         let fileContent = fileContentArr.join('\n')
 
 			let file = new File([fileContent], {

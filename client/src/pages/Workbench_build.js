@@ -130,7 +130,7 @@ const WRK = () => {
 	const [visibilityUpload4, setVisibilityUpload4] = useState(false);
 
 
-	
+
 	const [color, setColor] = useState("#aabbcc");
 	const [colorAside, setColorAside] = useState("#aabbcc");
 	const [colorAsideGrad, setColorAsideGrad] = useState("#aabbcc");
@@ -266,24 +266,44 @@ const WRK = () => {
 		}
 	};
 
+//asidePop
+const asidePop = () => {
+	let asidePop = document.getElementById("asidePop").textContent;
+	if (asidePop === "Pop") {
+		document.getElementById("asidePop").innerHTML = "Blend";
+}
+	if (asidePop === "Blend") {
+		document.getElementById("asidePop").innerHTML = "Pop";
+}
+};
+const asideDir = () => {
+	let asideDir = document.getElementById("asideDir").textContent;
+	if (asideDir === "Left") {
+		document.getElementById("asideDir").innerHTML = "Right";
+}
+	if (asideDir === "Right") {
+		document.getElementById("asideDir").innerHTML = "Left";
+}
+};
+
 	const asideGrad = () => {
 		let asideGrad = document.getElementById("asideGrad").textContent;
 		if (asideGrad === "No") {
 			document.getElementById("asideGrad").innerHTML = "Yes";
-		}
+	}
 		if (asideGrad === "Yes") {
 			document.getElementById("asideGrad").innerHTML = "No";
-		}
-	};
+	}
+};
 	const footerGrad = () => {
 		let footerGradVal = document.getElementById("footerGrad").textContent;
 		if (footerGradVal === "No") {
 			document.getElementById("footerGrad").innerHTML = "Yes";
-		}
+	}
 		if (footerGradVal === "Yes") {
 			document.getElementById("footerGrad").innerHTML = "No";
-		}
-	};
+	}
+};
 	//footerGrad
 	const [imageName, setImageName] = useState("");
 	const handleImageName = (e) => {
@@ -367,41 +387,41 @@ const WRK = () => {
 		} else { alert("Invalid name, please use alphanumeric characters.") }
 	};
 
-	const navRender = () => {
-		let navObj = -1
-		for (let i = 0; i < codeCompileArr.length; i++) {
-			if (codeCompileArr[i].contentTitle === "navbar") {
-				navObj = i;
-			}
+const navRender = () => {
+	let navObj = -1
+	for (let i = 0; i < codeCompileArr.length; i++) {
+		if (codeCompileArr[i].contentTitle === "navbar") {
+			navObj = i;
 		}
+	}
 
-		if (navObj === -1) {
-		} else {
-			let navRenderObj = codeCompileArr[navObj];
-			let header = document.createElement("div");
+	if (navObj === -1) {
+	} else {
+		let navRenderObj = codeCompileArr[navObj];
+		let header = document.createElement("div");
 			let headBack
 			if (navRenderObj.gradVal == 'Yes') {
 				headBack = ` background-image: linear-gradient(to bottom right, ${navRenderObj.navColor}, ${navRenderObj.navgradColor});`
-			}
+		}
 			if (navRenderObj.gradVal == 'No') {
 				headBack = `background-color: ${navRenderObj.navColor};`
-			}
-			header.setAttribute(
-				"style",
-				`width: 100%;
+		}
+		header.setAttribute(
+			"style",
+			`width: 100%;
 				${headBack};`
-			);
-			let title = document.createElement("div");
-			title.setAttribute(
-				"style",
-				`width: 100%;
+		);
+		let title = document.createElement("div");
+		title.setAttribute(
+			"style",
+			`width: 100%;
 				font-size: 40px;
 				text-align: center;
-				color: ${navRenderObj.navTitleColor};
-				font-family: ${navRenderObj.fontTitle}`
-			);
-			title.textContent = navRenderObj.homeTitle;
-			let navImg = document.createElement("img");
+			color: ${navRenderObj.navTitleColor};
+			font-family: ${navRenderObj.fontTitle}`
+		);
+		title.textContent = navRenderObj.homeTitle;
+		let navImg = document.createElement("img");
 			navImg.setAttribute(
 				"style",
 				`width: 150px;
@@ -417,52 +437,52 @@ const WRK = () => {
 				"public_id",
 				`${navRenderObj.navImgPubId}`
 			)
-			let nav = document.createElement("ul");
-			if (navRenderObj.navDir === 'Left') {
-				nav.setAttribute(
-					"style",
-					`width: 100%;
-					display: flex;
-					margin-right: 15px;
-					margin-bottom: 0px;
-					justify-content: start;`
-				)
-			}
-			if (navRenderObj.navDir === 'Right') {
-				nav.setAttribute(
-					"style",
-					`width: 100%;
+		let nav = document.createElement("ul");
+		if (navRenderObj.navDir === 'Left') {
+			nav.setAttribute(
+				"style",
+				`width: 100%;
 				display: flex;
 				margin-right: 15px;
+					margin-bottom: 0px;
+				justify-content: start;`
+			)
+		}
+		if (navRenderObj.navDir === 'Right') {
+			nav.setAttribute(
+				"style",
+				`width: 100%;
+			display: flex;
+			margin-right: 15px;
 				margin-bottom: 0px;
-				justify-content: end;`
-				)
-			}
+			justify-content: end;`
+			)
+		}
 
-			let tempLinks = navRenderObj.navlinks[0]
-			for (let i = 0; i < tempLinks.length; i++) {
-				let navLink = document.createElement("li");
-				navLink.setAttribute(
-					"style",
-					`margin-right: 15px;
-					color: ${navRenderObj.navLinksColor};
-					font-family: ${navRenderObj.fontNavLinks};`)
+		let tempLinks = navRenderObj.navlinks[0]
+		for (let i = 0; i < tempLinks.length; i++) {
+			let navLink = document.createElement("li");
+			navLink.setAttribute(
+				"style",
+				`margin-right: 15px;
+				color: ${navRenderObj.navLinksColor};
+				font-family: ${navRenderObj.fontNavLinks};`)
 
-				navLink.textContent = navRenderObj.navlinks[0][i];
-				nav.append(navLink);
-			}
+			navLink.textContent = navRenderObj.navlinks[0][i];
+			nav.append(navLink);
+		}
 
-			// let navImage = uploadImage(image, )	
+		// let navImage = uploadImage(image, )	
 			let renderNavDiv = document.getElementById("renderNavDiv");
 			let navSubmitBtn = document.getElementById('navBtn');
-			navSubmitBtn.textContent = "Update NavBar Settings";
+		navSubmitBtn.textContent = "Update NavBar Settings";
 
-			header.append(title);
-			header.append(navImg);
-			header.append(nav);
+		header.append(title);
+		header.append(navImg);
+		header.append(nav);
 			renderNavDiv.appendChild(header);
-		}
 	}
+}
 
 
 
@@ -471,7 +491,7 @@ const WRK = () => {
 		setVisibilityUpload(false);
 		setImageSubmitVisibility(true);
 		// let navImgBtn = document.getElementById('imageBtn');
-
+		
 		// navImgBtn.text("Try Another Image");
 
 		// if (!clickedBtn.getAttribute('count'))
@@ -516,7 +536,7 @@ const WRK = () => {
 		console.log(codeCompileArr);
 		let renderNavDiv = document.getElementById("renderNavDiv");
 		renderNavDiv.innerHTML = "";
-
+		
 		//add gradiant here
 		//render page
 		navRender()
@@ -533,7 +553,7 @@ const WRK = () => {
 		// let navImgBtn = document.getElementById('imageBtn');
 		let mainSubmitBtn = document.getElementById('mainBtn');
 		// navImgBtn.text("Try Another Image");
-
+		
 		// if (!clickedBtn.getAttribute('count'))
 		//render object
 		let fontMainHeaders = document.getElementsByName('fontMainHeaders');
@@ -555,17 +575,23 @@ const WRK = () => {
 		let asideVal = document.getElementById("asideVal").textContent;
 		let asideGrad = document.getElementById("asideGrad").textContent;
 		let asideTitle = document.getElementById("asideTitle").value;
+		let asideContentText = document.getElementById("asideContentText").value;
+		let asideDir = document.getElementById("asideDir").textContent;
+		let asidePop = document.getElementById("asidePop").textContent;
 		let asideContent = {
 			asideGrad: asideGrad,
 			asideBackCol: colorAside,
 			asidebackColGrad: colorAsideGrad,
 			asideTitle: asideTitle,
-
+			asideContentText: asideContentText,
+			asidePop: asidePop,
+		
 		}
 		let temp = {
 			contentTitle: "body",
 			aside: asideVal,
 			asideContent: asideContent,
+			asideDir: asideDir,
 			colorBody: colorBody,
 			mainTitle: mainTitle,
 			colorMainBackground: colorMainBackground,
@@ -1083,10 +1109,33 @@ const WRK = () => {
 												</label>
 												<input className="col-6" type="text" id="asideTitle"></input>
 											</div>
+											<hr className="navBenchBreak"></hr>
+
+											<div className="row-12">
+												<label className="col-6 labelText">
+													What content would you like in the aside:
+												</label>
+												<input className="col-6" type="text" id="asideContentText"></input>
+											</div>
+											<hr className="navBenchBreak"></hr>
+
+											<label className="col-6 labelText">Would you like your aside on the left or the right: </label>
+											<button className="col-6 btn btn-primary" id="asideDir" onClick={asideDir}>
+												Left
+											</button>
+
+											<hr className="navBenchBreak"></hr>
+
+											<label className="col-6 labelText">Would you like your aside on the left or the right: </label>
+											<button className="col-6 btn btn-primary" id="asidePop" onClick={asidePop}>
+												Pop
+											</button>
 										</div>
 									) : (
 										<div></div>
 									)}
+									<hr className="navBenchBreak"></hr>
+									<hr className="navBenchBreak"></hr>
 									<hr className="navBenchBreak"></hr>
 
 									<div className="row">
@@ -1280,7 +1329,7 @@ const WRK = () => {
 								</div>
 
 							) : (
-								<div></div>
+								<div></div>  
 							)}
 							<button
 								style={{ color: 'white' }}
@@ -1304,7 +1353,7 @@ const WRK = () => {
 										<div className="d-flex justify-content-between">
 											<label className="labelText">Select footer background color: </label>
 											{<PopoverPicker color={colorFooter} onChange={setColor7} />}
-										</div>
+						</div>
 										<div className="d-flex justify-content-between">
 											<label className="labelText">Select background color for gradiant: </label>
 											{<PopoverPicker color={colorFooterGrad} onChange={setcolorFooterGrad} />}
