@@ -1,10 +1,10 @@
-export const buildAside = (asideSettings) => {
-    
-    
+export const asideBuild = (asideSettings) => {
 
-    let asideRender=` 
+
+
+  let asideRender = ` 
       <aside style="background-color:${asideSettings}; color:${asideSettings}; font-family:${asideSettings}; height:100vh; width: 15%;"> </aside>`
-return asideRender;
+  return asideRender;
 }
 
 // ASIDE **********

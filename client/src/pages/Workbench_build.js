@@ -18,6 +18,7 @@ import "../styles/Workbench_build.css";
 
 import { PopoverPicker } from "../components/PopoverPicker";
 import CardComponent from '../components/CardComponent';
+import ImageComponent from '../components/ImageComponent';
 import Dustbin from '../components/Dustbin';
 
 import { DndProvider } from 'react-dnd'
@@ -130,7 +131,7 @@ const WRK = () => {
 	const [visibilityUpload4, setVisibilityUpload4] = useState(false);
 
 
-	
+
 	const [color, setColor] = useState("#aabbcc");
 	const [colorAside, setColorAside] = useState("#aabbcc");
 	const [colorAsideGrad, setColorAsideGrad] = useState("#aabbcc");
@@ -1022,6 +1023,7 @@ const WRK = () => {
 							{visibilityComp ? (
 								<div style={flair.componentBar} className="inner-container">
 									<CardComponent />
+									<ImageComponent />
 								</div>
 							) : (
 								<div></div>

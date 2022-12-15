@@ -1,0 +1,11 @@
+.image-item {
+    display: flex;
+    margin: 10px 0;
+    width: fit-content;
+}
+
+.image-item__btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
