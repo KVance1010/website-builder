@@ -22,8 +22,6 @@
 
 This is a website that builds websites. You have to have an account to start buliding a website; if you don't have an account, you can create one via the signup page. Once you have an account and are logged in, you can create a website. Just a note: as the author of this section (Adam Ferro), I am 100% behind reaching for stars as far as goals go; starting out with an ideal and striving to reach that ideal is how I really learn new concepts and improve my craft. But this website, in retrospect, was too much to build in one week while still having a polished final product. As such, it is less functional website and more of a minimum viable product. I will work on this website in the coming month and push up my changes after its graded, so until then it's going to be pretty rough as far as polish is concerned.
 
----
-
 ## Usage
 
 Navigate to <https://aspiration-architects.herokuapp.com/>. First, you have to create an account. Once you create an account, click the 'Projects' navigation link at the top, then click on 'new project'. Click the 'Add Navigation Bar' to see all of the options that you have to create a header. Click on the submit/update image and then upload to add an image to the header. Once you select all of the settings that you want, click the 'submit nav settings' to add the header to the page. Click the 'Add Components' button to add components to the page.
@@ -42,8 +40,6 @@ If you click on the 'Add Content Section' button, you can select options for the
 
 Click on the 'save build' button to save the created site.
 
----
-
 ## Technologies
 
 - [React](https://reactjs.org/)
@@ -55,8 +51,6 @@ Click on the 'save build' button to save the created site.
 - [JavaScript](https://www.javascript.com/)
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 - [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
-
----
 
 ## Screenshots
 
@@ -71,8 +65,6 @@ Click on the 'save build' button to save the created site.
 ### Build Page
 
 ![Build Page](./assets/buildpage.jpg)
-
----
 
 ## Code Snippets
 
@@ -109,13 +101,9 @@ const moveCard = useCallback(
 </li>
 ```
 
----
-
 ## License
 
 [MIT](https://opensource.org/licenses/MIT) License.
-
----
 
 ## Authors
 
